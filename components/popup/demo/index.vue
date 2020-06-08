@@ -1,11 +1,12 @@
 <template>
   <div class="button">
-    <demo-title>基本</demo-title>
-    <ml-button @click="clickHandle">普通按钮</ml-button>
+    <img src="./logo.png" alt="">
+    <!-- <demo-title>基本</!-->
+    <!-- <ml-button @click="clickHandle">普通按钮</ml-button>
     <ml-button size="large">块级按钮</ml-button>
-    <ml-button size="large" disabled>禁用状态的按钮</ml-button>
+    <ml-button size="large" disabled>禁用状态的按钮</ml-button> -->
 
-    <demo-title>不同 type</demo-title>
+    <!-- <demo-title>不同 type</demo-title>
     <ml-button @click="clickHandle">default</ml-button>
     <ml-button type="primary">primary</ml-button>
     <ml-button type="ghost">ghost</ml-button>
@@ -20,7 +21,13 @@
 
     <demo-title>带 icon 或 img</demo-title>
     <ml-button type="ghost">默认</ml-button>
-    <ml-button type="ghost" icon="loading">较小</ml-button>
+    <ml-button type="ghost" icon="loading">较小</ml-button> -->
+    <ml-button type="ghost">
+      <div slot="icon">
+        <img src="./logo.png" alt="">
+        具名插槽
+      </div>
+    </ml-button>
     <!-- <ml-popup
       v-model="showTop"
       position="center"
@@ -32,29 +39,7 @@
 export default {
   data() {
     return {
-      showBasic: false,
-      showTop: true,
-      showBottom: true,
-      showLeft: true,
-      showRight: true,
-      showCloseIcon: false,
-      showRoundCorner: false,
-      showGetContainer: false,
-      showCustomCloseIcon: false,
-      showCustomIconPosition: false,
-      options: {
-        position: '弹出位置',
-        buttonBasic: '展示弹出层',
-        buttonTop: '顶部弹出',
-        buttonBottom: '底部弹出',
-        buttonLeft: '左侧弹出',
-        buttonRight: '右侧弹出',
-        getContainer: '指定挂载节点',
-        roundCorner: '圆角弹窗',
-        closeIcon: '关闭图标',
-        customCloseIcon: '自定义图标',
-        customIconPosition: '图标位置'
-      }
+      icon: require('./logo.png')
     }
   },
 

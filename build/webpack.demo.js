@@ -8,7 +8,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const config = require('./config')
 const merge = require('webpack-merge')
-const baseConfig = require('./webpack.base')
+const baseConfig = require('./webpack.base.conf')
+const utils = require('./utils')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -47,6 +48,14 @@ const webpackConfig = merge(baseConfig, {
           'postcss-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+        }
       },
       {
         test: /\.md$/,

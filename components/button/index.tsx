@@ -1,7 +1,7 @@
-import { createNamespace } from '../../src/utils'
+import { createNamespace, isDef } from '../../src/utils'
 import { CreateElement, RenderContext } from 'vue/types'
-import { DefaultSlots } from '../../src/utils/types'
 import { emit, inherit } from '../../src/utils/functional'
+import { DefaultSlots, ScopedSlot } from '../../src/utils/types'
 
 const [createComponent, bem] = createNamespace('button')
 
@@ -18,6 +18,10 @@ export type ButtonProps = {
   disabled?: boolean
 }
 
+export type ButtonSlots = DefaultSlots & {
+  icon?: ScopedSlot
+}
+
 export type ButtonEvents = {
   onClick?(event: Event): void;
 }
@@ -25,7 +29,7 @@ export type ButtonEvents = {
 function Button (
   h: CreateElement,
   props: ButtonProps,
-  slots: DefaultSlots,
+  slots: ButtonSlots,
   ctx: RenderContext<ButtonProps>
 ) {
   const {
@@ -37,6 +41,8 @@ function Button (
     htmlType,
     disabled
   } = props
+
+  console.log(slots, 'slots')
 
   const classes = [
     bem([
@@ -50,20 +56,19 @@ function Button (
   }
 
   function Content () {
-    const content = []
-
-    let text = slots.default ? slots.default() : props.text
-
-    if (text) {
-      content.push(
-        <span
-          class={
-            bem('text')
-          }>{ text }</span>
-      )
-    }
-
-    return content
+    const iconSlot = slots.icon || isDef(props.icon)
+    return (
+      <div>
+        {
+          slots.icon ? (
+            slots.icon()
+          ) : (
+            slots.default()
+          )
+        }
+        <span class={bem('text')}>{props.text}</span>
+      </div>
+    )
   }
   return (
     <button

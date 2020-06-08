@@ -1,6 +1,6 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const config = require('./webpack.base')
+const config = require('./webpack.base.conf')
 const { isMinify } = require('./utils')
 
 console.log('pkg')
