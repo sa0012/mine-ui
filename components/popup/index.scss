@@ -1,0 +1,120 @@
+.ml {
+  &-overflow-hidden {
+    overflow: hidden !important;
+  }
+
+  &-popup {
+    position: fixed;
+    max-height: 100%;
+    overflow-y: auto;
+    background-color: #ccc;
+    // transition: @popup-transition;
+    -webkit-overflow-scrolling: touch;
+
+    &--center {
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+
+      &.ml-popup--round {
+        border-radius: 4px;
+      }
+    }
+
+    &--top {
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      &.ml-popup--round {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+
+    &--right {
+      top: 50%;
+      right: 0;
+      transform: translate3d(0, -50%, 0);
+
+      &.ml-popup--round {
+        border-radius: 4px 0 0 4px;
+      }
+    }
+
+    &--bottom {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+
+      &.ml-popup--round {
+        border-radius: 4px 4px 0 0;
+      }
+    }
+
+    &--left {
+      top: 50%;
+      left: 0;
+      transform: translate3d(0, -50%, 0);
+
+      &.ml-popup--round {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+
+    &--safe-area-inset-bottom {
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    &-slide-top-enter,
+    &-slide-top-leave-active {
+      transform: translate3d(0, -100%, 0);
+    }
+
+    &-slide-right-enter,
+    &-slide-right-leave-active {
+      transform: translate3d(100%, -50%, 0);
+    }
+
+    &-slide-bottom-enter,
+    &-slide-bottom-leave-active {
+      transform: translate3d(0, 100%, 0);
+    }
+
+    &-slide-left-enter,
+    &-slide-left-leave-active {
+      transform: translate3d(-100%, -50%, 0);
+    }
+
+    &__close-icon {
+      position: absolute;
+      z-index: 333;
+      color: #666;
+      font-size: 14px;
+
+      &:active {
+        opacity: 0.5;
+      }
+
+      &--top-left {
+        top: 16px;
+        left: 16px;
+      }
+
+      &--top-right {
+        top: 16px;
+        right: 16px;
+      }
+
+      &--bottom-left {
+        bottom: 16px;
+        left: 16px;
+      }
+
+      &--bottom-right {
+        right: 16px;
+        bottom: 16px;
+      }
+    }
+  }
+}

@@ -1,0 +1,188 @@
+// loading
+@keyframes animationloading {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+.sq-icon-animation-loading {
+  animation: animationloading .8s linear infinite;
+}
+
+// 内容从下往上动画
+@keyframes ry-slide-bottom-enter {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+@keyframes ry-slide-bottom-leave {
+  to {
+    transform: translate3d(0, 100%, 0);
+  }
+}
+.ry-slide-bottom {
+  &-enter-active {
+    animation: ry-slide-bottom-enter .3s both ease;
+  }
+
+  &-leave-active {
+    animation: ry-slide-bottom-leave .3s both ease;
+  }
+}
+// 蒙层渐变动画
+@keyframes ry-fade-enter {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ry-fade-leave {
+  to {
+    opacity: 0;
+  }
+}
+.ry-fade {
+  &-enter-active {
+    animation: ry-fade-enter .3s both ease;
+  }
+
+  &-leave-active {
+    animation: ry-fade-leave .3s both ease;
+  }
+}
+// start carlicense 
+@keyframes blink {
+ 0%{
+   opacity: 0;
+ }
+ 50% {
+   opacity: 1;
+ }
+ 100% {
+   opacity: 0;
+ }
+}
+// end carlicense 
+
+// start loadmore 
+@keyframes quan {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+// end loadmore 
+
+// start notice-bar
+@keyframes move {
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes move-infinite {
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+// end notice-bar
+
+// start popup
+// 内容从右往左动画
+@keyframes ry-slide-right-enter {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes ry-slide-right-leave {
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+.ry-slide-right {
+  &-enter-active {
+    animation: ry-slide-right-enter .3s both ease;
+  }
+
+  &-leave-active {
+    animation: ry-slide-right-leave .3s both ease;
+  }
+}
+// 内容从左往右动画
+@keyframes ry-slide-left-enter {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes ry-slide-left-leave {
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+.ry-slide-left {
+  &-enter-active {
+    animation: ry-slide-left-enter .3s both ease;
+  }
+
+  &-leave-active {
+    animation: ry-slide-left-leave .3s both ease;
+  }
+}
+// 内容从上往下动画
+@keyframes ry-slide-top-enter {
+  from {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes ry-slide-top-leave {
+  to {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+.ry-slide-top {
+  &-enter-active {
+    animation: ry-slide-top-enter .3s both ease;
+  }
+
+  &-leave-active {
+    animation: ry-slide-top-leave .3s both ease;
+  }
+}
+// end popup
+
+// start choose-car
+@keyframes fadeLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(75%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+// end choose-car
