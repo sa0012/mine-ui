@@ -1,15 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const config = require('./config')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.base.conf')
-const utils = require('./utils')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -20,7 +15,7 @@ const webpackConfig = merge(baseConfig, {
     docs: './examples/main.js'
   },
   output: {
-    path: path.join(__dirname, '../examples/mine-ui/'),
+    path: path.join(__dirname, '../examples/dist/'),
     publicPath: '/',
     filename: '[name].[hash:7].js',
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
@@ -45,17 +40,9 @@ const webpackConfig = merge(baseConfig, {
         use: [
           'style-loader',
           'css-loader',
-          'postcss-loader',
-          'sass-loader'
+          'sass-loader',
+          'postcss-loader'
         ]
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-        }
       },
       {
         test: /\.md$/,
@@ -152,20 +139,6 @@ if (isProd) {
     'vue-router': 'VueRouter',
     'highlight.js': 'hljs'
   }
-
-  webpackConfig.plugins.push(
-    new MiniCssExtractPlugin({
-      filename: '[name].[contenthash:7].css'
-    })
-  )
-
-  webpackConfig.optimization.minimizer.push(
-    new UglifyJsPlugin({
-      cache: true,
-      parallel: true,
-      sourceMap: false
-    })
-  )
 
   webpackConfig.optimization.splitChunks = {
     cacheGroups: {

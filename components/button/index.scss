@@ -49,16 +49,25 @@ $prefixCls: ml-button;
     border: 1px solid $button-ghost-color;
   }
 
+  // disabled
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  // info button
   &--info {
     color: $white;
     background-color: $blue;
   }
 
+  // danger button
   &--danger {
     color: $white;
     background-color: $red;
   }
 
+  // warning button
   &--warning {
     color: $white;
     background-color: $orange;
@@ -78,9 +87,11 @@ $prefixCls: ml-button;
     font-size: 14px;
   }
   // icon
-  &-icon {
-    .sq-icon {
-      font-size: inherit;
+  &__content {
+    .ml-icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
     }
     img {
       vertical-align: middle;

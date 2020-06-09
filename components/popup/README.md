@@ -1,6 +1,10 @@
-# Popup
+# Popup 弹出层
 
-### Install
+### 介绍
+
+弹出层容器，用于展示弹窗、信息提示等内容，支持多个弹出层叠加展示
+
+### 引入
 
 ``` javascript
 import Vue from 'vue';
@@ -9,14 +13,16 @@ import { Popup } from 'vant';
 Vue.use(Popup);
 ```
 
-## Usage
+## 代码演示
 
-### Basic Usage
+### 基础用法
+
+通过`v-model`控制弹出层是否展示
 
 ```html
-<van-cell is-link @click="showPopup">Show Popup</van-cell>
+<van-cell is-link @click="showPopup">展示弹出层</van-cell>
 
-<van-popup v-model="show">Content</van-popup>
+<van-popup v-model="show">内容</van-popup>
 ```
 
 ```javascript
@@ -35,9 +41,9 @@ export default {
 };
 ```
 
-### Position
+### 弹出位置
 
-Use `position` prop to set popup display position
+通过`position`属性设置弹出位置，默认居中弹出，可以设置为`top`、`bottom`、`left`、`right`
 
 ```html
 <van-popup
@@ -47,7 +53,9 @@ Use `position` prop to set popup display position
 />
 ```
 
-### Close Icon
+### 关闭图标
+
+设置`closeable`属性后，会在弹出层的右上角显示关闭图标，并且可以通过`close-icon`属性自定义图标，使用`close-icon-position`属性可以自定义图标位置
 
 ```html
 <van-popup
@@ -57,7 +65,7 @@ Use `position` prop to set popup display position
   :style="{ height: '20%' }"
 />
 
-<!-- Custom Icon -->
+<!-- 自定义图标 -->
 <van-popup
   v-model="show"
   closeable
@@ -66,7 +74,7 @@ Use `position` prop to set popup display position
   :style="{ height: '20%' }"
 />
 
-<!-- Icon Position -->
+<!-- 图标位置 -->
 <van-popup
   v-model="show"
   closeable
@@ -76,7 +84,9 @@ Use `position` prop to set popup display position
 />
 ```
 
-### Round Corner
+### 圆角弹窗
+
+设置`round`属性后，弹窗会根据弹出位置添加不同的圆角样式
 
 ```html
 <van-popup
@@ -87,24 +97,25 @@ Use `position` prop to set popup display position
 />
 ```
 
-### Get Container
+### 指定挂载位置
 
-Use `get-container` prop to specify mount location
+弹出层默认挂载到组件所在位置，可以通过`get-container`属性指定挂载位置
 
 ```html
-<!-- mount to body -->
+<!-- 挂载到 body 节点下 -->
 <van-popup v-model="show" get-container="body" />
 
-<!-- mount to #app -->
+<!-- 挂载到 #app 节点下 -->
 <van-popup v-model="show" get-container="#app" />
 
-<!-- Specify the mount location by function -->
+<!-- 通过函数指定挂载位置 -->
 <van-popup v-model="show" :get-container="getContainer" />
 ```
 
 ```js
 export default {
   methods: {
+    // 返回一个特定的 DOM 节点，作为挂载的父节点
     getContainer() {
       return document.querySelector('.my-container');
     }
@@ -112,39 +123,39 @@ export default {
 }
 ```
 
-> Tips: The get-container prop cannot be used on the root node
+> 注意：使用 get-container 属性的组件不能为根节点
 
 ## API
 
 ### Props
 
-| Attribute | Description | Type | Default | Version |
+| 参数 | 说明 | 类型 | 默认值 | 版本 |
 |------|------|------|------|------|
-| v-model | Whether to show popup | *boolean* | `false` | - |
-| overlay | Whether to show overlay | *boolean* | `true` | - |
-| position | Can be set to `top` `bottom` `right` `left` | *string* | `center` | - |
-| overlay-class | Custom overlay class | *string* | - | - |
-| overlay-style | Custom overlay style | *object* | - | - |
-| duration | Transition duration, unit second | *number* | `0.3` | - |
-| round | Whether to show round corner | *boolean* | `false` | 2.0.7 |
-| lock-scroll | Whether to lock background scroll | *boolean* | `true` | - |
-| lazy-render | Whether to lazy render util appeared | *boolean* | `true` | - |
-| close-on-popstate | Whether to close when popstate | *boolean* | `false` | 2.2.10 |
-| close-on-click-overlay | Whether to close when click overlay | *boolean* | `true` | - |
-| closeable | Whether to show close icon | *boolean* | `false` | 2.2.0 |
-| close-icon | Close icon name | *string* | `cross` | 2.2.0 |
-| close-icon-position | Close Icon Position，can be set to `top-left` `bottom-left` `bottom-right` | *string* | `top-right` | 2.2.2 |
-| transition | Transition, equivalent to `name` prop of [transtion](https://vuejs.org/v2/api/#transition) | *string* | - | - |
-| get-container | Return the mount node for Popup | *string \| () => Element* | - | - |
-| safe-area-inset-bottom | Whether to enable bottom safe area adaptation | *boolean* | `false` | 2.2.1 |
+| v-model | 当前组件是否显示 | *boolean* | `false` | - |
+| overlay | 是否显示遮罩层 | *boolean* | `true` | - |
+| position | 弹出位置，可选值为 `top` `bottom` `right` `left` | *string* | `center` | - |
+| overlay-class | 自定义遮罩层类名 | *string* | - | - |
+| overlay-style | 自定义遮罩层样式 | *object* | - | - |
+| duration | 动画时长，单位秒 | *number* | `0.3` | - |
+| round | 是否显示圆角 | *boolean* | `false` | 2.0.7 |
+| lock-scroll | 是否锁定背景滚动 | *boolean* | `true` | - |
+| lazy-render | 是否在显示弹层时才渲染节点 | *boolean* | `true` | - |
+| close-on-popstate | 是否在页面回退时自动关闭 | *boolean* | `false` | 2.2.10 |
+| close-on-click-overlay | 是否在点击遮罩层后关闭 | *boolean* | `true` | - |
+| closeable | 是否显示关闭图标 | *boolean* | `false` | 2.2.0 |
+| close-icon | 关闭图标名称或图片链接 | *string* | `cross` | 2.2.0 |
+| close-icon-position | 关闭图标位置，可选值为`top-left`<br>`bottom-left` `bottom-right` | *string* | `top-right` | 2.2.2 |
+| transition | 动画类名，等价于 [transtion](https://cn.vuejs.org/v2/api/index.html#transition) 的`name`属性 | *string* | - | - |
+| get-container | 指定挂载的节点 | *string \| () => Element* | - | - |
+| safe-area-inset-bottom | 是否开启底部安全区适配，[详细说明](#/zh-CN/quickstart#di-bu-an-quan-qu-gua-pei) | *boolean* | `false` | 2.2.1 |
 
 ### Events
 
-| Event | Description | Arguments |
+| 事件名 | 说明 | 回调参数 |
 |------|------|------|
-| click | Triggered when click Popup | event: Event |
-| open | Triggered when open Popup | - |
-| opened | Triggered when opened Popup | - |
-| close | Triggered when close Popup | - |
-| closed | Triggered when closed Popup | - |
-| click-overlay | Triggered when click overlay | - |
+| click | 点击弹出层时触发 | event: Event |
+| open | 打开弹出层时触发 | - |
+| opened | 打开弹出层且动画结束后触发 | - |
+| close | 关闭弹出层时触发 | - |
+| closed | 关闭弹出层且动画结束后触发 | - |
+| click-overlay | 点击遮罩层时触发 | - |

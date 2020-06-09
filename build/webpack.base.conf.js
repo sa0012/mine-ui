@@ -1,5 +1,10 @@
 const { VueLoaderPlugin } = require('vue-loader')
 const utils = require('./utils')
+const path = require('path')
+
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 console.log('进来了吗')
 module.exports = {
@@ -7,7 +12,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.vue', '.json', '.scss'],
     alias: {
-      'vue2': 'vue/dist/vue.esm.js'
+      'vue2': 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+      '@@': resolve('components')
     }
   },
   externals: {
@@ -24,6 +31,15 @@ module.exports = {
             options: {
               compilerOptions: {
                 preserveWhitespace: false
+              },
+              loaders: {
+                css: [
+                  'vue-style-loader',
+                  'css-loader'
+                ],
+                sass: [
+                  'vue-style-loader', 'css-loader', 'sass-loader'
+                ]
               }
             }
           }
@@ -45,6 +61,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
+          esModule: false,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
@@ -53,6 +70,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
+          esModule: false,
           name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
@@ -61,6 +79,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
+          esModule: false,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }

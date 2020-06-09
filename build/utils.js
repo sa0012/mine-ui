@@ -96,9 +96,13 @@ exports.cssLoaders = function (options) {
 
   return {
     css: generateLoaders(),
-    // postcss: generateLoaders(),
-    // sass: generateSassResourceLoader(),
-    scss: generateSassResourceLoader()
+    sass: generateLoaders('sass', {
+      indentedSyntax: true,
+      data: `@import "~@/common/styles/variables.scss";@import "~@/common/styles/mixins.scss";`
+    }),
+    scss: generateLoaders('sass', {
+      data: `@import "~@/common/styles/variables.scss";@import "~@/common/styles/mixins.scss";`
+    })
   }
 }
 
@@ -114,6 +118,7 @@ exports.styleLoaders = function (options) {
       include: path.resolve(__dirname, '../src')
     })
   }
+  console.log(output, 'output')
 
   return output
 }

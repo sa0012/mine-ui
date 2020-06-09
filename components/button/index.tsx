@@ -2,20 +2,23 @@ import { createNamespace, isDef } from '../../src/utils'
 import { CreateElement, RenderContext } from 'vue/types'
 import { emit, inherit } from '../../src/utils/functional'
 import { DefaultSlots, ScopedSlot } from '../../src/utils/types'
+import Icon from '../icon'
 
 const [createComponent, bem] = createNamespace('button')
 
 export type ButtonType = 'default' | 'primary' | 'info' | 'warning' | 'danger'
 export type ButtonSize = 'large' | 'normal' | 'small' | 'mini'
+export type iconPos = 'left' | 'right'
 
 export type ButtonProps = {
-  icon?: String,
+  icon?: string,
   type: ButtonType,
   size: ButtonSize,
-  text?: String,
+  text?: string,
   color?: string,
-  htmlType?: String,
-  disabled?: boolean
+  htmlType?: string,
+  disabled?: boolean,
+  position: iconPos
 }
 
 export type ButtonSlots = DefaultSlots & {
@@ -39,15 +42,15 @@ function Button (
     text,
     color,
     htmlType,
-    disabled
+    disabled,
+    position
   } = props
-
-  console.log(slots, 'slots')
 
   const classes = [
     bem([
       type,
       size,
+      [...(props.disabled ? 'disabled' : '')]
     ])
   ]
 
@@ -56,9 +59,13 @@ function Button (
   }
 
   function Content () {
-    const iconSlot = slots.icon || isDef(props.icon)
     return (
-      <div>
+      <div class={
+        bem('content')
+      }>
+        {
+          props.icon && (<Icon name={icon} />)
+        }
         {
           slots.icon ? (
             slots.icon()
@@ -91,6 +98,10 @@ Button.props = {
   size: {
     type: String,
     default: 'normal'
+  },
+  position: {
+    type: String,
+    default: 'left'
   },
   text: String,
   color: String,
