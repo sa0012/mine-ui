@@ -11,14 +11,14 @@ export type ButtonSize = 'large' | 'normal' | 'small' | 'mini'
 export type iconPos = 'left' | 'right'
 
 export type ButtonProps = {
-  icon?: string,
-  type: ButtonType,
-  size: ButtonSize,
-  text?: string,
-  color?: string,
-  htmlType?: string,
-  disabled?: boolean,
-  position: iconPos
+  tag: keyof HTMLElementTagNameMap | string;
+  icon?: string;
+  type: ButtonType;
+  size: ButtonSize;
+  text?: string;
+  htmlType?: string;
+  disabled?: boolean;
+  position: iconPos;
 }
 
 export type ButtonSlots = DefaultSlots & {
@@ -36,11 +36,11 @@ function Button (
   ctx: RenderContext<ButtonProps>
 ) {
   const {
+    tag,
     icon,
     type,
     size,
     text,
-    color,
     htmlType,
     disabled,
     position
@@ -78,19 +78,23 @@ function Button (
     )
   }
   return (
-    <button
+    <props.tag
       type={htmlType}
       class={classes}
       disabled={disabled}
       onClick={onClick}
     >
       { Content() }
-    </button>
+    </props.tag>
   )
 }
 
 Button.props = {
   icon: String,
+  tag: {
+    type: String,
+    default: 'button'
+  },
   type: {
     type: String,
     default: 'default'
@@ -104,7 +108,6 @@ Button.props = {
     default: 'left'
   },
   text: String,
-  color: String,
   htmlType: String,
   disabled: Boolean
 }

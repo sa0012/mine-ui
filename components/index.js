@@ -2,13 +2,15 @@
 import Button from './button'
 import Icon from './icon'
 import Popup from './popup'
+import Rater from './rater'
 
 const version = '1.0.0'
 
 const components = [
   Button,
   Icon,
-  Popup
+  Popup,
+  Rater
 ]
 
 const install = Vue => {
@@ -26,7 +28,8 @@ export {
   version,
   Button,
   Icon,
-  Popup
+  Popup,
+  Rater
 }
 
 export default {

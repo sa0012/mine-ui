@@ -4,6 +4,7 @@ import { CreateElement } from 'vue/types'
 import { DefaultSlots } from '../../src/utils/types'
 
 export type IconProps = {
+  tag: keyof HTMLElementTagNameMap | string;
   name: string;
   size?: string | number;
   color?: string;
@@ -23,19 +24,24 @@ function Icon (
   slots: DefaultSlots
 ) {
   return (
-    <i
+    <props.tag
       class={[`${props.classPrefix} ${props.classPrefix}-${props.name} ${bem('icon')}`]}
       style={{
-        color: props.color
+        color: props.color,
+        fontSize: props.size + 'px'
       }}
     >
       { slots.default && slots.default() }
       { props.info && (<span class={bem('text')}>{ props.info }</span>) }
-    </i>
+    </props.tag>
   )
 }
 
 Icon.props = {
+  tag: {
+    type: String,
+    default: 'i'
+  },
   name: String,
   size: [String, Number],
   info: String,
