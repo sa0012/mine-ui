@@ -1,4 +1,5 @@
-@font-face {font-family: "ml-icon";
+export default () => {
+        return @font-face {font-family: "ml-icon";
   src: url('~@/common/font/iconfont.ttf?t=1591595298159') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
 }
 
@@ -177,3 +178,5 @@
 .ml-icon-question:before {
   content: "\e6cf";
 }
+
+      }

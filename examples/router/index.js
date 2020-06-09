@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { routeList } from '../nav'
 
-console.log(routeList(), 'routeList')
-
 Vue.use(Router)
 
 // 获取所有的demo组合成路由
