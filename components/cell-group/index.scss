@@ -1,0 +1,19 @@
+$prefixCls: ml-cell-group;
+
+.#{$prefixCls} {
+  &__wrap {
+    height: 44px;
+    font-size: 13px;
+    padding: 12px 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__left {
+      color: #666;
+    }
+    &__right {
+      color: $theme-color;
+    }
+  }
+}

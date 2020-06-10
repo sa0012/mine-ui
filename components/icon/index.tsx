@@ -1,6 +1,6 @@
 import { createNamespace, isDef } from '../../src/utils'
-
-import { CreateElement } from 'vue/types'
+import { inherit } from '../../src/utils/functional'
+import { CreateElement, RenderContext } from 'vue/types'
 import { DefaultSlots } from '../../src/utils/types'
 
 export type IconProps = {
@@ -21,7 +21,8 @@ const [createComponent, bem] = createNamespace('icon')
 function Icon (
   h: CreateElement,
   props: IconProps,
-  slots: DefaultSlots
+  slots: DefaultSlots,
+  ctx: RenderContext<IconProps>
 ) {
   return (
     <props.tag
@@ -30,6 +31,7 @@ function Icon (
         color: props.color,
         fontSize: props.size + 'px'
       }}
+      {...inherit(ctx, true)}
     >
       { slots.default && slots.default() }
       { props.info && (<span class={bem('text')}>{ props.info }</span>) }

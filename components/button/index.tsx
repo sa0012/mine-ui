@@ -1,5 +1,6 @@
 import { createNamespace, isDef } from '../../src/utils'
 import { CreateElement, RenderContext } from 'vue/types'
+// inherit 默认属性附加
 import { emit, inherit } from '../../src/utils/functional'
 import { DefaultSlots, ScopedSlot } from '../../src/utils/types'
 import Icon from '../icon'
@@ -83,6 +84,7 @@ function Button (
       class={classes}
       disabled={disabled}
       onClick={onClick}
+      {...(inherit(ctx))}
     >
       { Content() }
     </props.tag>
