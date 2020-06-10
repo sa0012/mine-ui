@@ -1,9 +1,26 @@
 <template>
   <div class="demo-page-wrap demo-field-wrap">
     <demo-title left>列表样式</demo-title>
-    <ml-field label="手机号" placeholder="请输入手机号码" v-model="name" hasBlurTip v-sq-input:mobile.required></ml-field>
-    <ml-field required="left" label="用户名" placeholder="请输入用户名" v-model="name" icon="alert-full" @click-icon="clickIcon"></ml-field>
-    <ml-field required="left" label="带清空按钮" placeholder="请输入密码" clearable v-model="name2"></ml-field>
+    <ml-field
+      label="手机号"
+      placeholder="请输入手机号码"
+      v-model="name"
+      ></ml-field>
+    <ml-field
+      required="left"
+      label="用户名"
+      placeholder="请输入用户名"
+      v-model="name"
+      rightIcon="alert-full"
+      @click-icon="clickIcon"></ml-field>
+    <ml-field
+      required="left"
+      label="带清空按钮"
+      placeholder="请输入密码"
+      clearable
+      @clear="handleClear"
+      @input="handleInput"
+      v-model="name2"></ml-field>
 
     <ml-cell-group title="间隔样式">
       <ml-field placeholder="请输入用户名" v-model="name"></ml-field>
@@ -40,14 +57,25 @@ export default {
 
   data () {
     return {
-      name: '',
-      name2: 0,
+      name: 'this ad',
+      name2: 'this is a name2'
     }
   },
 
   methods: {
     clickIcon () {
       alert('clickIcon')
+      this.name = '23333'
+    },
+
+    handleClear () {
+      console.log(3344)
+      this.name2 = ''
+      console.log(this.name2, '233')
+    },
+
+    handleInput () {
+      console.log(2345)
     }
   }
 }
