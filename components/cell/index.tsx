@@ -85,7 +85,7 @@ function Cell (
 
   function onIconClick (event: Event) {
     event.stopPropagation()
-    emit(ctx, 'click', 'onIconClick', event)
+    emit(ctx, 'onIconClick', event)
   }
 
   return (

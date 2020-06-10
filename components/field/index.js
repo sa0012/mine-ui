@@ -60,6 +60,9 @@ export default createComponent({
     onInput (event) {
       this.$emit('input', event.target.value)
       if (this.clearable) {}
+    },
+    handleIconClick () {
+      console.log(11111)
     }
   },
 
@@ -75,7 +78,8 @@ export default createComponent({
       isLink,
       listeners,
       $attrs,
-      $slots
+      $slots,
+      handleIconClick
     } = this
     function showInput () {
       const inputProps = {
@@ -101,6 +105,7 @@ export default createComponent({
         {...inputProps}
       />)
     }
+
     return (
       <Cell
         title={label}
@@ -110,7 +115,7 @@ export default createComponent({
         required={required}
         isLink={isLink}
         scopedSlots={$slots}
-        onClick={}
+        onIconClick={handleIconClick}
       >
         {showInput()}
       </Cell>
