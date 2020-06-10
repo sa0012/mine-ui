@@ -4,12 +4,19 @@ import Icon from '../icon'
 import { CreateElement, RenderContext } from 'vue/types'
 import { DefaultSlots, ScopedSlot } from '../../src/utils/types'
 
+export type textPosType = 'left' | 'right' | 'center'
+export type requiredType = 'left' | 'right'
+export type borderType = 'top' | 'bottom' | 'both' | 'none'
+
 export type CellProps = {
   leftIcon?: string;
   rightIcon?: string;
+  textPos?: textPosType;
   title?: string,
   value?: string;
   isLink?: boolean;
+  required?: requiredType;
+  border?: borderType;
 }
 
 export type CellSlots = DefaultSlots & {
@@ -31,17 +38,43 @@ function Cell (
   slots: CellSlots,
   ctx: RenderContext<CellProps>
 ) {
-  const leftContent = slots['left-icon'] ? slots['left-icon']() : props.leftIcon ? (
-    <Icon class={bem('left-icon')} name={props.leftIcon} />
-  ) : ''
+  const {
+    leftIcon,
+    rightIcon,
+    title,
+    required,
+    value,
+    isLink,
+    border,
+    textPos
+  } = props
+  const leftContent = slots['left-icon'] ?
+    typeof slots['left-icon'] === 'function' ?
+    slots['left-icon']() : slots['left-icon'] :
+    leftIcon ?
+    (
+      <Icon class={bem('left-icon')} name={leftIcon} />
+    ) : ''
 
-  const titleContent = slots.title ? slots.title() : props.title
+  const titleContent = slots.title ?
+  typeof slots.title === 'function' ?
+  slots.title() : slots.title :
+  (
+    <span class={bem('text', [required ? required : ''])}>{title}</span>
+  )
 
-  const Content = slots.default ? slots.default() : props.value
+  const Content = slots.default ?
+    typeof slots.default === 'function' ?
+    slots.default() : slots.default : value
 
-  const rightContent = slots['right-icon'] ? slots['right-icon']() : props.rightIcon || props.isLink ? (
-    <Icon class={bem('arrow')} name={props.isLink ? 'arrow-right' : props.rightIcon} />
-  ) : ''
+  const rightContent = slots['right-icon'] ?
+    typeof slots['right-icon'] === 'function' ?
+    slots['right-icon']() :
+    slots['right-icon'] :
+    rightIcon || isLink ?
+    (
+      <Icon class={bem('arrow')} name={isLink ? 'arrow-right' : rightIcon} />
+    ) : ''
 
   function onClick (event: Event) {
     emit(ctx, 'click', event)
@@ -49,14 +82,16 @@ function Cell (
 
   return (
     <div
-      class={bem('')}
+      class={bem([
+        border ? border : ''
+      ])}
       {...inherit(ctx)}
     >
       <section class={bem('head')}>
         {leftContent}
         {titleContent}
       </section>
-      <section class={bem('bd')} onClick={onClick}>
+      <section class={bem('bd', [textPos ? textPos : 'right'])} onClick={onClick}>
         {Content}
       </section>
       {rightContent}
@@ -67,8 +102,17 @@ function Cell (
 Cell.props = {
   leftIcon: String,
   rightIcon: String,
+  textPos: {
+    type: String,
+    default: 'right'
+  },
+  border: {
+    type: String,
+    default: 'top'
+  },
   title: String,
   value: String,
+  required: String,
   isLink: {
     type: Boolean,
     default: false

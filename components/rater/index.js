@@ -4,7 +4,6 @@ import Icon from '../icon'
 const [createComponent, bem] = createNamespace('rater')
 
 export default createComponent({
-  name: 'rater',
   props: {
     min: {
       type: Number,

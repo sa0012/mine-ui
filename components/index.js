@@ -2,6 +2,7 @@
 import Button from './button'
 import Cell from './cell'
 import CellGroup from './cell-group'
+import Field from './field'
 import Icon from './icon'
 import Popup from './popup'
 import Rater from './rater'
@@ -12,6 +13,7 @@ const components = [
   Button,
   Cell,
   CellGroup,
+  Field,
   Icon,
   Popup,
   Rater
@@ -33,6 +35,7 @@ export {
   Button,
   Cell,
   CellGroup,
+  Field,
   Icon,
   Popup,
   Rater

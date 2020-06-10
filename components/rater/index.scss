@@ -1,4 +1,5 @@
-.sq-rater {
+$prefixCls: ml-rater;
+.#{$prefixCls} {
   &-box {
     display: inline-block;
 

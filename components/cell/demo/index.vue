@@ -14,10 +14,10 @@
           <img src="../../../examples/assets/logo.png" alt="">
         </template>
         <template slot="title">
-          <div>title</div>
+          <span>商业险</span>
         </template>
         <template>
-          <div>this is a value</div>
+          <div>起保时间</div>
         </template>
         <template slot="right-icon">
           <img src="../../../examples/assets/logo.png" alt="">
@@ -40,6 +40,24 @@
       <ml-cell
         title="商业险"
         value="投保"
+        textPos="left"
+        required="right"
+      />
+      <ml-cell
+        title="商业险"
+        value="投保"
+        textPos="center"
+        required="left"
+        border="both"
+        isLink
+      />
+      <ml-cell
+        title="商业险"
+        value="投保"
+        textPos="center"
+        required="left"
+        border="none"
+        isLink
       />
     </ml-cell-group>
     <!-- <ml-cell title="起保时间">
