@@ -73,11 +73,19 @@ function Cell (
     slots['right-icon'] :
     rightIcon || isLink ?
     (
-      <Icon class={bem('arrow')} name={isLink ? 'arrow-right' : rightIcon} />
+      <Icon
+        class={bem('arrow')}
+        onClick={onIconClick}
+        name={isLink ? 'arrow-right' : rightIcon} />
     ) : ''
 
   function onClick (event: Event) {
     emit(ctx, 'click', event)
+  }
+
+  function onIconClick (event: Event) {
+    event.stopPropagation()
+    emit(ctx, 'click', 'onIconClick', event)
   }
 
   return (

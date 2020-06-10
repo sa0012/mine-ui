@@ -45,6 +45,10 @@ export default createComponent({
     }
   },
 
+  computed: {
+    classes () {}
+  },
+
   methods: {
     $_clickIcon () {
       if (this.clearable) {
@@ -55,6 +59,7 @@ export default createComponent({
     },
     onInput (event) {
       this.$emit('input', event.target.value)
+      if (this.clearable) {}
     }
   },
 
@@ -105,6 +110,7 @@ export default createComponent({
         required={required}
         isLink={isLink}
         scopedSlots={$slots}
+        onClick={}
       >
         {showInput()}
       </Cell>
