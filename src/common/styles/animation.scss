@@ -17,45 +17,45 @@
 }
 
 // 内容从下往上动画
-@keyframes ry-slide-bottom-enter {
+@keyframes ml-slide-bottom-enter {
   from {
     transform: translate3d(0, 100%, 0);
   }
 }
 
-@keyframes ry-slide-bottom-leave {
+@keyframes ml-slide-bottom-leave {
   to {
     transform: translate3d(0, 100%, 0);
   }
 }
-.ry-slide-bottom {
+.ml-slide-bottom {
   &-enter-active {
-    animation: ry-slide-bottom-enter .3s both ease;
+    animation: ml-slide-bottom-enter .3s both ease;
   }
 
   &-leave-active {
-    animation: ry-slide-bottom-leave .3s both ease;
+    animation: ml-slide-bottom-leave .3s both ease;
   }
 }
 // 蒙层渐变动画
-@keyframes ry-fade-enter {
+@keyframes ml-fade-enter {
   from {
     opacity: 0;
   }
 }
 
-@keyframes ry-fade-leave {
+@keyframes ml-fade-leave {
   to {
     opacity: 0;
   }
 }
-.ry-fade {
+.ml-fade {
   &-enter-active {
-    animation: ry-fade-enter .3s both ease;
+    animation: ml-fade-enter .3s both ease;
   }
 
   &-leave-active {
-    animation: ry-fade-leave .3s both ease;
+    animation: ml-fade-leave .3s both ease;
   }
 }
 // start carlicense 
@@ -99,66 +99,66 @@
 
 // start popup
 // 内容从右往左动画
-@keyframes ry-slide-right-enter {
+@keyframes ml-slide-right-enter {
   from {
     transform: translate3d(100%, 0, 0);
   }
 }
 
-@keyframes ry-slide-right-leave {
+@keyframes ml-slide-right-leave {
   to {
     transform: translate3d(100%, 0, 0);
   }
 }
-.ry-slide-right {
+.ml-slide-right {
   &-enter-active {
-    animation: ry-slide-right-enter .3s both ease;
+    animation: ml-slide-right-enter .3s both ease;
   }
 
   &-leave-active {
-    animation: ry-slide-right-leave .3s both ease;
+    animation: ml-slide-right-leave .3s both ease;
   }
 }
 // 内容从左往右动画
-@keyframes ry-slide-left-enter {
+@keyframes ml-slide-left-enter {
   from {
     transform: translate3d(-100%, 0, 0);
   }
 }
 
-@keyframes ry-slide-left-leave {
+@keyframes ml-slide-left-leave {
   to {
     transform: translate3d(-100%, 0, 0);
   }
 }
-.ry-slide-left {
+.ml-slide-left {
   &-enter-active {
-    animation: ry-slide-left-enter .3s both ease;
+    animation: ml-slide-left-enter .3s both ease;
   }
 
   &-leave-active {
-    animation: ry-slide-left-leave .3s both ease;
+    animation: ml-slide-left-leave .3s both ease;
   }
 }
 // 内容从上往下动画
-@keyframes ry-slide-top-enter {
+@keyframes ml-slide-top-enter {
   from {
     transform: translate3d(0, -100%, 0);
   }
 }
 
-@keyframes ry-slide-top-leave {
+@keyframes ml-slide-top-leave {
   to {
     transform: translate3d(0, -100%, 0);
   }
 }
-.ry-slide-top {
+.ml-slide-top {
   &-enter-active {
-    animation: ry-slide-top-enter .3s both ease;
+    animation: ml-slide-top-enter .3s both ease;
   }
 
   &-leave-active {
-    animation: ry-slide-top-leave .3s both ease;
+    animation: ml-slide-top-leave .3s both ease;
   }
 }
 // end popup
