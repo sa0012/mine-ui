@@ -110,7 +110,6 @@ export default createComponent({
         required={required}
         isLink={isLink}
         scopedSlots={$slots}
-        onClick={}
       >
         {showInput()}
       </Cell>

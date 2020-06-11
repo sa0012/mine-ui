@@ -1,0 +1,32 @@
+$prefixCls: ml-checkicon;
+$iconFix: ml-icon;
+.#{$prefixCls} {
+  &__wrap {
+    .#{$prefixCls}__disabled {
+      .#{$iconFix}-checkicon, .#{$iconFix}-square-checked, .#{$iconFix}-square-border-checked {
+        color: #bbb;
+      }
+      .#{$iconFix}-unchecked, .#{$iconFix}-square-unchecked, .#{$iconFix}-square-border-unchecked {
+        opacity: .8;
+      }
+    }
+    .#{$iconFix}-checkicon, .#{$iconFix}-square-checked, .#{$iconFix}-square-border-checked {
+      color: $theme-color;
+      transition: all .2s ease-in-out;
+      font-size: inherit;
+      display: inline-block;
+    }
+    .#{$iconFix}-unchecked, .#{$iconFix}-square-unchecked, .#{$iconFix}-square-border-unchecked {
+      font-size: inherit;
+      display: inline-block;
+      color: #ccc;
+      background-color: #fff;
+    }
+    .#{$iconFix}-unchecked {
+      border-radius: 50%;
+    }
+    .#{$iconFix}-square-border-unchecked {
+      border-radius: 4px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+$prefixCls: ml-radio;
+
+.#{$prefixCls} {
+  display: inline-block;
+  font-size: 14px;
+  &.#{$prefixCls}--disabled {
+    color: #bbb;
+  }
+  &__wrap {
+    display: flex;
+    align-items: baseline;
+  }
+  &__text {
+    display: inline-block;
+    margin-left: 6px;
+  }
+}

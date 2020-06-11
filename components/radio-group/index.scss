@@ -1,0 +1,30 @@
+$prefixCls: ml-radio-group;
+
+.#{$prefixCls} {
+  &--cell,
+  &--cell-between {
+    display: block;
+    .ml-radio {
+      display: block;
+      background-color: #ffffff;
+      height: 48px;
+      line-height: 48px;
+      padding: 0 16px;
+      &~.ml-radio {
+        @include mix-1px($top: 1, $position-left: 16px);
+      }
+    }
+  }
+  &--cell-between {
+    .ml-radio-wrap {
+      justify-content: space-between;
+      flex-direction: row-reverse;
+    }
+    .ml-radio-text {
+      margin-left: 0;
+    }
+  }
+  &--disabled {
+    color: #bbb;
+  }
+}

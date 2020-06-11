@@ -2,9 +2,12 @@
 import Button from './button'
 import Cell from './cell'
 import CellGroup from './cell-group'
+import Checkicon from './checkicon'
 import Field from './field'
 import Icon from './icon'
 import Popup from './popup'
+import Radio from './radio'
+import RadioGroup from './radio-group'
 import Rater from './rater'
 
 const version = '1.0.0'
@@ -13,9 +16,12 @@ const components = [
   Button,
   Cell,
   CellGroup,
+  Checkicon,
   Field,
   Icon,
   Popup,
+  Radio,
+  RadioGroup,
   Rater
 ]
 
@@ -35,9 +41,12 @@ export {
   Button,
   Cell,
   CellGroup,
+  Checkicon,
   Field,
   Icon,
   Popup,
+  Radio,
+  RadioGroup,
   Rater
 }
 
