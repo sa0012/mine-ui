@@ -32,7 +32,7 @@
         </ml-radio-group>
       </template>
     </ml-cell>
-    
+
     <demo-title left>禁用状态</demo-title>
     <ml-cell>
       <template slot="title">
@@ -53,9 +53,9 @@
 
     <demo-title left>列表 cell-between 样式</demo-title>
     <ml-radio-group v-model="value5" type="cell-between" @change="change">
-      <ml-radio name="pg">苹果</ml-radio>
-      <ml-radio name="xj">香蕉</ml-radio>
-      <ml-radio name="hmg" disabled>哈密瓜</ml-radio>
+      <ml-radio type="square-border" name="pg">苹果</ml-radio>
+      <ml-radio type="square-border" name="xj">香蕉</ml-radio>
+      <ml-radio type="square-border" name="hmg">哈密瓜</ml-radio>
     </ml-radio-group>
 
     <demo-title left>列表禁用状态</demo-title>

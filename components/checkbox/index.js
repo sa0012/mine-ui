@@ -1,7 +1,7 @@
 import { createNamespace } from '../../src/utils'
 import Checkicon from '../checkicon'
 
-const [createComponent, bem] = createNamespace('radio')
+const [createComponent, bem] = createNamespace('checkbox')
 
 export default createComponent({
   props: {
@@ -25,13 +25,13 @@ export default createComponent({
 
   computed: {
     isChecked () {
-      return this.name === this.currentValue
+      return this.name === this.currentValue.filter(item => this.name === item)[0]
     }
   },
 
   data () {
     return {
-      currentValue: ''
+      currentValue: []
     }
   },
 
@@ -39,12 +39,12 @@ export default createComponent({
     $_change () {
       if (this.disabled || this.$parent.disabled) return
       // 调用父组件update方法更新状态
-      this.$parent && this.$parent.$options.name === 'ml-radio-group' && this.$parent.update(this.name)
+      this.$parent && this.$parent.$options.name === 'ml-checkbox-group' && this.$parent.update(this.name)
     }
   },
 
   mounted () {
-    this.$parent && this.$parent.$options.name === 'ml-radio-group' && this.$parent.update()
+    this.$parent && this.$parent.$options.name === 'ml-checkbox-group' && this.$parent.update()
   },
 
   render () {

@@ -2,6 +2,8 @@
 import Button from './button'
 import Cell from './cell'
 import CellGroup from './cell-group'
+import Checkbox from './checkbox'
+import CheckboxGroup from './checkbox-group'
 import Checkicon from './checkicon'
 import Field from './field'
 import Icon from './icon'
@@ -16,6 +18,8 @@ const components = [
   Button,
   Cell,
   CellGroup,
+  Checkbox,
+  CheckboxGroup,
   Checkicon,
   Field,
   Icon,
@@ -41,6 +45,8 @@ export {
   Button,
   Cell,
   CellGroup,
+  Checkbox,
+  CheckboxGroup,
   Checkicon,
   Field,
   Icon,
