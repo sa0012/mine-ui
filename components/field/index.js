@@ -46,70 +46,109 @@ export default createComponent({
   },
 
   computed: {
-    classes () {}
+    iconClassName () {
+      return this.clearable
+        ? 'error-full'
+        : this.innerHasBlurTip
+          ? 'alert-full'
+          : this.isLink
+            ? 'arrow-right'
+            : this.rightIcon || ''
+    }
+  },
+
+  mounted () {
+    if (this.hasBlurTip) {
+      const oldFun = this.$refs.inputRef.onblur
+      this.$refs.inputRef.onblur = () => {
+        if (typeof oldFun === 'function') {
+          oldFun() ? (this.innerHasBlurTip = false) : (this.innerHasBlurTip = true)
+        } else {
+          !this.value ? (this.innerHasBlurTip = true) : (this.innerHasBlurTip = false)
+        }
+      }
+    }
   },
 
   methods: {
-    $_clickIcon () {
+    $_clickIcon (event) {
       if (this.clearable) {
         this.$emit('input', '')
+        this.$refs.inputRef.value = ''
+        this.$emit('clear', event)
       } else {
         this.$emit('click-icon')
       }
     },
     onInput (event) {
       this.$emit('input', event.target.value)
-      if (this.clearable) {}
+    },
+    handleIconClick () {
+      if (this.readonly) return
+      this.$_clickIcon()
+    },
+
+    showInput () {
+      const inputProps = {
+        ref: 'inputRef',
+        class: bem('control'),
+        domProps: {
+          value: this.value
+        },
+        attrs: {
+          ...this.$attrs,
+          readonly: this.readonly
+        },
+        on: this.$listeners,
+        directives: [
+          {
+            name: 'model',
+            value: this.value
+          }
+        ]
+      }
+      return (<input
+        type={this.type}
+        {...inputProps}
+      />)
+    }
+  },
+
+  beforeDestroy () {
+    if (this.$refs.inputRef) {
+      if (typeof this.$refs.inputRef.onblur === 'function') {
+        this.$refs.inputRef.onblur = null
+      }
+      if (typeof this.$refs.inputRef.oninput === 'function') {
+        this.$refs.inputRef.oninput = null
+      }
     }
   },
 
   render () {
     const {
       label,
-      type,
       value,
       required,
-      readonly,
       leftIcon,
-      rightIcon,
+      iconClassName,
       isLink,
-      listeners,
-      $attrs,
-      $slots
+      clearable,
+      $slots,
+      showInput,
+      handleIconClick
     } = this
-    function showInput () {
-      const inputProps = {
-        ref: 'input',
-        class: bem('control'),
-        domProps: {
-          value
-        },
-        attrs: {
-          ...$attrs,
-          readonly
-        },
-        on: listeners,
-        directives: [
-          {
-            name: 'model',
-            value
-          }
-        ]
-      }
-      return (<input
-        type={type}
-        {...inputProps}
-      />)
-    }
+
     return (
       <Cell
         title={label}
         value={value}
         leftIcon={leftIcon}
-        rightIcon={rightIcon}
+        rightIcon={iconClassName}
         required={required}
         isLink={isLink}
         scopedSlots={$slots}
+        on-iconClick={handleIconClick}
       >
         {showInput()}
       </Cell>

@@ -17,6 +17,7 @@ export type CellProps = {
   isLink?: boolean;
   required?: requiredType;
   border?: borderType;
+  isShowIcon?: boolean;
 }
 
 export type CellSlots = DefaultSlots & {
@@ -46,7 +47,8 @@ function Cell (
     value,
     isLink,
     border,
-    textPos
+    textPos,
+    isShowIcon
   } = props
   const leftContent = slots['left-icon'] ?
     typeof slots['left-icon'] === 'function' ?
@@ -71,7 +73,7 @@ function Cell (
     typeof slots['right-icon'] === 'function' ?
     slots['right-icon']() :
     slots['right-icon'] :
-    rightIcon || isLink ?
+    (rightIcon || isLink) ?
     (
       <Icon
         class={bem('arrow')}
@@ -85,7 +87,7 @@ function Cell (
 
   function onIconClick (event: Event) {
     event.stopPropagation()
-    emit(ctx, 'click', 'onIconClick', event)
+    emit(ctx, 'iconClick', event)
   }
 
   return (
@@ -124,6 +126,10 @@ Cell.props = {
   isLink: {
     type: Boolean,
     default: false
+  },
+  isShowIcon: {
+    type: Boolean,
+    default: true
   }
 }
 
