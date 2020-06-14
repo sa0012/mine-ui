@@ -33,8 +33,8 @@ function Popup (
   } = props
 
   function onCalcel (event: Event) {
-    if (!this.closeOnClickOverlay) return
-    emit(ctx, 'input', false)
+    if (!closeOnClickOverlay) return
+    emit(ctx, 'input', event, false)
   }
 
   const showMask = !!(value && !hideMask)

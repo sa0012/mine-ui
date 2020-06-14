@@ -7,6 +7,7 @@ import CheckboxGroup from './checkbox-group'
 import Checkicon from './checkicon'
 import Field from './field'
 import Icon from './icon'
+import Overlay from './overlay'
 import Popup from './popup'
 import Radio from './radio'
 import RadioGroup from './radio-group'
@@ -23,6 +24,7 @@ const components = [
   Checkicon,
   Field,
   Icon,
+  Overlay,
   Popup,
   Radio,
   RadioGroup,
@@ -50,6 +52,7 @@ export {
   Checkicon,
   Field,
   Icon,
+  Overlay,
   Popup,
   Radio,
   RadioGroup,
