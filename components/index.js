@@ -12,6 +12,7 @@ import Popup from './popup'
 import Radio from './radio'
 import RadioGroup from './radio-group'
 import Rater from './rater'
+import Toast from './toast'
 
 const version = '1.0.0'
 
@@ -28,7 +29,8 @@ const components = [
   Popup,
   Radio,
   RadioGroup,
-  Rater
+  Rater,
+  Toast
 ]
 
 const install = Vue => {
@@ -56,7 +58,8 @@ export {
   Popup,
   Radio,
   RadioGroup,
-  Rater
+  Rater,
+  Toast
 }
 
 export default {
