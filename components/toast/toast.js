@@ -148,8 +148,6 @@ export default createComponent({
     return (
       <transition
         name={transition}
-        onAfterEnter={this.onAfterEnter}
-        onAfterLeave={this.onAfterLeave}
       >
         <div
           class={bem(['wrapper'])}
@@ -157,7 +155,6 @@ export default createComponent({
         >
           <div class={bem()}>
             <div
-              onClick={this.onCancel()}
               class={bem(['mark'])}
               vShow={this.isShowMark}></div>
             <div

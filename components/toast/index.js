@@ -1,20 +1,39 @@
 import Vue from 'vue'
-import { isObj } from '../../src/utils'
-import Toast from './toast'
+import ToastComponent from './toast'
 
-const iconSizeMap = {
-  'warn': 24,
-  'loading': 34
-}
 let instance = null
 let isSingle = true
 
-function parseOptions (data) {
-  // if (isObj(message)) {
-  //   return message
-  // }
+function createInstance (Vue, options) {
+  if (isSingle) {
+    if (!instance) {
+      instance = new (Vue.extend(ToastComponent))().$mount(document.createElement('div'))
+      document.body && document.body.appendChild(instance.$el)
+    }
+    margeInstanceOpts(options, instance)
+  } else {
+    const _instance = new (Vue.extend(ToastComponent))().$mount(document.createElement('div'))
+    document.body && document.body.appendChild(_instance.$el)
+    margeInstanceOpts(options, _instance)
+    return _instance
+  }
+}
 
-  // let data = Array.prototype.slice.call(arguments)
+function margeInstanceOpts (options, instance) {
+  const defaults = {}
+  for (let i in instance.$options.props) {
+    if (i !== 'value') {
+      defaults[i] = instance.$options.props[i].default
+    }
+  }
+
+  const opt = Object.assign({}, defaults, options)
+  for (let key in opt) {
+    instance[key] = opt[key]
+  }
+}
+
+function marge (data) {
   let options = {}
   data.forEach((d, i) => {
     i === 0 && (options.message = d)
@@ -30,48 +49,21 @@ function parseOptions (data) {
   return options
 }
 
-function createInstance (Vue, options) {
-  if (isSingle) {
-    if (!instance) {
-      instance = new (Vue.extend(Toast))().$mount(document.createElement('div'))
-      document.body && document.body.appendChild(instance.$el)
-    }
-    // instance
-    console.log(instance, 'instance')
-    mergeOptions(options, instance)
-  } else {
-    const _instance = new (Vue.extend(Toast))({
-      el: document.createElement('div')
-    })
-    document.body && document.body.appendChild(_instance.$el)
-    mergeOptions(options, _instance)
-    return _instance
-  }
-}
-
-function mergeOptions (options, instance) {
-  const defaults = {}
-  for (let i in instance.$options.props) {
-    if (i !== 'value') {
-      defaults[i] = instance.$options.props[i].default
-    }
-  }
-
-  const opt = Object.assign({}, defaults, options)
-  for (let key in opt) {
-    instance[key] = opt[key]
-  }
-}
-
-function parseToastTypes (toast) {
+function addToastTypes (toast) {
   const types = ['text', 'success', 'error', 'warn', 'loading']
   types.forEach(type => {
-    toast[type] = function (...option) {
-      return toast.show({
-        ...(iconSizeMap[type] ? { iconSize: iconSizeMap[type] } : {}),
-        ...parseOptions(option),
-        type
-      })
+    if (type === 'warn') {
+      toast[type] = function (...option) {
+        return toast.show({ iconSize: 24, ...marge(option), type })
+      }
+    } else if (type === 'loading') {
+      toast[type] = function (...option) {
+        return toast.show({ iconSize: 34, ...marge(option), type })
+      }
+    } else {
+      toast[type] = function (...option) {
+        return toast.show({ ...marge(option), type })
+      }
     }
   })
 }
@@ -106,18 +98,16 @@ const toast = {
       return _instance
     }
   },
-
   hide (callback) {
     instance && (instance.visible = false)
     typeof callback === 'function' && callback()
   },
-
   install (Vue, initOptions = { isMultiple: false, isInPrototype: true }) {
     isSingle = !initOptions.isMultiple
     initOptions.isInPrototype && (Vue.prototype.$toast = toast)
   }
 }
 
-parseToastTypes(toast)
+addToastTypes(toast)
 
 export default toast
