@@ -1,5 +1,5 @@
 import { createNamespace, isDef } from '../../src/utils'
-import { inherit } from '../../src/utils/functional'
+import { emit, inherit } from '../../src/utils/functional'
 
 import { CreateElement,RenderContext } from 'vue/types'
 import { DefaultSlots } from '../../src/utils/types'
@@ -38,6 +38,10 @@ function Overlay (
     style.animationDuration = `${props.duration}s`
   }
 
+  function onClick (event: Event): void {
+    emit(ctx, 'click')
+  }
+
   return (
     <transition name={props.transition}>
       <div
@@ -47,6 +51,7 @@ function Overlay (
           bem(), props.className
         ]}
         onTouchmove={preventTouchMove}
+        onClick={onClick}
         {...inherit(ctx, true)}
       >
         { slots.default && slots.default() }

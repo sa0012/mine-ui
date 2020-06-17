@@ -1,8 +1,9 @@
 import { createNamespace, isDef } from '../../src/utils'
 import { emit, inherit } from '../../src/utils/functional'
-import Icon from '../icon'
 import { CreateElement, RenderContext } from 'vue/types'
 import { DefaultSlots } from '../../src/utils/types'
+
+import Overlay from '../overlay'
 
 const  [createComponent, bem] = createNamespace('popup')
 
@@ -13,6 +14,7 @@ export type PopupProps = {
   value?: boolean;
   closeOnClickOverlay?: boolean;
   hideMask?: boolean;
+  zIndex?: string | number;
 }
 
 export type PopupEvent = {
@@ -32,12 +34,12 @@ function Popup (
     hideMask
   } = props
 
-  function onCalcel (event: Event) {
+  function onCancel (event: Event) {
     if (!closeOnClickOverlay) return
     emit(ctx, 'input', event, false)
   }
 
-  const showMask = !!(value && !hideMask)
+  let showMask = !!value
 
   const objTransitionSlideType = {
     bottom: 'ml-slide-bottom',
@@ -53,7 +55,7 @@ function Popup (
         <div
           vShow={value}
           class={
-            bem('content', [position])
+            bem(['content', position])
           }
         >
           {slots.default && slots.default()}
@@ -62,20 +64,22 @@ function Popup (
     )
   }
 
+  function closeOverlay (event: Event) {
+    console.log(12233333)
+    showMask = false
+    emit(ctx, 'input', event, false)
+    // onCancel(event)
+  }
+
   return (
     <div
       class={bem()}
       {...inherit(ctx)}
     >
-      <transition name="ml-fade">
-        <div
-          class={
-            bem(['mask'])
-          }
-          vShow={showMask}
-          onClick={onCalcel}
-        ></div>
-      </transition>
+      <Overlay
+        show={showMask}
+        onClick={closeOverlay}
+      />
       {Content()}
     </div>
   )
@@ -95,11 +99,15 @@ Popup.props = {
   },
   closeOnClickOverlay: {
     type: Boolean,
-    default: true
+    default: false
   },
   hideMask: {
     type: Boolean,
     default: false
+  },
+  zIndex: {
+    type: [String, Number],
+    default: 333
   }
 }
 

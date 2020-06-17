@@ -1,23 +1,13 @@
 <template>
   <div>
     <demo-title>基础用法</demo-title>
-    <ml-cell title="从中间弹出">
-      <ml-switch v-model="isShowDefault"></ml-switch>
-    </ml-cell>
+    <ml-cell title="从中间弹出" value="显示" @click="isShowDefault = true" />
 
     <demo-title>自定义位置</demo-title>
-    <ml-cell title="从上方弹出">
-      <ml-switch v-model="isShowTop"></ml-switch>
-    </ml-cell>
-    <ml-cell title="从下方弹出">
-      <ml-switch v-model="isShowBottom"></ml-switch>
-    </ml-cell>
-    <ml-cell title="从左侧弹出">
-      <ml-switch v-model="isShowLeft"></ml-switch>
-    </ml-cell>
-    <ml-cell title="从右侧弹出">
-      <ml-switch v-model="isShowRight"></ml-switch>
-    </ml-cell>
+    <ml-cell title="从上方弹出" value="显示" @click="isShowTop = true" />
+    <ml-cell title="从下方弹出" value="显示" @click="isShowBottom = true" />
+    <ml-cell title="从左侧弹出" value="显示" @click="isShowLeft = true" />
+    <ml-cell title="从右侧弹出" value="显示" @click="isShowRight = true" />
 
     <ml-popup v-model="isShowDefault">default</ml-popup>
     <ml-popup v-model="isShowLeft" :close-on-click-overlay="false" position="left">
