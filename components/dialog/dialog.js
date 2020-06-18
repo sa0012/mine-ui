@@ -1,4 +1,5 @@
 import { createNamespace, isFunc } from '../../src/utils'
+import Popup from '../popup'
 
 const [createComponent, bem] = createNamespace('dialog')
 
@@ -67,9 +68,12 @@ export default createComponent({
 
   render () {
     return (
-      <transition name={this.transition}>
+      <Popup
+        position={this.position}
+        closeOnClickOverlay={}
+      >
 
-      </transition>
+      </Popup>
     )
   }
 })

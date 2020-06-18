@@ -14,8 +14,10 @@
       <ml-button type="primary" size="small" @click="isShowLeft = !isShowLeft">关闭</ml-button>
     </ml-popup>
     <ml-popup v-model="isShowRight" position="right">右侧弹出</ml-popup>
-    <ml-popup v-model="isShowTop" :hide-mask="true" position="top">
-      <ml-notice-bar text="为了确保您的资金安全，请设置支付密码"/>
+    <ml-popup v-model="isShowTop" position="top">
+       <div style="padding: 40px;">
+        上部弹出
+        </div>
     </ml-popup>
     <ml-popup v-model="isShowBottom" position="bottom">
       <div style="padding: 40px;">

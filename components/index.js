@@ -5,6 +5,7 @@ import CellGroup from './cell-group'
 import Checkbox from './checkbox'
 import CheckboxGroup from './checkbox-group'
 import Checkicon from './checkicon'
+import Dialog from './dialog'
 import Field from './field'
 import Icon from './icon'
 import Overlay from './overlay'
@@ -23,6 +24,7 @@ const components = [
   Checkbox,
   CheckboxGroup,
   Checkicon,
+  Dialog,
   Field,
   Icon,
   Overlay,
@@ -52,6 +54,7 @@ export {
   Checkbox,
   CheckboxGroup,
   Checkicon,
+  Dialog,
   Field,
   Icon,
   Overlay,

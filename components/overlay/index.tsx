@@ -39,7 +39,7 @@ function Overlay (
   }
 
   function onClick (event: Event): void {
-    emit(ctx, 'click')
+    emit(ctx, 'click', event)
   }
 
   return (
@@ -67,7 +67,7 @@ Overlay.props = {
   customStyle: Object,
   zIndex: {
     type: [Number, String],
-    default: 1
+    default: 333
   },
   transition: {
     type: String,
