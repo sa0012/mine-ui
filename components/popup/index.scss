@@ -11,7 +11,7 @@ $prefixCls: ml-popup;
     background-color: rgba(0, 0, 0, .5);
     z-index: 1010;
   }
-  &--content {
+  &__content {
     position: fixed;
     background-color: #fff;
     z-index: 1011;

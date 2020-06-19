@@ -7,15 +7,6 @@ $prefixCls: ml-dialog;
   &-enter, &-leave-to{
     opacity: 0;
   }
-  &--mark {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba($color: #000000, $alpha: .45);
-    z-index: 998;
-  }
   &--content {
     z-index: 999;
     width: 80%;
@@ -37,7 +28,7 @@ $prefixCls: ml-dialog;
     background-color: #fff;
     text-align: center;
   }
-  &--title {
+  &__title {
     height: 40px;
     line-height: 1.4;
     width: 100%;
@@ -45,7 +36,7 @@ $prefixCls: ml-dialog;
     box-sizing: border-box;
     text-align: center;
   }
-  &--text {
+  &__text {
     padding: 30px 20px 34px 20px;
     width: 100%;
     box-sizing: border-box;
@@ -54,7 +45,7 @@ $prefixCls: ml-dialog;
       text-align: left;
     }
   }
-  &--footer {
+  &__footer {
     display:flex;
     width: 100%;
     font-size: 18px;
@@ -62,7 +53,7 @@ $prefixCls: ml-dialog;
     border-top: 1px solid #e5e5e5;
     justify-content:  center;
   }
-  &--cancel {
+  &__cancel {
     flex:1;
     padding: 12px 0;
     border-right:1px solid #e5e5e5;
@@ -70,7 +61,7 @@ $prefixCls: ml-dialog;
     color: #606265;
     text-align: center;
   }
-  &--confirm {
+  &__confirm {
     flex:1;
     padding: 12px 0;
     box-sizing: border-box;
@@ -78,15 +69,21 @@ $prefixCls: ml-dialog;
     color: $theme-color;
     text-align: center;
   }
-  &--icon-status {
+  &__icon-status {
     vertical-align: middle;
-    margin-right: 12px;
     font-size: 50px;
+    color: $theme-color;
+    margin-top: 10px;
     &.success {
-      color: #00a0e9;
+      color: $green;
     }
+
+    &.warn {
+      color: $orange;
+    }
+
     &.fail {
-      color: #d0021b;
+      color: $red;
     }
   }
 }

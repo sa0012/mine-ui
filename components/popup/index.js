@@ -76,7 +76,7 @@ export default createComponent({
           <div
             vShow={value}
             class={
-              bem(['content', position])
+              bem('content', [position])
             }
           >
             {this.$slots && this.$slots.default}
