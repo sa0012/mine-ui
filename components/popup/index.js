@@ -39,8 +39,19 @@ export default createComponent({
 
   watch: {
     value (val) {
-      this.showMask = val
-      console.log(val, 'val')
+      this.showMask = val && !this.hideMask
+    }
+  },
+
+  mounted () {
+    if (this.hideMask) {
+      window.addEventListener('click', this.onCancel, true)
+    }
+  },
+
+  beforeDestroy () {
+    if (this.hideMask) {
+      window.removeEventListener('click', this.onCancel)
     }
   },
 
@@ -89,10 +100,14 @@ export default createComponent({
       <div
         class={bem()}
       >
-        <Overlay
-          show={this.showMask}
-          onClick={this.closeOverlay}
-        />
+        {
+          !this.hideMask && (
+            <Overlay
+              show={this.showMask}
+              onClick={this.closeOverlay}
+            />
+          )
+        }
         {Content()}
       </div>
     )

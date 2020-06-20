@@ -74,7 +74,6 @@ export default createComponent({
     $_clickIcon (event) {
       if (this.clearable) {
         this.$emit('input', '')
-        this.$refs.inputRef.value = ''
         this.$emit('clear', event)
       } else {
         this.$emit('click-icon')

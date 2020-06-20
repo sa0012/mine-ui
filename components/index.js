@@ -8,6 +8,7 @@ import Checkicon from './checkicon'
 import Dialog from './dialog'
 import Field from './field'
 import Icon from './icon'
+import NoticeBar from './noticeBar'
 import Overlay from './overlay'
 import Popup from './popup'
 import Radio from './radio'
@@ -27,6 +28,7 @@ const components = [
   Dialog,
   Field,
   Icon,
+  NoticeBar,
   Overlay,
   Popup,
   Radio,
@@ -57,6 +59,7 @@ export {
   Dialog,
   Field,
   Icon,
+  NoticeBar,
   Overlay,
   Popup,
   Radio,

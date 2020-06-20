@@ -15,29 +15,29 @@ $prefixCls: ml-popup;
     position: fixed;
     background-color: #fff;
     z-index: 1011;
-    &.#{$prefixCls}--top {
+    &--top {
       left: 0;
       right: 0;
       top: 0;
     }
-    &.#{$prefixCls}--bottom {
+    &--bottom {
       left: 0;
       right: 0;
       bottom: 0;
     }
-    &.#{$prefixCls}--left {
+    &--left {
       top: 0;
       left: 0;
       width: 60%;
       bottom: 0;
     }
-    &.#{$prefixCls}--right {
+    &--right {
       top: 0;
       right: 0;
       width: 60%;
       bottom: 0;
     }
-    &.#{$prefixCls}--center {
+    &--center {
       top: 50%;
       left: 50%;
       transform: translate3d(-50%, -50%, 0);

@@ -8,6 +8,7 @@
     <ml-cell title="从下方弹出" value="显示" @click="isShowBottom = true" />
     <ml-cell title="从左侧弹出" value="显示" @click="isShowLeft = true" />
     <ml-cell title="从右侧弹出" value="显示" @click="isShowRight = true" />
+    <ml-cell title="hideMask" value="显示" @click="isShowHide = true" />
 
     <ml-popup v-model="isShowDefault">default</ml-popup>
     <ml-popup v-model="isShowLeft" :close-on-click-overlay="false" position="left">
@@ -24,6 +25,11 @@
         底部弹出
       </div>
     </ml-popup>
+    <ml-popup v-model="isShowHide" :hide-mask="true" position="bottom">
+      <div style="padding: 40px;">
+        没有遮罩层
+      </div>
+    </ml-popup>
   </div>
 </template>
 
@@ -37,7 +43,8 @@ export default {
       isShowLeft: false,
       isShowRight: false,
       isShowTop: false,
-      isShowBottom: false
+      isShowBottom: false,
+      isShowHide: false
     }
   },
 
