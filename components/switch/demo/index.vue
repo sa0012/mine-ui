@@ -15,13 +15,28 @@
     </ml-cell>
 
     <demo-title>调整大小</demo-title>
-    <ml-cell title="size=20px">
-      <ml-switch v-model="isChecked5" size="20px"/>
+    <ml-cell title="size=20">
+      <ml-switch v-model="isChecked5" size="20"/>
     </ml-cell>
-    <ml-cell title="size=40px">
-      <ml-switch v-model="isChecked5" size="40px"/>
+    <ml-cell title="size=40">
+      <ml-switch v-model="isChecked6" size="40"/>
     </ml-cell>
 
+    <demo-title>调整大小</demo-title>
+    <ml-cell title="animation">
+      <ml-switch animation v-model="isChecked5" />
+    </ml-cell>
+    <ml-cell title="animation">
+      <ml-switch animation v-model="isChecked6" size="40"/>
+    </ml-cell>
+
+    <demo-title>设置背景色</demo-title>
+    <ml-cell title="设置背景色">
+      <ml-switch
+        open-color="red"
+        close-color="blue"
+        v-model="isChecked7" />
+    </ml-cell>
   </div>
 </template>
 
@@ -35,7 +50,9 @@ export default {
       isChecked2: false,
       isChecked3: true,
       isChecked4: false,
-      isChecked5: false
+      isChecked5: false,
+      isChecked6: false,
+      isChecked7: false
     }
   },
 

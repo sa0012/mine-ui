@@ -5,18 +5,26 @@ $prefixCls: ml-switch;
   width: 1.6em;
   display: inline-block;
   position: relative;
-  background: #fff;
   box-sizing: content-box;
   border: 1px solid rgba(0, 0, 0, .1);
   border-radius: 1em;
   transition: .3s;
-  // transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
+  border: 1px solid #dfdfdf;
+  background-color: #fdfdfd;
+  background-clip: content-box;
+  box-shadow: #dfdfdf 0 0 0 0 inset;
   &--checked {
-    transition: .3s;
+    border-color: $theme-color;
     background-color: $theme-color;
+    transition: .3s;
     .#{$prefixCls}__circle {
       transform: translateX(.6em);
+      transition: transform 0.3s;
     }
+  }
+  &--checked.#{$prefixCls}--animation {
+    transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow ease 0.4s, background-color ease 1s;
+    box-shadow: $theme-color 0 0 0 16px inset;
   }
   &--disabled {
     opacity: .4;
