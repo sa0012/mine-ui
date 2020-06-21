@@ -1,5 +1,6 @@
-import { createNamespace } from '../../src/utils'
+import { createNamespace, isFunc, isDef } from '../../src/utils'
 import Cell from '../cell'
+import Icon from '../icon'
 
 const [createComponent, bem] = createNamespace('field')
 
@@ -17,7 +18,7 @@ export default createComponent({
       type: Boolean,
       default: false
     },
-    value: null,
+    value: [String, Number],
     required: {
       type: String,
       default: ''
@@ -41,26 +42,40 @@ export default createComponent({
 
   data () {
     return {
-      innerHasBlurTip: false
+      innerHasBlurTip: false,
+      focused: false
     }
   },
 
   computed: {
     iconClassName () {
-      return this.clearable
+      return this.clearable && (this.value || this.value === 0)
         ? 'error-full'
         : this.innerHasBlurTip
           ? 'alert-full'
           : this.isLink
             ? 'arrow-right'
             : this.rightIcon || ''
+    },
+
+    listeners () {
+      const listeners = {
+        ...this.$listeners,
+        input: this.onInput,
+        keypress: this.onKeypress,
+        focus: this.onFocus,
+        blur: this.onBlur
+      }
+
+      return listeners
     }
   },
 
   mounted () {
+    this.format()
     if (this.hasBlurTip) {
-      const oldFun = this.$refs.inputRef.onblur
-      this.$refs.inputRef.onblur = () => {
+      const oldFun = this.$refs.input.onblur
+      this.$refs.input.onblur = () => {
         if (typeof oldFun === 'function') {
           oldFun() ? (this.innerHasBlurTip = false) : (this.innerHasBlurTip = true)
         } else {
@@ -71,26 +86,106 @@ export default createComponent({
   },
 
   methods: {
-    $_clickIcon (event) {
+    onClickIcon (event) {
+      event.preventDefault()
       if (this.clearable) {
-        this.$emit('input', '')
-        this.$emit('clear', event)
+        this.$nextTick(() => {
+          this.$emit('input', '')
+          this.$emit('clear', event)
+        })
       } else {
         this.$emit('click-icon')
       }
     },
-    onInput (event) {
-      this.$emit('input', event.target.value)
+
+    format (target = this.$refs.input) {
+      if (!target) return
+
+      let { value } = target
+      const { maxlength } = this
+
+      if (isDef(maxlength) && value.length > maxlength) {
+        value = value.slice(0, maxlength)
+        target.value = value
+      }
+
+      return value
     },
-    handleIconClick () {
+
+    onInput (event) {
+      if (event.target.composing) return
+      this.$emit('input', this.format(event.target))
+    },
+
+    focus () {
+      if (this.$refs.input) {
+        this.$refs.input.focus()
+      }
+    },
+
+    blur () {
+      if (this.$refs.input) {
+        this.$refs.input.blur()
+      }
+    },
+
+    onFocus (event) {
+      this.focused = true
+      this.$emit('focus', event)
+
+      // hack for safari
+      /* istanbul ignore if */
+      if (this.readonly) {
+        this.blur()
+      }
+    },
+
+    onBlur (event) {
+      this.focused = false
+      this.$emit('blur', event)
+    },
+
+    onKeypress (event) {
+      if (this.type === 'number') {
+        const { keyCode } = event
+        const allowPoint = String(this.value).indexOf('.') === -1
+        const isValidKey =
+          (keyCode >= 48 && keyCode <= 57) ||
+          (keyCode === 46 && allowPoint) ||
+          keyCode === 45
+
+        if (!isValidKey) {
+          event.preventDefault()
+        }
+      }
+
+      // trigger blur after click keyboard search button
+      /* istanbul ignore next */
+      if (this.type === 'search' && event.keyCode === 13) {
+        this.blur()
+      }
+
+      this.$emit('keypress', event)
+    },
+
+    handleIconClick (event) {
       if (this.readonly) return
-      this.$_clickIcon()
+      this.onClickIcon(event)
     },
 
     showInput () {
+      const inputSlot = this.slots('input')
+
+      if (inputSlot) {
+        return (
+          <div class={bem('control', this.inputAlign)}>
+            {inputSlot}
+          </div>
+        )
+      }
       const inputProps = {
-        ref: 'inputRef',
-        class: bem('control'),
+        ref: 'input',
+        class: bem('control', this.inputAlign),
         domProps: {
           value: this.value
         },
@@ -98,7 +193,8 @@ export default createComponent({
           ...this.$attrs,
           readonly: this.readonly
         },
-        on: this.$listeners,
+        on: this.listeners,
+        // add model directive to skip IME composition
         directives: [
           {
             name: 'model',
@@ -114,12 +210,12 @@ export default createComponent({
   },
 
   beforeDestroy () {
-    if (this.$refs.inputRef) {
-      if (typeof this.$refs.inputRef.onblur === 'function') {
-        this.$refs.inputRef.onblur = null
+    if (this.$refs.input) {
+      if (typeof this.$refs.input.onblur === 'function') {
+        this.$refs.input.onblur = null
       }
-      if (typeof this.$refs.inputRef.oninput === 'function') {
-        this.$refs.inputRef.oninput = null
+      if (typeof this.$refs.input.oninput === 'function') {
+        this.$refs.input.oninput = null
       }
     }
   },
@@ -127,27 +223,29 @@ export default createComponent({
   render () {
     const {
       label,
-      value,
       required,
       leftIcon,
       iconClassName,
       isLink,
-      clearable,
       $slots,
-      showInput,
-      handleIconClick
+      showInput
     } = this
+
+    const scopedSlots = {
+      title: $slots.title,
+      'left-icon': $slots['left-icon'],
+      'right-icon': $slots['right-icon']
+    }
 
     return (
       <Cell
         title={label}
-        value={value}
         leftIcon={leftIcon}
         rightIcon={iconClassName}
         required={required}
         isLink={isLink}
-        scopedSlots={$slots}
-        on-iconClick={handleIconClick}
+        scopedSlots={scopedSlots}
+        on-iconClick={this.handleIconClick}
       >
         {showInput()}
       </Cell>
