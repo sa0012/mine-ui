@@ -14,6 +14,7 @@ import Popup from './popup'
 import Radio from './radio'
 import RadioGroup from './radio-group'
 import Rater from './rater'
+import Switch from './switch'
 import Toast from './toast'
 
 const version = '1.0.0'
@@ -34,6 +35,7 @@ const components = [
   Radio,
   RadioGroup,
   Rater,
+  Switch,
   Toast
 ]
 
@@ -65,6 +67,7 @@ export {
   Radio,
   RadioGroup,
   Rater,
+  Switch,
   Toast
 }
 

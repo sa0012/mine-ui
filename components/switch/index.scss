@@ -1,0 +1,36 @@
+$prefixCls: ml-switch;
+
+.#{$prefixCls} {
+  height: 1em;
+  width: 1.6em;
+  display: inline-block;
+  position: relative;
+  background: #fff;
+  box-sizing: content-box;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 1em;
+  transition: .3s;
+  // transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
+  &--checked {
+    transition: .3s;
+    background-color: $theme-color;
+    .#{$prefixCls}__circle {
+      transform: translateX(.6em);
+    }
+  }
+  &--disabled {
+    opacity: .4;
+  }
+  &__circle {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 1em;
+    height: 1em;
+    transition: .3s;
+    position: absolute;
+    border-radius: 100%;
+    background-color: #fff;
+    box-shadow: 0 3px 1px 0 rgba(0, 0, 0, .05), 0 2px 2px 0 rgba(0, 0, 0, .1), 0 3px 3px 0 rgba(0, 0, 0, .05);
+  }
+}
