@@ -1,0 +1,34 @@
+$prefixCls: ml-swiper;
+
+.#{$prefixCls} {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  width: 100%;
+  height: 250px;
+  &__wrap {
+    height: 100%;
+    display: flex;
+  }
+  &__point-wrap {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  &__point-item {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: transparent;
+    &--point-active {
+      background-color: #fff;
+    }
+    & ~ .#{$prefixCls}__point-item {
+      margin-left: 6px;
+    }
+  }
+}
