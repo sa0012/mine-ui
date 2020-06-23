@@ -3,7 +3,7 @@ import Vue, { VNode, VueConstructor, ComponentOptions, RenderContext } from 'vue
 import { DefaultProps, FunctionComponent } from '../types'
 import { camelize } from '../format/string'
 
-export interface PlComponentOptions extends ComponentOptions<Vue> {
+export interface MlComponentOptions extends ComponentOptions<Vue> {
   functional?: boolean
   install?: (Vue: VueConstructor) => void
 }
@@ -43,7 +43,7 @@ export function unifySlots(context: RenderContext) {
 }
 
 // should be removed after Vue 3
-function transformFunctionComponent(pure: FunctionComponent): PlComponentOptions {
+function transformFunctionComponent(pure: FunctionComponent): MlComponentOptions {
   return {
     functional: true,
     props: pure.props,
@@ -54,7 +54,7 @@ function transformFunctionComponent(pure: FunctionComponent): PlComponentOptions
 
 export function createComponent(name: string) {
   return function<Props = DefaultProps, Events = {}, Slots = {}> (
-    sfc: PlComponentOptions | FunctionComponent
+    sfc: MlComponentOptions | FunctionComponent
   ): TsxComponent<Props, Events, Slots> {
     if (typeof sfc === 'function') {
       sfc = transformFunctionComponent(sfc)

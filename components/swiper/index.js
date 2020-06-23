@@ -1,4 +1,6 @@
 import { createNamespace } from '../../src/utils'
+import { RAF } from '../../src/utils/raf'
+import { TouchMixin } from '../../src/mixins/touch'
 
 const [createComponent, bem] = createNamespace('swiper')
 
@@ -20,6 +22,11 @@ export default createComponent({
       type: [ String, Number ],
       default: 300
     },
+    // 默认显示的位置
+    defaultSwiper: {
+      type: Number,
+      default: 0
+    },
     // 是否显示指示器
     showIndicators: {
       type: Boolean,
@@ -29,6 +36,11 @@ export default createComponent({
     touchable: {
       type: Boolean,
       default: true
+    },
+    // 是否开启循环播放
+    loop: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -36,69 +48,117 @@ export default createComponent({
     return {
       computedWidth: 0,
       computedHeight: 0,
-      currentIndex: 0,
-      offsetWidth: 0,
       translateX: 0,
-      firstWrap: 0,
-      lastWrap: 0,
       offset: 0,
+      active: 0,
+      deltaX: 0,
+      deltaY: 0,
+      swipers: [],
       timer: null,
-      startPosition: 0,
-      savePosition: 0,
-      moveValue: 0,
-      swipers: []
+      // 标记动画是否结束
+      swiping: false,
+      directionOps: {
+        vertical: 'X',
+        horizontal: 'Y'
+      }
     }
   },
 
+  mixins: [TouchMixin],
+
   computed: {
     wrapStyles () {
+      const mainAxis = this.vertical ? 'height' : 'width'
+      const crossAxis = this.vertical ? 'width' : 'height'
+      console.log(this.trackSize, mainAxis, 'trackSize')
       return {
-        'transform': `translateX(${this.translateX}px)`,
-        'transition': `transform ${this.duration}ms`,
-        'width': `${this.offsetWidth * this.swipers.length}px`
+        'transform': `translate${this.directionOps[this.direction]}(${this.offset}px)`,
+        'transition': `transform ${this.swiping ? 0 : this.duration}ms`,
+        [mainAxis]: `${this.trackSize}px`,
+        [crossAxis]: this[crossAxis] ? `${this[crossAxis]}px` : ''
       }
     },
+    trackSize () {
+      console.log(this.size, 'size')
+      return this.count * this.size
+    },
+    // 轮播卡片数量
     count () {
       return this.swipers.length
+    },
+    // 方向参数取值
+    delta () {
+      return this.vertical ? this.deltaY : this.deltaX
+    },
+    // 根据方向设置宽高计算值
+    size () {
+      return this[this.vertical ? 'computedHeight' : 'computedWidth']
+    },
+    // 获取当前方向
+    isCorrectDirection () {
+      const expect = this.vertical ? 'vertical' : 'horizontal'
+      return this.direction === expect
+    }
+  },
+
+  watch: {
+    defaultSwiper (val) {
+      this.initialize(val)
     }
   },
 
   methods: {
     autoPlay () {
       const { autoplay, count } = this
+
       if (autoplay && count > 1) {
         this.clear()
+        this.timer = RAF.setTimeout(() => {
+          this.swiping = true
+          this.resetTouchStatus()
 
-        this.timer = setInterval(() => {
-          if (this.currentIndex === count - 1) {
-            this.firstWrap = this.offsetWidth * count
-          }
-          if (this.currentIndex === count - 1 && this.translateX === this.offsetWidth) {
-            this.duration = 0
-            this.lastWrap = 0
-            this.translateX = -this.offsetWidth * this.currentIndex
-          }
-  
-          if (this.currentIndex === count) {
-            this.currentIndex = 0
-  
-            this.firstWrap = 0
-  
-            this.duration = 0
-            this.translateX = 0
-  
-            setTimeout(() => {
-              this.duration = 300
-              this.translateX = -this.offsetWidth * ++this.currentIndex
-            }, 100)
-            return
-          }
-  
-          if (this.duration === 0) {
-            this.duration = 300
-          }
-          this.translateX = -this.offsetWidth * ++this.currentIndex
-        }, autoplay)
+          RAF.setInterval(() => {
+            this.swiping = false
+            // this.autoPlay()
+          }, autoplay)
+        })
+      }
+    },
+
+    // 界面初始化
+    initialize (active = this.defaultSwiper) {
+      clearTimeout(this.timer)
+      if (this.$el) {
+        const rect = this.$el.getBoundingClientRect()
+        console.log(rect, 'rect')
+        this.computedWidth = this.width || rect.width
+        this.computedHeight = this.height || rect.height
+      }
+
+      this.swiping = true
+      this.active = active
+      this.offset = this.count > 1 ? -this.size * this.active : 0
+      this.swipers.forEach(swiper => {
+        swiper.offset = 0
+      })
+
+      this.autoPlay()
+    },
+
+    // 运动
+    moveTo ({ pace = 0, offset = 0, emitChage }) {
+      const {
+        loop,
+        count,
+        active,
+        swipers,
+        trackSize
+      } = this
+
+      if (count <= 1) return
+
+      if (loop) {
+        if (swipers[0]) {}
       }
     },
 
@@ -106,36 +166,13 @@ export default createComponent({
       if (!this.touchable) return
 
       this.clear()
-      if (this.currentIndex === this.count) {
-        this.currentIndex = 0
-        this.firstWrap = 0
-        this.duration = 0
-        this.translateX = 0
-      }
-      if (this.currentIndex === this.count - 1 && this.translateX === this.offsetWidth) {
-        this.duration = 0
-        this.lastWrap = 0
-        this.translateX = -this.offsetWidth * this.currentIndex
-      }
-
-      this.startPosition = event.changedTouches[0].pageX
-      this.savePosition = this.translateX
+      this.swiping = true
+      this.touchStart(event)
     },
 
     onTouchMove (event) {
       if (!this.touchable) return
 
-      this.moveValue = event.changedTouches[0].pageX - this.startPosition
-      this.translateX = this.savePosition + this.moveValue
-
-      const { count } = this
-      if (this.currentIndex === count - 1) {
-        this.firstWrap = this.offsetWidth * count
-      }
-      // first to last, move last position
-      if (this.moveValue > 0 && this.currentIndex === 0) {
-        this.lastWrap = this.offsetWidth * count * -1
-      }
       event.preventDefault()
       event.stopPropagation()
     },
@@ -143,81 +180,27 @@ export default createComponent({
     onTouchEnd (event) {
       if (!this.touchable) return
 
-      if (Math.abs(this.moveValue) > 50) {
-        let direction = 1
-        if (this.moveValue > 0) { // 2 -> 1 左移
-          direction = -1
-        }
-
-        const { count } = this
-
-        if (this.currentIndex === count - 1) {
-          this.firstWrap = this.offsetWidth * count
-        }
-        // 重置this.firstWrap
-        if (this.currentIndex === 0) {
-          this.firstWrap = 0
-        }
-
-        if (this.currentIndex === count) {
-          this.currentIndex = 0
-
-          this.firstWrap = 0
-
-          this.duration = 0
-          this.translateX = 0
-
-          setTimeout(() => {
-            this.duration = 300
-            direction === 1 ? ++this.currentIndex : --this.currentIndex
-            if (this.currentIndex < 0) {
-              this.currentIndex = count - 1
-            }
-            this.translateX = -this.offsetWidth * this.currentIndex
-          }, 100)
-          return
-        }
-
-        if (this.duration === 0) {
-          this.duration = 300
-        }
-
-        direction === 1 ? ++this.currentIndex : --this.currentIndex
-        if (this.currentIndex < 0) {
-          this.currentIndex = count - 1
-        }
-        if (this.currentIndex === count - 1 && direction !== 1) {
-          this.translateX = this.offsetWidth
-        } else {
-          this.translateX = -this.offsetWidth * this.currentIndex
-        }
-      } else {
-        if (this.duration === 0) {
-          this.duration = 300
-        }
-        this.translateX = this.savePosition
-      }
       this.autoPlay()
     },
 
-    clear() {
-      clearInterval(this.timer);
+    clear () {
+      RAF.cancelRaf(this.timer)
     },
 
-    offsetWidthResize () {
-      this.offsetWidth = this.$el.offsetWidth
+    resize () {
+      this.initialize()
     }
   },
 
   mounted () {
-    this.offsetWidth = this.$el.offsetWidth
+    this.initialize()
     this.autoPlay()
-    window.addEventListener('resize', this.offsetWidthResize, false)
+    window.addEventListener('resize', this.resize, false)
   },
 
   destroyed () {
     this.clear()
-    window.removeEventListener('resize', this.offsetWidthResize)
+    window.removeEventListener('resize', this.resize)
   },
 
   render () {

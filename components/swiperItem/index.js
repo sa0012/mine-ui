@@ -10,15 +10,6 @@ export default createComponent({
   },
 
   computed: {
-    wrapStyles () {
-      return {
-        'transform': (this.index === 0 && this.$parent.currentIndex >= (this.$parent.count - 1))
-          ? `translateX(${this.$parent.firstWrap}px)`
-          : (
-            (this.index === this.$parent.count - 1 && (this.$parent.currentIndex === 0 || this.$parent.currentIndex === this.index))
-          ) ? `translateX(${this.$parent.lastWrap}px)` : ''
-      }
-    },
     index () {
       return this.$parent.swipers.indexOf(this)
     }
@@ -40,19 +31,18 @@ export default createComponent({
       computedHeight
     } = this.$parent
 
-    // const style = {
-    //   width: computedWidth + 'px',
-    //   height: vertical ? computedHeight + 'px' : '100%',
-    //   transform: `translate${vertical ? 'Y' : 'X'}(${this.offset}px)`
-    // }
+    const style = {
+      width: computedWidth + 'px',
+      height: vertical ? computedHeight + 'px' : '100%',
+      transform: `translate${vertical ? 'Y' : 'X'}(${this.offset}px)`
+    }
 
-    console.log(this.$slots, 'slots')
     return (
       <div
         class={
           bem()
         }
-        style={this.wrapStyles}
+        style={style}
         {...{ on: this.$listeners }}
       >
         {this.$slots && this.$slots.default}
