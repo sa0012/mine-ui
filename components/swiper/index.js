@@ -1,8 +1,11 @@
 import { createNamespace } from '../../src/utils'
-import { RAF } from '../../src/utils/raf'
+import { doubleRaf } from '../../src/utils/raf'
 import { TouchMixin } from '../../src/mixins/touch'
 
 const [createComponent, bem] = createNamespace('swiper')
+function range (num, min, max) {
+  return Math.min(Math.max(num, min), max)
+}
 
 export default createComponent({
   props: {
@@ -14,13 +17,13 @@ export default createComponent({
     vertical: Boolean,
     // 自动轮播间隔
     autoplay: {
-      type: [ String, Number ],
+      type: [String, Number],
       default: 3000
     },
     // 动画持续时间
     duration: {
-      type: [ String, Number ],
-      default: 300
+      type: [String, Number],
+      default: 500
     },
     // 默认显示的位置
     defaultSwiper: {
@@ -50,17 +53,13 @@ export default createComponent({
       computedHeight: 0,
       translateX: 0,
       offset: 0,
-      active: 0,
+      currentIndex: 0,
       deltaX: 0,
       deltaY: 0,
       swipers: [],
       timer: null,
       // 标记动画是否结束
-      swiping: false,
-      directionOps: {
-        vertical: 'X',
-        horizontal: 'Y'
-      }
+      swiping: false
     }
   },
 
@@ -70,16 +69,14 @@ export default createComponent({
     wrapStyles () {
       const mainAxis = this.vertical ? 'height' : 'width'
       const crossAxis = this.vertical ? 'width' : 'height'
-      console.log(this.trackSize, mainAxis, 'trackSize')
       return {
-        'transform': `translate${this.directionOps[this.direction]}(${this.offset}px)`,
+        'transform': `translate${this.vertical ? 'Y' : 'X'}(${this.offset}px)`,
         'transition': `transform ${this.swiping ? 0 : this.duration}ms`,
         [mainAxis]: `${this.trackSize}px`,
         [crossAxis]: this[crossAxis] ? `${this[crossAxis]}px` : ''
       }
     },
     trackSize () {
-      console.log(this.size, 'size')
       return this.count * this.size
     },
     // 轮播卡片数量
@@ -98,12 +95,21 @@ export default createComponent({
     isCorrectDirection () {
       const expect = this.vertical ? 'vertical' : 'horizontal'
       return this.direction === expect
+    },
+    // 第一张到最后一张的运动距离
+    minOffset () {
+      const rect = this.$el.getBoundingClientRect()
+      return (this.vertical ? rect.height : rect.width) - this.size * this.count
     }
   },
 
   watch: {
     defaultSwiper (val) {
       this.initialize(val)
+    },
+
+    swipers () {
+      this.initialize()
     }
   },
 
@@ -113,15 +119,30 @@ export default createComponent({
 
       if (autoplay && count > 1) {
         this.clear()
-        this.timer = RAF.setTimeout(() => {
+        this.timer = setTimeout(() => {
           this.swiping = true
           this.resetTouchStatus()
+          this.correctPosition()
 
-          RAF.setInterval(() => {
+          doubleRaf(() => {
             this.swiping = false
-            // this.autoPlay()
-          }, autoplay)
-        })
+            this.moveTo({
+              pace: 1,
+              emitChange: true
+            })
+            this.autoPlay()
+          })
+        }, autoplay)
+      }
+    },
+
+    correctPosition () {
+      if (this.currentIndex <= -1) {
+        this.moveTo({ pace: this.count })
+      }
+
+      if (this.currentIndex >= this.count) {
+        this.moveTo({ pace: -this.count })
       }
     },
 
@@ -130,7 +151,6 @@ export default createComponent({
       clearTimeout(this.timer)
       if (this.$el) {
         const rect = this.$el.getBoundingClientRect()
-        console.log(rect, 'rect')
         this.computedWidth = this.width || rect.width
         this.computedHeight = this.height || rect.height
       }
@@ -145,20 +165,62 @@ export default createComponent({
       this.autoPlay()
     },
 
-    // 运动
-    moveTo ({ pace = 0, offset = 0, emitChage }) {
-      const {
-        loop,
-        count,
-        active,
-        swipers,
-        trackSize
-      } = this
+    getTargetIndex (pace) {
+      const { currentIndex, count } = this
 
-      if (count <= 1) return
+      if (pace) {
+        if (this.loop) {
+          return range(currentIndex + pace, -1, count)
+        }
+
+        return range(currentIndex + pace, 0, count - 1)
+      }
+
+      return currentIndex
+    },
+
+    getTargetOffset (targetActive, offset) {
+      let currentPosition = targetActive * this.size
+      if (!this.loop) {
+        currentPosition = Math.min(currentPosition, -this.minOffset)
+      }
+
+      let targetOffset = Math.round(offset - currentPosition)
+      if (!this.loop) {
+        targetOffset = range(targetOffset, this.minOffset, 0)
+      }
+
+      return targetOffset
+    },
+
+    // 运动
+    moveTo ({ pace = 0, offset = 0, emitChange }) {
+      const { loop, count, currentIndex, swipers, trackSize, minOffset } = this
+
+      if (count <= 1) {
+        return
+      }
+
+      const targetActive = this.getTargetIndex(pace)
+      const targetOffset = this.getTargetOffset(targetActive, offset)
 
       if (loop) {
-        if (swipers[0]) {}
+        if (swipers[0]) {
+          const outRightBound = targetOffset < minOffset
+          swipers[0].offset = outRightBound ? trackSize : 0
+        }
+
+        if (swipers[count - 1]) {
+          const outLeftBound = targetOffset > 0
+          swipers[count - 1].offset = outLeftBound ? -trackSize : 0
+        }
+      }
+
+      this.currentIndex = targetActive
+      this.offset = targetOffset
+
+      if (emitChange && targetActive !== currentIndex) {
+        this.$emit('change', this.activeIndicator)
       }
     },
 
@@ -168,23 +230,39 @@ export default createComponent({
       this.clear()
       this.swiping = true
       this.touchStart(event)
+      this.correctPosition()
     },
 
     onTouchMove (event) {
-      if (!this.touchable) return
+      if (!this.touchable || !this.swiping) return
 
-      event.preventDefault()
-      event.stopPropagation()
+      this.toucheMove(event)
+      if (this.isCorrectDirection) {
+        event.preventDefault()
+        event.stopPropagation()
+        this.moveTo({
+          offset: this.delta
+        })
+      }
     },
 
     onTouchEnd (event) {
-      if (!this.touchable) return
+      if (!this.touchable || !this.swiping) return
 
+      if (this.delta && this.isCorrectDirection) {
+        const offset = this.vertical ? this.offsetY : this.offsetX
+        this.moveTo({
+          pace: offset > 0 ? (this.delta > 0 ? -1 : 1) : 0,
+          emitChanage: true
+        })
+      }
+
+      this.swiping = false
       this.autoPlay()
     },
 
     clear () {
-      RAF.cancelRaf(this.timer)
+      clearTimeout(this.timer)
     },
 
     resize () {
@@ -238,7 +316,9 @@ export default createComponent({
       >
         <div
           class={
-            bem('wrap')
+            bem('wrap', {
+              vertical: this.vertical
+            })
           }
           style={this.wrapStyles}
           onTouchstart={this.onTouchStart}

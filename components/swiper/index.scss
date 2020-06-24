@@ -10,6 +10,10 @@ $prefixCls: ml-swiper;
   &__wrap {
     height: 100%;
     display: flex;
+
+    &--vertical {
+      flex-direction: column;
+    }
   }
   &__point-wrap {
     position: absolute;
@@ -17,6 +21,24 @@ $prefixCls: ml-swiper;
     bottom: 10px;
     transform: translateX(-50%);
     display: flex;
+
+    &--vertical {
+      flex-direction: column;
+      justify-content: center;
+      left: 12px;
+      bottom: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      
+      & > .#{$prefixCls}__point-item {
+        margin-left: 0;
+        margin-bottom: 6px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
   &__point-item {
     width: 6px;
@@ -24,11 +46,13 @@ $prefixCls: ml-swiper;
     border-radius: 50%;
     border: 1px solid #fff;
     background-color: transparent;
+    margin-left: 6px;
+
+    &:first-child {
+      margin-left: 0;
+    }
     &--point-active {
       background-color: #fff;
-    }
-    & ~ .#{$prefixCls}__point-item {
-      margin-left: 6px;
     }
   }
 }

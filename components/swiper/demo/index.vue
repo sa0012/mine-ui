@@ -47,6 +47,30 @@
           alt="4" class="img">
       </ml-swiper-item>
     </ml-swiper>
+
+    <demo-title left>纵向轮播</demo-title>
+    <ml-swiper vertical>
+      <ml-swiper-item>
+        <img
+          src="https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&h=350"
+          alt="1" class="img">
+      </ml-swiper-item>
+      <ml-swiper-item>
+        <img
+          src="https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?auto=compress&cs=tinysrgb&h=350"
+          alt="2" class="img">
+      </ml-swiper-item>
+      <ml-swiper-item>
+        <img
+          src="https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?auto=compress&cs=tinysrgb&h=350"
+          alt="3" class="img">
+      </ml-swiper-item>
+      <ml-swiper-item>
+        <img
+          src="https://images.pexels.com/photos/774731/pexels-photo-774731.jpeg?auto=compress&cs=tinysrgb&h=350"
+          alt="4" class="img">
+      </ml-swiper-item>
+    </ml-swiper>
   </div>
 </template>
 
