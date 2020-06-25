@@ -44,6 +44,14 @@ export default createComponent({
     loop: {
       type: Boolean,
       default: true
+    },
+    // 滑动切换阈值
+    threshold: {
+      type: [String, Number],
+      default: 2 / 5,
+      validator (value) {
+        return value > 0 && value < 1
+      }
     }
   },
 
@@ -90,6 +98,10 @@ export default createComponent({
     // 根据方向设置宽高计算值
     size () {
       return this[this.vertical ? 'computedHeight' : 'computedWidth']
+    },
+    // 可滑动距离阈值
+    touchThreshold () {
+      return this.threshold * this.size
     },
     // 获取当前方向
     isCorrectDirection () {
@@ -236,7 +248,7 @@ export default createComponent({
     onTouchMove (event) {
       if (!this.touchable || !this.swiping) return
 
-      this.toucheMove(event)
+      this.touchMove(event)
       if (this.isCorrectDirection) {
         event.preventDefault()
         event.stopPropagation()
@@ -248,11 +260,10 @@ export default createComponent({
 
     onTouchEnd (event) {
       if (!this.touchable || !this.swiping) return
-
       if (this.delta && this.isCorrectDirection) {
         const offset = this.vertical ? this.offsetY : this.offsetX
         this.moveTo({
-          pace: offset > 0 ? (this.delta > 0 ? -1 : 1) : 0,
+          pace: offset > this.touchThreshold ? (this.delta > 0 ? -1 : 1) : 0,
           emitChanage: true
         })
       }
