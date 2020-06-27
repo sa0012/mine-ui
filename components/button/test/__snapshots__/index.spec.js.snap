@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`size 1`] = `
+<button class="ml-button ml-button--default ml-button--large ml-button">
+  <div class="ml-button__content"><span class="ml-button__text"></span></div>
+</button>
+`;

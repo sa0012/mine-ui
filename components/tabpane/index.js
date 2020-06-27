@@ -4,16 +4,17 @@ const [createComponent, bem] = createNamespace('tabpane')
 
 export default createComponent({
   props: {
-    name: [String, Number],
-    label: [String, Number]
+    name: String,
+    title: String
   },
 
-  mounted () {},
+  mounted () {
+    console.log('father')
+    this.$parent.getChildren()
+  },
 
   render () {
     const {
-      name,
-      label,
       $slots
     } = this
 

@@ -1,4 +1,4 @@
-import { createNamespace, isDef } from '../../src/utils'
+import { createNamespace, isDef, isFunc } from '../../src/utils'
 import { CreateElement, RenderContext } from 'vue/types'
 // inherit 默认属性附加
 import { emit, inherit } from '../../src/utils/functional'
@@ -71,7 +71,7 @@ function Button (
           slots.icon ? (
             slots.icon()
           ) : (
-            slots.default()
+            isFunc(slots.default) ? slots.default() : slots.default
           )
         }
         <span class={bem('text')}>{props.text}</span>

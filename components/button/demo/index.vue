@@ -36,7 +36,7 @@
 <script>
 export default {
   name: 'demo-button',
-  data() {
+  data () {
     return {
     }
   },
