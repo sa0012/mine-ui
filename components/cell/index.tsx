@@ -95,6 +95,7 @@ function Cell (
       class={bem([
         border ? border : ''
       ])}
+      onClick={onClick}
       {...inherit(ctx)}
     >
       <section class={bem('head')}>

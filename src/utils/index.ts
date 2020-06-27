@@ -19,6 +19,8 @@ export function isObj (x: any): boolean {
   return x !== null && (type === 'object' || type === 'function');
 }
 
+export const isArray = array => Array.isArray(array)
+
 export function get (object: any, path: string): any {
   const keys = path.split('.');
   let result = object;

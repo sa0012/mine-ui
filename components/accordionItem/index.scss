@@ -1,0 +1,40 @@
+$prefixCls: ml-accordion-item;
+.#{$prefixCls} {
+  // @include mix-1px($bottom: 1px);
+  &__title {
+    &--disabled {
+      &,
+      & .#{prefixCls}__right-icon {
+        color: $gray-5;
+      }
+
+      &:active {
+        background-color: #fff;
+      }
+    }
+  }
+
+  &__right-icon {
+    transform: rotate(0deg);
+    transition: transform .3s;
+  }
+
+  &__right-icon--open {
+    transform: rotate(-180deg);
+    transition: transform .3s;
+  }
+
+  &__wrapper {
+    overflow: hidden;
+    @include mix-1px($top: 1px);
+    transition: height .3s ease-in-out;
+    will-change: height;
+  }
+
+  &__content {
+    padding: 16px;
+    color: $gray-6;
+    line-height: 1.5;
+    background-color: #fff;
+  }
+}
