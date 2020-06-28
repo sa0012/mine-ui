@@ -11,6 +11,8 @@ import Checkicon from './checkicon'
 import Dialog from './dialog'
 import Field from './field'
 import Icon from './icon'
+import IndexAnchor from './index-anchor'
+import IndexBar from './index-bar'
 import NoticeBar from './noticeBar'
 import Overlay from './overlay'
 import Popup from './popup'
@@ -39,6 +41,8 @@ const components = [
   Dialog,
   Field,
   Icon,
+  IndexAnchor,
+  IndexBar,
   NoticeBar,
   Overlay,
   Popup,
@@ -78,6 +82,8 @@ export {
   Dialog,
   Field,
   Icon,
+  IndexAnchor,
+  IndexBar,
   NoticeBar,
   Overlay,
   Popup,

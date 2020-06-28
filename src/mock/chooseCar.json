@@ -1,0 +1,748 @@
+{
+  "result": {
+    "A": [{
+        "brandCategoryCode": "audi",
+        "brandCategoryName": "奥迪",
+        "searchCode": "A"
+      },
+      {
+        "brandCategoryCode": "alfaromeo",
+        "brandCategoryName": "阿尔法·罗密欧",
+        "searchCode": "A"
+      },
+      {
+        "brandCategoryCode": "astonmartin",
+        "brandCategoryName": "阿斯顿·马丁",
+        "searchCode": "A"
+      },
+      {
+        "brandCategoryCode": "arcfox-289",
+        "brandCategoryName": "ARCFOX",
+        "searchCode": "A"
+      }
+    ],
+    "B": [{
+        "brandCategoryCode": "bj",
+        "brandCategoryName": "宝骏",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "bmw",
+        "brandCategoryName": "宝马",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "mercedesbenz",
+        "brandCategoryName": "奔驰",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "honda",
+        "brandCategoryName": "本田",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "peugeot",
+        "brandCategoryName": "标致",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "buick",
+        "brandCategoryName": "别克",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "bydauto",
+        "brandCategoryName": "比亚迪",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "porsche",
+        "brandCategoryName": "保时捷",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "borgward",
+        "brandCategoryName": "宝沃",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "besturn",
+        "brandCategoryName": "奔腾",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "bisuqiche-263",
+        "brandCategoryName": "比速",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "daoda-282",
+        "brandCategoryName": "北汽道达",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "beiqihuansu",
+        "brandCategoryName": "北汽幻速",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "shenbao",
+        "brandCategoryName": "北汽绅宝",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "ww",
+        "brandCategoryName": "北汽威旺",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "beijingjeep",
+        "brandCategoryName": "北汽制造",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "beiqixinnengyuan",
+        "brandCategoryName": "北汽新能源",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "bjqc",
+        "brandCategoryName": "北京",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "bentley",
+        "brandCategoryName": "宾利",
+        "searchCode": "B"
+      },
+      {
+        "brandCategoryCode": "barbus",
+        "brandCategoryName": "巴博斯",
+        "searchCode": "B"
+      }
+    ],
+    "C": [{
+        "brandCategoryCode": "cajc",
+        "brandCategoryName": "长安",
+        "searchCode": "C"
+      },
+      {
+        "brandCategoryCode": "casyc",
+        "brandCategoryName": "长安欧尚",
+        "searchCode": "C"
+      },
+      {
+        "brandCategoryCode": "changanqingxingche-281",
+        "brandCategoryName": "长安轻型车",
+        "searchCode": "C"
+      },
+      {
+        "brandCategoryCode": "changankuayue-283",
+        "brandCategoryName": "长安跨越",
+        "searchCode": "C"
+      },
+      {
+        "brandCategoryCode": "greatwall",
+        "brandCategoryName": "长城",
+        "searchCode": "C"
+      },
+      {
+        "brandCategoryCode": "changheauto",
+        "brandCategoryName": "昌河",
+        "searchCode": "C"
+      },
+      {
+        "brandCategoryCode": "chenggong",
+        "brandCategoryName": "成功",
+        "searchCode": "C"
+      }
+    ],
+    "D": [{
+        "brandCategoryCode": "volkswagen",
+        "brandCategoryName": "大众",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "dongfengfengdu",
+        "brandCategoryName": "东风风度",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "dongfengfengguang",
+        "brandCategoryName": "东风风光",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "fs",
+        "brandCategoryName": "东风风神",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "fengxingauto",
+        "brandCategoryName": "东风风行",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "dongfengxiaokang-205",
+        "brandCategoryName": "东风小康",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "dongfeng-27",
+        "brandCategoryName": "东风",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "southeastautomobile",
+        "brandCategoryName": "东南",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "dodge",
+        "brandCategoryName": "道奇",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "ds",
+        "brandCategoryName": "DS",
+        "searchCode": "D"
+      },
+      {
+        "brandCategoryCode": "dearcc",
+        "brandCategoryName": "电咖",
+        "searchCode": "D"
+      }
+    ],
+    "F": [{
+        "brandCategoryCode": "toyota",
+        "brandCategoryName": "丰田",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "ford",
+        "brandCategoryName": "福特",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "fiat",
+        "brandCategoryName": "菲亚特",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "ferrari",
+        "brandCategoryName": "法拉利",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "feichishangwuche",
+        "brandCategoryName": "飞驰商务车",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "foday",
+        "brandCategoryName": "福迪",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "fujianxinlongmaqichegufenyouxiangongsi",
+        "brandCategoryName": "福汽启腾",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "foton",
+        "brandCategoryName": "福田",
+        "searchCode": "F"
+      },
+      {
+        "brandCategoryCode": "faradayfuture",
+        "brandCategoryName": "Faraday Future",
+        "searchCode": "F"
+      }
+    ],
+    "G": [{
+        "brandCategoryCode": "gq",
+        "brandCategoryName": "广汽传祺",
+        "searchCode": "G"
+      },
+      {
+        "brandCategoryCode": "gonow",
+        "brandCategoryName": "广汽吉奥",
+        "searchCode": "G"
+      },
+      {
+        "brandCategoryCode": "qorosauto",
+        "brandCategoryName": "观致",
+        "searchCode": "G"
+      },
+      {
+        "brandCategoryCode": "sinogold",
+        "brandCategoryName": "国金",
+        "searchCode": "G"
+      },
+      {
+        "brandCategoryCode": "gmc-109",
+        "brandCategoryName": "GMC",
+        "searchCode": "G"
+      }
+    ],
+    "H": [{
+        "brandCategoryCode": "hafu-196",
+        "brandCategoryName": "哈弗",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "hama",
+        "brandCategoryName": "海马",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "hanteng",
+        "brandCategoryName": "汉腾",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "faw-hongqi",
+        "brandCategoryName": "红旗",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "huataiautomobile",
+        "brandCategoryName": "华泰",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "hafeiautomobile",
+        "brandCategoryName": "哈飞",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "higer",
+        "brandCategoryName": "海格",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "sgautomotive",
+        "brandCategoryName": "黄海",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "horki",
+        "brandCategoryName": "华骐",
+        "searchCode": "H"
+      },
+      {
+        "brandCategoryCode": "huasong",
+        "brandCategoryName": "华颂",
+        "searchCode": "H"
+      }
+    ],
+    "J": [{
+        "brandCategoryCode": "geely",
+        "brandCategoryName": "吉利",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "jac",
+        "brandCategoryName": "江淮",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "jauger",
+        "brandCategoryName": "捷豹",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "jeep",
+        "brandCategoryName": "Jeep",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "jmc",
+        "brandCategoryName": "江铃",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "jinbei",
+        "brandCategoryName": "金杯",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "kinglongmotor",
+        "brandCategoryName": "金龙",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "joylongautomobile",
+        "brandCategoryName": "九龙",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "gwev",
+        "brandCategoryName": "吉威新能源",
+        "searchCode": "J"
+      },
+      {
+        "brandCategoryCode": "traum",
+        "brandCategoryName": "君马",
+        "searchCode": "J"
+      }
+    ],
+    "K": [{
+        "brandCategoryCode": "cadillac",
+        "brandCategoryName": "凯迪拉克",
+        "searchCode": "K"
+      },
+      {
+        "brandCategoryCode": "kaiyi",
+        "brandCategoryName": "凯翼",
+        "searchCode": "K"
+      },
+      {
+        "brandCategoryCode": "chrysler",
+        "brandCategoryName": "克莱斯勒",
+        "searchCode": "K"
+      },
+      {
+        "brandCategoryCode": "karry",
+        "brandCategoryName": "开瑞",
+        "searchCode": "K"
+      },
+      {
+        "brandCategoryCode": "zhejiangkaersen",
+        "brandCategoryName": "卡升",
+        "searchCode": "K"
+      },
+      {
+        "brandCategoryCode": "kawei",
+        "brandCategoryName": "卡威",
+        "searchCode": "K"
+      },
+      {
+        "brandCategoryCode": "keruisi",
+        "brandCategoryName": "科瑞斯的",
+        "searchCode": "K"
+      }
+    ],
+    "L": [{
+        "brandCategoryCode": "lexus",
+        "brandCategoryName": "雷克萨斯",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "renult",
+        "brandCategoryName": "雷诺",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "lynkco",
+        "brandCategoryName": "领克",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "lincoln",
+        "brandCategoryName": "林肯",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "landwind",
+        "brandCategoryName": "陆风",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "landrover",
+        "brandCategoryName": "路虎",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "lifanmotors",
+        "brandCategoryName": "力帆",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "suzuki",
+        "brandCategoryName": "铃木",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "rolls-royce",
+        "brandCategoryName": "劳斯莱斯",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "lamborghini",
+        "brandCategoryName": "兰博基尼",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "cf",
+        "brandCategoryName": "猎豹",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "everus",
+        "brandCategoryName": "理念",
+        "searchCode": "L"
+      },
+      {
+        "brandCategoryCode": "lorinser",
+        "brandCategoryName": "罗伦士",
+        "searchCode": "L"
+      }
+    ],
+    "M": [{
+        "brandCategoryCode": "mazda",
+        "brandCategoryName": "马自达",
+        "searchCode": "M"
+      },
+      {
+        "brandCategoryCode": "mg-79",
+        "brandCategoryName": "名爵",
+        "searchCode": "M"
+      },
+      {
+        "brandCategoryCode": "mini",
+        "brandCategoryName": "MINI",
+        "searchCode": "M"
+      },
+      {
+        "brandCategoryCode": "mclaren",
+        "brandCategoryName": "迈凯伦",
+        "searchCode": "M"
+      },
+      {
+        "brandCategoryCode": "maserati",
+        "brandCategoryName": "玛莎拉蒂",
+        "searchCode": "M"
+      }
+    ],
+    "N": [{
+      "brandCategoryCode": "luxgen",
+      "brandCategoryName": "纳智捷",
+      "searchCode": "N"
+    }],
+    "O": [{
+      "brandCategoryCode": "acura",
+      "brandCategoryName": "讴歌",
+      "searchCode": "O"
+    }],
+    "P": [{
+      "brandCategoryCode": "polestar",
+      "brandCategoryName": "Polestar",
+      "searchCode": "P"
+    }],
+    "Q": [{
+        "brandCategoryCode": "chery",
+        "brandCategoryName": "奇瑞",
+        "searchCode": "Q"
+      },
+      {
+        "brandCategoryCode": "venucia",
+        "brandCategoryName": "启辰",
+        "searchCode": "Q"
+      },
+      {
+        "brandCategoryCode": "kia",
+        "brandCategoryName": "起亚",
+        "searchCode": "Q"
+      },
+      {
+        "brandCategoryCode": "chautotechnology",
+        "brandCategoryName": "前途",
+        "searchCode": "Q"
+      },
+      {
+        "brandCategoryCode": "singulato",
+        "brandCategoryName": "奇点汽车",
+        "searchCode": "Q"
+      },
+      {
+        "brandCategoryCode": "isuzu",
+        "brandCategoryName": "庆铃",
+        "searchCode": "Q"
+      }
+    ],
+    "R": [{
+        "brandCategoryCode": "nissan",
+        "brandCategoryName": "日产",
+        "searchCode": "R"
+      },
+      {
+        "brandCategoryCode": "roewe",
+        "brandCategoryName": "荣威",
+        "searchCode": "R"
+      }
+    ],
+    "S": [{
+        "brandCategoryCode": "skoda",
+        "brandCategoryName": "斯柯达",
+        "searchCode": "S"
+      },
+      {
+        "brandCategoryCode": "subaru",
+        "brandCategoryName": "斯巴鲁",
+        "searchCode": "S"
+      },
+      {
+        "brandCategoryCode": "smart",
+        "brandCategoryName": "smart",
+        "searchCode": "S"
+      },
+      {
+        "brandCategoryCode": "siwei",
+        "brandCategoryName": "SWM斯威",
+        "searchCode": "S"
+      },
+      {
+        "brandCategoryCode": "mitsubishi",
+        "brandCategoryName": "三菱",
+        "searchCode": "S"
+      },
+      {
+        "brandCategoryCode": "maxus",
+        "brandCategoryName": "上汽大通",
+        "searchCode": "S"
+      },
+      {
+        "brandCategoryCode": "sam",
+        "brandCategoryName": "山姆",
+        "searchCode": "S"
+      },
+      {
+        "brandCategoryCode": "ssangyong",
+        "brandCategoryName": "双龙",
+        "searchCode": "S"
+      }
+    ],
+    "T": [{
+        "brandCategoryCode": "tesla",
+        "brandCategoryName": "特斯拉",
+        "searchCode": "T"
+      },
+      {
+        "brandCategoryCode": "denza",
+        "brandCategoryName": "腾势",
+        "searchCode": "T"
+      }
+    ],
+    "W": [{
+        "brandCategoryCode": "sgmw",
+        "brandCategoryName": "五菱",
+        "searchCode": "W"
+      },
+      {
+        "brandCategoryCode": "volvo",
+        "brandCategoryName": "沃尔沃",
+        "searchCode": "W"
+      },
+      {
+        "brandCategoryCode": "wey",
+        "brandCategoryName": "WEY",
+        "searchCode": "W"
+      },
+      {
+        "brandCategoryCode": "weilaiqiche",
+        "brandCategoryName": "蔚来",
+        "searchCode": "W"
+      },
+      {
+        "brandCategoryCode": "isuzu-132",
+        "brandCategoryName": "五十铃",
+        "searchCode": "W"
+      },
+      {
+        "brandCategoryCode": "enranger",
+        "brandCategoryName": "潍柴英致",
+        "searchCode": "W"
+      }
+    ],
+    "X": [{
+        "brandCategoryCode": "chevrolet",
+        "brandCategoryName": "雪佛兰",
+        "searchCode": "X"
+      },
+      {
+        "brandCategoryCode": "citroen",
+        "brandCategoryName": "雪铁龙",
+        "searchCode": "X"
+      },
+      {
+        "brandCategoryCode": "hyundai",
+        "brandCategoryName": "现代",
+        "searchCode": "X"
+      },
+      {
+        "brandCategoryCode": "xingchi",
+        "brandCategoryName": "星驰",
+        "searchCode": "X"
+      }
+    ],
+    "Y": [{
+        "brandCategoryCode": "infiniti",
+        "brandCategoryName": "英菲尼迪",
+        "searchCode": "Y"
+      },
+      {
+        "brandCategoryCode": "yusheng-258",
+        "brandCategoryName": "驭胜",
+        "searchCode": "Y"
+      },
+      {
+        "brandCategoryCode": "ym",
+        "brandCategoryName": "野马",
+        "searchCode": "Y"
+      },
+      {
+        "brandCategoryCode": "faw",
+        "brandCategoryName": "一汽",
+        "searchCode": "Y"
+      },
+      {
+        "brandCategoryCode": "iveco",
+        "brandCategoryName": "依维柯",
+        "searchCode": "Y"
+      },
+      {
+        "brandCategoryCode": "yulu",
+        "brandCategoryName": "裕路",
+        "searchCode": "Y"
+      },
+      {
+        "brandCategoryCode": "yudo",
+        "brandCategoryName": "云度",
+        "searchCode": "Y"
+      }
+    ],
+    "Z": [{
+        "brandCategoryCode": "zotyeauto",
+        "brandCategoryName": "众泰",
+        "searchCode": "Z"
+      },
+      {
+        "brandCategoryCode": "brillianceauto",
+        "brandCategoryName": "中华",
+        "searchCode": "Z"
+      },
+      {
+        "brandCategoryCode": "zhidou",
+        "brandCategoryName": "知豆",
+        "searchCode": "Z"
+      },
+      {
+        "brandCategoryCode": "zhinuo",
+        "brandCategoryName": "之诺",
+        "searchCode": "Z"
+      },
+      {
+        "brandCategoryCode": "zxauto",
+        "brandCategoryName": "中兴",
+        "searchCode": "Z"
+      },
+      {
+        "brandCategoryCode": "zoemo",
+        "brandCategoryName": "中欧房车",
+        "searchCode": "Z"
+      }
+    ]
+  }
+}

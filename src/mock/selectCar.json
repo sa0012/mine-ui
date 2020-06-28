@@ -1,0 +1,167 @@
+{
+  "result": [{
+      "brandId": "402880861203d16701122d764d7a0085",
+      "brandPy": null,
+      "brandName": "一汽奥迪",
+      "brandCategoryCode": "audi",
+      "jyVehicleFamilyMOs": [{
+          "familyId": "I0000000000000000210000000000018",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQAD100",
+          "familyName": "一汽奥迪100"
+        },
+        {
+          "familyId": "402880ef0cd29b61010cd7e78e6e004e",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQAD200",
+          "familyName": "一汽奥迪200"
+        },
+        {
+          "familyId": "4028b28844b618a00144f1b07be746d5",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQADA3",
+          "familyName": "一汽奥迪A3"
+        },
+        {
+          "familyId": "402880ef0ca9c2b6010cc86045c300f1",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQADA4",
+          "familyName": "一汽奥迪A4"
+        },
+        {
+          "familyId": "402880ef0ca9c2b6010cc91c4fc30119",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQADA6",
+          "familyName": "一汽奥迪A6"
+        },
+        {
+          "familyId": "4028b2883dc34916013dcf1597b81a09",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQADQ3",
+          "familyName": "一汽奥迪Q3"
+        },
+        {
+          "familyId": "4028808827035799012708102348035e",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQADQ5",
+          "familyName": "一汽奥迪Q5"
+        },
+        {
+          "familyId": "402880990fc25df8010fc7f0c1bd018b",
+          "brandId": "402880861203d16701122d764d7a0085",
+          "familyPy": "YQADQTCL",
+          "familyName": "一汽奥迪其他车辆"
+        }
+      ]
+    },
+    {
+      "brandId": "402880ef0cd29b61010cd7e6dade004d",
+      "brandPy": null,
+      "brandName": "奥迪",
+      "brandCategoryCode": "audi",
+      "jyVehicleFamilyMOs": [{
+          "familyId": "402880ef0d4a5670010d4d40355a1dc0",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "AD100",
+          "familyName": "奥迪100"
+        },
+        {
+          "familyId": "402880882ab3573a012ad544015f2b4f",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "AD80",
+          "familyName": "奥迪80"
+        },
+        {
+          "familyId": "4028808828c7f6b70128c8db985b0231",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA1",
+          "familyName": "奥迪A1"
+        },
+        {
+          "familyId": "I0000000000000000210000000000008",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA2",
+          "familyName": "奥迪A2"
+        },
+        {
+          "familyId": "I0000000000000000210000000000000",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA3",
+          "familyName": "奥迪A3"
+        },
+        {
+          "familyId": "I0000000000000000210000000000003",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA4",
+          "familyName": "奥迪A4"
+        },
+        {
+          "familyId": "402880881a906cac011ac431728604c4",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA5",
+          "familyName": "奥迪A5"
+        },
+        {
+          "familyId": "I0000000000000000210000000000004",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA6",
+          "familyName": "奥迪A6"
+        },
+        {
+          "familyId": "40288088312d40190131468d89aa0edb",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA7",
+          "familyName": "奥迪A7"
+        },
+        {
+          "familyId": "I0000000000000000210000000000005",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADA8",
+          "familyName": "奥迪A8"
+        },
+        {
+          "familyId": "I0000000000000000210000000000001",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADALLROAD",
+          "familyName": "奥迪ALLROAD"
+        },
+        {
+          "familyId": "4028808831adfffa0131cb72a7bb1289",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADQ3",
+          "familyName": "奥迪Q3"
+        },
+        {
+          "familyId": "402880881973f8f301197420f3fb0005",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADQ5",
+          "familyName": "奥迪Q5"
+        },
+        {
+          "familyId": "I0000000000000000210000000000007",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADQ7",
+          "familyName": "奥迪Q7"
+        },
+        {
+          "familyId": "40288099105249ea0110529361d60003",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADQTCL",
+          "familyName": "奥迪其他车辆"
+        },
+        {
+          "familyId": "40288088179ac93701179fff264601f9",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADR8",
+          "familyName": "奥迪R8"
+        },
+        {
+          "familyId": "I0000000000000000210000000000002",
+          "brandId": "402880ef0cd29b61010cd7e6dade004d",
+          "familyPy": "ADTT",
+          "familyName": "奥迪TT"
+        }
+      ]
+    }
+  ]
+}
