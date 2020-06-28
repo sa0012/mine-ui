@@ -17,6 +17,8 @@ $prefixCls: ml-accordion-item;
   &__right-icon {
     transform: rotate(0deg);
     transition: transform .3s;
+    margin-top: 2px;
+    margin-left: 20px;
   }
 
   &__right-icon--open {

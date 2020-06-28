@@ -21,7 +21,7 @@
       <ml-accordion-item title="选项二" :name="2">
         <div>我是内容</div><div>我是内容</div><div>我是内容</div><div>我是内容</div>
       </ml-accordion-item>
-      <ml-accordion-item title="选项三" :name="3">
+      <ml-accordion-item title="选项三" label="描述" disabled :name="3">
         <div>我是内容</div><div>我是内容</div><div>我是内容</div><div>我是内容</div>
       </ml-accordion-item>
     </ml-accordion>

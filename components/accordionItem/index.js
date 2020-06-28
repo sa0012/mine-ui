@@ -1,5 +1,5 @@
-import { createNamespace, isFunc, isDef, isArray } from '../../src/utils'
-import { raf, doubleRaf } from '../../src/utils/raf'
+import { createNamespace, isFunc, isArray } from '../../src/utils'
+import { doubleRaf } from '../../src/utils/raf'
 import Cell from '../cell'
 import Icon from '../icon'
 
@@ -19,21 +19,22 @@ export default createComponent({
 
   data () {
     return {
-      show: null,
-      inited: null
+      show: false
     }
   },
 
   computed: {
+    // 判断当前子面板是否需要展开
     expanded () {
       if (!this.$parent) return
 
       const { value, accordion } = this.$parent
 
-      // console.log(value, accordion, 'accordion---')
-      if (!accordion && !isArray(value)) return
+      // 非手风琴模式下， value传递的应该是一个Array
+      if (!accordion && !isArray(value)) {
+        return console.error('If not in accordion mode, please pass an Array type data')
+      }
 
-      console.log(value, accordion, 'value')
       return accordion
         ? value === this.name
         : value.some(name => name === this.name)
@@ -42,7 +43,6 @@ export default createComponent({
 
   created () {
     this.show = this.expanded
-    this.inited = this.expanded
   },
 
   watch: {
@@ -50,16 +50,16 @@ export default createComponent({
       if (oldVal === null) return
 
       if (newVal) {
-        this.show = this.inited = newVal
+        this.show = newVal
       }
 
+      // 更新DOM高度
       this.$nextTick(() => {
         const { content, wrapper } = this.$refs
         if (!content || !wrapper) return
 
         const { offsetHeight } = content
         if (offsetHeight) {
-          console.log(offsetHeight, 'offsetHeight')
           const contentHeight = `${offsetHeight}px`
           wrapper.style.height = newVal ? 0 : contentHeight
 
@@ -75,18 +75,15 @@ export default createComponent({
 
   methods: {
     onClick () {
-      console.log(this.name, this.expanded, this.$parent.value, 'name122')
       if (this.disabled) return
       const { $parent } = this
       const name = $parent.accordion && this.name === $parent.value
         ? ''
         : this.name
       $parent.switchCollapseItem(name, !this.expanded)
-      console.log($parent.value, this.expanded, 'name')
     },
 
     onTransitionEnd () {
-      console.log(this.name, 'this.name')
       if (!this.expanded) {
         this.show = false
       } else {
@@ -111,6 +108,11 @@ export default createComponent({
         leftIcon={this.leftIcon}
         scopedSlots={scopedSlots}
         onClick={this.onClick}
+        class={
+          bem('title', {
+            disabled: this.disabled
+          })
+        }
       >
         <Icon
           slot="right-icon"
@@ -124,7 +126,7 @@ export default createComponent({
       </Cell>
     )
 
-    const Content = this.inited && (
+    const Content = (
       <div
         ref="wrapper"
         class={

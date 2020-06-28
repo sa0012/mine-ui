@@ -1,4 +1,4 @@
-import { createNamespace, isFunc, isArray } from '../../src/utils'
+import { createNamespace, isFunc } from '../../src/utils'
 
 const [createComponent, bem] = createNamespace('accordion')
 
@@ -12,28 +12,20 @@ export default createComponent({
     }
   },
 
-  data () {
-    return {}
-  },
-
   methods: {
-    getChildren () {
-      return this.$children.filter(item => item.$options.name === 'ml-accordion-item')
-    },
-    update (val, status) {
-      if (isArray(this.value)) {
-        if (!this.value.includes(val)) {}
-      } else {
-        return status ? val : undefined
-      }
-    },
+    /**
+     * 子面板的开启和关闭
+     * @param {String | Number | Array} name // 当前子面板的name
+     * @param {*} status // 用来标识当前子面板是open or close
+     */
     switchCollapseItem (name, status) {
+      // 手风琴模式，应该约定value为String类型，
+      // 非手风琴模式，value的类型可宽泛为String，Number, Array
       if (!this.accordion) {
         name = status
           ? this.value.concat(name)
           : this.value.filter(active => active !== name)
       }
-      console.log(name, 'name---')
       this.$emit('change', name)
       this.$emit('input', name)
     }
