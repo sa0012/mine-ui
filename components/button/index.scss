@@ -103,6 +103,3 @@ $prefixCls: ml-button;
     }
   }
 }
-.#{$prefixCls} ~ .#{$prefixCls} {
-  margin-top: 10px;
-}

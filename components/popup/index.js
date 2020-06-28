@@ -28,6 +28,10 @@ export default createComponent({
     zIndex: {
       type: [String, Number],
       default: 333
+    },
+    borderRadius: {
+      type: Object,
+      default: {}
     }
   },
 
@@ -89,6 +93,7 @@ export default createComponent({
             class={
               bem('content', [position])
             }
+            style={this.borderRadius}
           >
             {this.$slots && this.$slots.default}
           </div>
