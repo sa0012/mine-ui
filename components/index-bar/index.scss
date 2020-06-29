@@ -47,14 +47,14 @@ $prefixCls: ml-index-bar;
     position: absolute;
     top: 50%;
     left: -31px;
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
     // background: #fefefe;
     background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
     transform: translateY(-50%);
     border-radius: 50%;
     text-align: center;
-    line-height: 28px;
+    line-height: 36px;
     color: #fff;
     z-index: 33;
   }
@@ -63,10 +63,8 @@ $prefixCls: ml-index-bar;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: -10px;
-    // border-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
-    border-top: 12px solid transparent;
-    border-left: 24px solid #0396FF;
-    border-bottom: 12px solid transparent;
+    left: -0;
+    border: 12px solid;
+    border-color: transparent transparent transparent #4bb4ff;
   }
 }

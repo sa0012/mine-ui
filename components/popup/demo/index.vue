@@ -48,12 +48,6 @@ export default {
     }
   },
 
-  watch: {
-    isShowHide (newVal, oldVal) {
-      console.log(newVal, oldVal, 'isShowHide')
-    }
-  },
-
   methods: {
     onShowTop () {
       this.isShowTop = !this.isShowTop

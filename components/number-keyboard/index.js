@@ -30,6 +30,7 @@ export default createComponent({
       type: Boolean,
       default: true
     },
+    rightBar: Boolean,
     titleLeftText: String,
     titleRightText: String,
     title: String
@@ -37,7 +38,9 @@ export default createComponent({
 
   data () {
     return {
-      visible: this.value
+      visible: this.value,
+      active: false,
+      keyCode: ''
     }
   },
 
@@ -58,7 +61,7 @@ export default createComponent({
       }
 
       switch (this.type) {
-        case 'default':
+        case 'number':
           keys.push(
             {
               text: 'keyboard-down',
@@ -66,24 +69,16 @@ export default createComponent({
             },
             {
               text: 0
-            },
-            {
-              text: 'keyboard-remove',
-              type: 'icon'
             }
           )
           break
-        case 'number':
+        case 'amount':
           keys.push(
             {
               text: '.'
             },
             {
               text: 0
-            },
-            {
-              text: 'keyboard-remove',
-              type: 'icon'
             }
           )
           break
@@ -94,16 +89,30 @@ export default createComponent({
             },
             {
               text: 0
-            },
-            {
-              text: 'keyboard-remove',
-              type: 'icon'
             }
           )
           break
       }
 
+      if (!this.rightBar) {
+        keys.push({
+          text: 'keyboard-remove',
+          type: 'icon'
+        })
+      }
+
       return keys
+    }
+  },
+
+  methods: {
+    onTouchstart (event, item) {
+      this.active = true
+      this.keyCode = item.text
+    },
+
+    onTouchEnd () {
+      this.active = false
     }
   },
 
@@ -123,7 +132,7 @@ export default createComponent({
     }
 
     const RightBar = () => {
-      return (
+      return this.rightBar && (
         <div class={bem('right-bar')}>
           <div class={bem('wrapper')}>
             <button
@@ -172,12 +181,19 @@ export default createComponent({
             {
               this.keys.map(item => {
                 return (
-                  <div class={bem('wrapper')}>
+                  <div class={bem('wrapper', {
+                    wider: this.rightBar && String(item.text) === '0'
+                  })}>
                     <button
                       type="button"
                       class={
-                        bem('key')
+                        bem('key', {
+                          tap: this.keyCode === item.text && this.active
+                        })
                       }
+                      onTouchstart={() => this.onTouchstart(event, item)}
+                      onTouchend={this.onTouchEnd}
+                      onTouchcancel={this.onTouchEnd}
                     >
                       {
                         item.type === 'icon' ? (

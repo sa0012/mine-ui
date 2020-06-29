@@ -26,6 +26,9 @@
     <ml-number-keyboard
       v-model="isShow2"
       type="amount"
+      right-bar
+      title="键盘输入"
+      title-right-text="完成"
       @delete="onDelete"
       @confirm="onConfirm"
       @key-click="onKeyClick"
