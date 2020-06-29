@@ -14,6 +14,7 @@ import Icon from './icon'
 import IndexAnchor from './index-anchor'
 import IndexBar from './index-bar'
 import NoticeBar from './noticeBar'
+import NumberKeyboard from './number-keyboard'
 import Overlay from './overlay'
 import Popup from './popup'
 import Radio from './radio'
@@ -44,6 +45,7 @@ const components = [
   IndexAnchor,
   IndexBar,
   NoticeBar,
+  NumberKeyboard,
   Overlay,
   Popup,
   Radio,
@@ -85,6 +87,7 @@ export {
   IndexAnchor,
   IndexBar,
   NoticeBar,
+  NumberKeyboard,
   Overlay,
   Popup,
   Radio,

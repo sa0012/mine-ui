@@ -22,7 +22,6 @@ export default createComponent({
 
   computed: {
     sticky () {
-      console.log(this.active, this.$parent.sticky, 'parent')
       return this.active && this.$parent.sticky
     },
 
@@ -34,12 +33,6 @@ export default createComponent({
           transform: `translate3d(0, ${this.top}px, 0)`
         }
       }
-    }
-  },
-
-  watch: {
-    active (newVal) {
-      console.log(newVal, 'active')
     }
   },
 
