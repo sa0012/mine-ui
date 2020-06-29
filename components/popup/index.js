@@ -43,31 +43,36 @@ export default createComponent({
 
   watch: {
     value (val) {
-      this.showMask = val && !this.hideMask
+      this.showMask = val
     }
   },
 
   mounted () {
     if (this.hideMask) {
-      window.addEventListener('click', this.onCancel, true)
+      this.$nextTick(() => {
+        document.addEventListener('touchstart', this.onCancel)
+      })
     }
   },
 
   beforeDestroy () {
     if (this.hideMask) {
-      window.removeEventListener('click', this.onCancel)
+      window.removeEventListener('touchstart', this.onCancel)
     }
   },
 
   methods: {
-    onCancel () {
+    onCancel (event) {
+      if (!this.$refs.wrapper) return
+      const isContains = this.$refs.wrapper.contains(event.target)
+      if (isContains) return
       this.$emit('input', false)
     },
 
-    closeOverlay () {
+    closeOverlay (event) {
       if (!this.closeOnClickOverlay) return
       this.showMask = false
-      this.onCancel()
+      this.$emit('input', false)
     }
   },
 
@@ -93,6 +98,7 @@ export default createComponent({
             class={
               bem('content', [position])
             }
+            ref="wrapper"
             style={this.borderRadius}
           >
             {this.$slots && this.$slots.default}
