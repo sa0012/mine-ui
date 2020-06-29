@@ -29,7 +29,7 @@ export default createComponent({
 
   data () {
     return {
-      currentIndex: '',
+      currentIndex: '0',
       anchorHeightList: [],
       showIndexCard: false,
       touchBar: false,
@@ -38,22 +38,18 @@ export default createComponent({
   },
 
   methods: {
-    touchStart (event, type) {
-      if (type === 'father') {
-        this.showIndexCard = true
-        return
-      }
-      this.touchBar = true
+    touchStart (event) {
+      this.showIndexCard = true
       // console.log(event.touches[0], 'touch')
     },
-    onTouchMove (event, type) {
-      if (type === 'father') return
+    onTouchMove (event) {
       const { clientX, clientY } = event.touches[0]
       const target = document.elementFromPoint(clientX, clientY)
       if (target) {
         const { index } = target.dataset
 
         if (this.touchActiveIndex !== index) {
+          this.currentIndex = index
           this.touchActiveIndex = index
           this.scrollToElement(target)
         }
@@ -61,15 +57,9 @@ export default createComponent({
       event.stopPropagation()
       event.preventDefault()
     },
-    onTouchEnd (event, type) {
-      if (type === 'father') {
-        setTimeout(() => {
-          this.showIndexCard = false
-        }, 500)
-        return
-      }
-      this.touchBar = false
-      this.active = false
+    onTouchEnd (event) {
+      this.showIndexCard = false
+      // console.log(event, 'event')
     },
     handleScroll (scrollTop) {
       const { anchorHeightList } = this
@@ -158,7 +148,19 @@ export default createComponent({
                     active: index === this.currentIndex
                   })}
                   data-index={item}
-                >{item}</li>
+                >
+                  {item}
+                  <span
+                    vShow={this.showIndexCard && this.currentIndex === index}
+                    class={
+                      bem('bubble')
+                    }>
+                    {indexList[this.currentIndex]}
+                  </span>
+                  <span
+                    vShow={this.showIndexCard && this.currentIndex === index}
+                    class={bem('badge')}></span>
+                </li>
               )
             })
           }
@@ -166,29 +168,12 @@ export default createComponent({
       )
     }
 
-    const indexCard = () => {
-      const {
-        currentIndex,
-        indexList
-      } = this
-      return (
-        <div
-          class={bem('index-card')}
-          vShow={this.showIndexCard}
-        >{indexList[currentIndex]}</div>
-      )
-    }
     return (
       <div
         class={
           bem()
         }
-        onTouchstart={(event) => this.touchStart(event, 'father')}
-        onTouchmove={(event) => this.onTouchMove(event, 'father')}
-        onTouchend={(event) => this.onTouchEnd(event, 'father')}
-        onTouchcancel={(event) => this.onTouchEnd(event, 'father')}
       >
-        {indexCard()}
         {indexBarContent()}
         {isFunc(this.$slots.default) ? this.$slots.default() : this.$slots.default}
       </div>
