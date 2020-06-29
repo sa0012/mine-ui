@@ -60,8 +60,6 @@ export default createComponent({
       }
       event.stopPropagation()
       event.preventDefault()
-      // 计算每个区间的距离
-      // console.log(event.touches[0].pageY, 'toucher')
     },
     onTouchEnd (event, type) {
       if (type === 'father') {
@@ -72,18 +70,18 @@ export default createComponent({
       }
       this.touchBar = false
       this.active = false
-      // console.log(event, 'event')
     },
     handleScroll (scrollTop) {
       const { anchorHeightList } = this
       const len = anchorHeightList.length
-      let findIndexArr
+      let target
       for (var i = 0; i < len; i++) {
         if (anchorHeightList[i] <= scrollTop && anchorHeightList[i + 1] > scrollTop) {
-          findIndexArr = i
+          target = i
         }
       }
-      this.currentIndex = findIndexArr
+      this.children[target].changeIndex(true)
+      this.currentIndex = target
     },
 
     onClick (event) {
@@ -127,7 +125,6 @@ export default createComponent({
   },
 
   mounted () {
-    // console.log(this.getChildren(), 'children')
     this.anchorHeightList = this.getIndexAnchorPos()
     window.addEventListener('scroll', this.getScrollTop)
   },

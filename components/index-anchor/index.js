@@ -22,7 +22,6 @@ export default createComponent({
 
   computed: {
     sticky () {
-      console.log(this.active, this.$parent.sticky, 'parent')
       return this.active && this.$parent.sticky
     },
 
@@ -37,15 +36,10 @@ export default createComponent({
     }
   },
 
-  watch: {
-    active (newVal) {
-      console.log(newVal, 'active')
-    }
-  },
-
   methods: {
     scrollIntoView () {
       this.$el.scrollIntoView()
+      this.changeIndex(true)
     },
 
     changeIndex (status) {
@@ -65,9 +59,7 @@ export default createComponent({
       >
         <div
           style={this.anchorStyle}
-          class={[bem({ sticky }), {
-            'sticky': sticky
-          }]}
+          class={[bem({ sticky })]}
         >
           {this.slots('default') || this.index}
         </div>
