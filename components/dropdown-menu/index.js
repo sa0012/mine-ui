@@ -64,7 +64,9 @@ export default createComponent({
           item.toggle()
         } else {
           item.toggle(false)
-          item.showWrapper = false
+          setTimeout(() => {
+            item.showWrapper = false
+          }, 600)
         }
       })
     }

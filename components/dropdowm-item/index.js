@@ -1,5 +1,4 @@
 import { createNamespace } from '../../src/utils'
-import { doubleRaf } from '../../src/utils/raf'
 import Popup from '../popup'
 import Cell from '../cell'
 
