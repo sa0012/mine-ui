@@ -1,0 +1,26 @@
+$prefixCls: ml-dropdown-item;
+
+.#{$prefixCls} {
+  &__wrapper {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    overflow: hidden;
+
+    &--down {
+      bottom: 0;
+    }
+
+    &--top {
+      top: 0;
+    }
+  }
+
+  &__content {
+    // position: fixed;
+    // right: 0;
+    // left: 0;
+    // overflow: hidden;
+  }
+}

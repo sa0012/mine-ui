@@ -1,0 +1,26 @@
+$prefixCls: ml-dropdown-menu;
+
+.#{$prefixCls} {
+  &__bar {
+    position: relative;
+    display: flex;
+    height: 48px;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    z-index: 333;
+  }
+
+  &__item {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  &__item-text {
+    margin-right: 6px;
+  }
+}

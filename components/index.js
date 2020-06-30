@@ -9,6 +9,8 @@ import Checkbox from './checkbox'
 import CheckboxGroup from './checkbox-group'
 import Checkicon from './checkicon'
 import Dialog from './dialog'
+import DropdowmItem from './dropdowm-item'
+import DropdownMenu from './dropdown-menu'
 import Field from './field'
 import Icon from './icon'
 import IndexAnchor from './index-anchor'
@@ -40,6 +42,8 @@ const components = [
   CheckboxGroup,
   Checkicon,
   Dialog,
+  DropdowmItem,
+  DropdownMenu,
   Field,
   Icon,
   IndexAnchor,
@@ -82,6 +86,8 @@ export {
   CheckboxGroup,
   Checkicon,
   Dialog,
+  DropdowmItem,
+  DropdownMenu,
   Field,
   Icon,
   IndexAnchor,

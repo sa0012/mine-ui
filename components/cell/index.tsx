@@ -77,17 +77,20 @@ function Cell (
     (
       <Icon
         class={bem('arrow')}
-        onClick={onIconClick}
+        data-key={isLink ? 'arrow-right' : rightIcon}
+        onClick={onClick}
         name={isLink ? 'arrow-right' : rightIcon} />
     ) : ''
 
   function onClick (event: Event) {
+    console.log('click')
+    const key = (event.target as any).dataset.key
+    if (key && key !== 'arrow-right') {
+      event.stopPropagation()
+      emit(ctx, 'iconClick', event)
+      return
+    }
     emit(ctx, 'click', event)
-  }
-
-  function onIconClick (event: Event) {
-    event.stopPropagation()
-    emit(ctx, 'iconClick', event)
   }
 
   return (

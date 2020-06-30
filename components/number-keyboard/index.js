@@ -30,6 +30,10 @@ export default createComponent({
       type: Boolean,
       default: true
     },
+    maxlength: {
+      type: [Number, String],
+      default: Number.MAX_VALUE
+    },
     rightBar: Boolean,
     titleLeftText: String,
     titleRightText: String,
@@ -40,7 +44,8 @@ export default createComponent({
     return {
       visible: this.value,
       active: false,
-      keyCode: ''
+      keyCode: '',
+      setValue: ''
     }
   },
 
@@ -106,13 +111,45 @@ export default createComponent({
   },
 
   methods: {
-    onTouchstart (event, item) {
+    onTouchstart (event) {
       this.active = true
-      this.keyCode = item.text
+      const keys = event.target.dataset.key
+      const type = event.target.dataset.type
+      this.keyCode = keys
+      if (!type) {
+        this.setValue += keys
+        this.$emit('setValue', {
+          key: keys,
+          value: this.setValue
+        })
+      }
+
+      if (keys === 'complete') {
+        this.completeHandler()
+      }
+      if (keys === 'keyboard-remove') {
+        if (!this.setValue) return
+        const len = this.setValue.length
+        const key = this.setValue[len - 1]
+        this.setValue = this.setValue.slice(0, len - 1)
+        this.$emit('delete', {
+          key,
+          value: this.setValue
+        })
+      }
+      if (keys === 'keyboard-down') {
+        this.$emit('input', false)
+      }
+      event.preventDefault()
     },
 
     onTouchEnd () {
       this.active = false
+    },
+
+    completeHandler () {
+      this.$emit('confirm', this.setValue)
+      this.$emit('input', false)
     }
   },
 
@@ -126,7 +163,10 @@ export default createComponent({
         >
           <span class={bem('header-left')}>{this.titleLeftText}</span>
           <span class={bem('header-title')}>{this.title}</span>
-          <span class={bem('header-right')}>{this.titleRightText}</span>
+          <span
+            class={bem('header-right')}
+            onClick={this.completeHandler}
+          >{this.titleRightText}</span>
         </div>
       )
     }
@@ -139,13 +179,22 @@ export default createComponent({
               type="button"
               class={
                 bem('key', {
-                  large: true
+                  large: true,
+                  active: this.keyCode === 'keyboard-remove' && this.active
                 })
               }
+              data-key="keyboard-remove"
+              data-type="icon"
+              onTouchstart={this.onTouchstart}
+              onTouchend={this.onTouchEnd}
+              onTouchcancel={this.onTouchEnd}
             >
               <Icon
+                data-key="keyboard-remove"
+                data-type="icon"
                 name="keyboard-remove"
                 size="36"
+                on={this.$listeners}
               />
             </button>
           </div>
@@ -155,9 +204,15 @@ export default createComponent({
               class={
                 bem('key', {
                   large: true,
-                  confirm: true
+                  confirm: true,
+                  active: this.keyCode === 'complete' && this.active
                 })
               }
+              data-key="complete"
+              data-type="icon"
+              onTouchstart={this.onTouchstart}
+              onTouchend={this.onTouchEnd}
+              onTouchcancel={this.onTouchEnd}
             >
               完成
             </button>
@@ -188,16 +243,20 @@ export default createComponent({
                       type="button"
                       class={
                         bem('key', {
-                          tap: this.keyCode === item.text && this.active
+                          active: this.keyCode === String(item.text) && this.active
                         })
                       }
-                      onTouchstart={() => this.onTouchstart(event, item)}
+                      data-key={item.text}
+                      data-type={item.type}
+                      onTouchstart={this.onTouchstart}
                       onTouchend={this.onTouchEnd}
                       onTouchcancel={this.onTouchEnd}
                     >
                       {
                         item.type === 'icon' ? (
                           <Icon
+                            data-key={item.text}
+                            data-type={item.type}
                             name={item.text}
                             size="36"
                           />

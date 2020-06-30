@@ -77,9 +77,8 @@ $prefixCls: ml-number-keyboard;
       height: 100%;
     }
 
-    &--tap {
-      background: #e4e4e4;
-      transition: all 0.3s ease;
+    &--active {
+      background-color: #e4e4e4;
     }
 
     &--confirm {
@@ -87,6 +86,10 @@ $prefixCls: ml-number-keyboard;
       color: #fff;
       font-size: 16px;
     }
+  }
+
+  .#{$prefixCls}__key--confirm.#{$prefixCls}__key--active {
+    background-color: #0570db;
   }
 
   &__right-bar {

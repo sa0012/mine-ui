@@ -37,14 +37,11 @@ function Button (
   ctx: RenderContext<ButtonProps>
 ) {
   const {
-    tag,
     icon,
     type,
     size,
-    text,
     htmlType,
-    disabled,
-    position
+    disabled
   } = props
 
   const classes = [

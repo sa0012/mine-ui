@@ -32,6 +32,18 @@ export default createComponent({
     borderRadius: {
       type: Object,
       default: {}
+    },
+    backgroundColor: {
+      type: String,
+      default: '#fff'
+    },
+    overlayStyle: {
+      type: Object,
+      default: () => {
+        return {
+          position: 'fixed'
+        }
+      }
     }
   },
 
@@ -99,7 +111,11 @@ export default createComponent({
               bem('content', [position])
             }
             ref="wrapper"
-            style={this.borderRadius}
+            style={{
+              ...this.borderRadius,
+              ...this.overlayStyle,
+              backgroundColor: this.backgroundColor
+            }}
           >
             {this.$slots && this.$slots.default}
           </div>
@@ -116,6 +132,7 @@ export default createComponent({
             <Overlay
               show={this.showMask}
               onClick={this.closeOverlay}
+              overlayStyle={this.overlayStyle}
             />
           )
         }

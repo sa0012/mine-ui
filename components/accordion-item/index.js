@@ -75,6 +75,7 @@ export default createComponent({
 
   methods: {
     onClick () {
+      console.log(1122222)
       if (this.disabled) return
       const { $parent } = this
       const name = $parent.accordion && this.name === $parent.value
@@ -107,7 +108,7 @@ export default createComponent({
         value={this.label}
         leftIcon={this.leftIcon}
         scopedSlots={scopedSlots}
-        onClick={this.onClick}
+        on-click={this.onClick}
         class={
           bem('title', {
             disabled: this.disabled

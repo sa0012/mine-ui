@@ -18,6 +18,8 @@
     />
     <ml-number-keyboard
       v-model="isShow1"
+      title="键盘输入"
+      title-right-text="完成"
       type="idcard"
       @delete="onDelete"
       @confirm="onConfirm"
@@ -29,6 +31,7 @@
       right-bar
       title="键盘输入"
       title-right-text="完成"
+      @setValue="onSetValue"
       @delete="onDelete"
       @confirm="onConfirm"
       @key-click="onKeyClick"
@@ -68,14 +71,17 @@ export default {
     show (type) {
       this[`isShow${type}`] = !this[`isShow${type}`]
     },
-    onDelete () {
-      console.log('on-delete')
+    onDelete ({key, value}) {
+      console.log('on-delete', key, value)
     },
-    onConfirm () {
-      console.log('on-confirm')
+    onConfirm (value) {
+      console.log('on-confirm', value)
     },
     onKeyClick (key) {
       console.log('key:', key)
+    },
+    onSetValue ({key, value}) {
+      console.log('key-value: ', key, value)
     }
   }
 }

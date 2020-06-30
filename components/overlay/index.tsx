@@ -13,6 +13,7 @@ export  type OverlayProps = {
   className?: any;
   customStyle?: object;
   transition?: string;
+  overlayStyle?: object;
 }
 
 export type OverlayEvent = {
@@ -31,7 +32,8 @@ function Overlay (
 ) {
   const style: { [key: string]: any } = {
     zIndex: props.zIndex,
-    ...props.customStyle
+    ...props.customStyle,
+    ...props.overlayStyle
   }
 
   if (isDef(props.duration)) {
@@ -72,6 +74,14 @@ Overlay.props = {
   transition: {
     type: String,
     default: 'ml-fade'
+  },
+  overlayStyle: {
+    type: Object,
+    default: () => {
+      return {
+        position: 'fixed'
+      }
+    }
   }
 }
 
