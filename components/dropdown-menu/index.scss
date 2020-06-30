@@ -18,6 +18,10 @@ $prefixCls: ml-dropdown-menu;
     min-width: 0;
     cursor: pointer;
     font-size: 14px;
+
+    &--active {
+      color: $theme-color;
+    }
   }
 
   &__item-text {

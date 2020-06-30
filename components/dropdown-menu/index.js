@@ -35,7 +35,8 @@ export default createComponent({
     return {
       children: [],
       offset: 0,
-      show: false
+      show: false,
+      active: null
     }
   },
 
@@ -59,9 +60,11 @@ export default createComponent({
       const children = this.getChildren()
       children.forEach((item, cIndex) => {
         if (index === cIndex) {
+          this.active = index
           item.toggle()
         } else {
           item.toggle(false)
+          item.showWrapper = false
         }
       })
     }
@@ -78,7 +81,9 @@ export default createComponent({
       return children.map((item, index) => {
         return (
           <div
-            class={bem('item')}
+            class={bem('item', {
+              active: this.active === index
+            })}
             onClick={
               () => this.toggleHandler(index)
             }

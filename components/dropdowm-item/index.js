@@ -1,4 +1,5 @@
 import { createNamespace } from '../../src/utils'
+import { doubleRaf } from '../../src/utils/raf'
 import Popup from '../popup'
 import Cell from '../cell'
 
@@ -37,6 +38,7 @@ export default createComponent({
     return {
       currentValue: '',
       visible: false,
+      showWrapper: false,
       option: {}
     }
   },
@@ -47,13 +49,19 @@ export default createComponent({
 
   methods: {
     toggle (show = !this.visible, options = {}) {
-      console.log(show, 'show')
       if (show === this.visible) return
+      console.log(show, 'show')
       this.visible = show
 
       if (show) {
         this.$parent.updateOffset()
+        this.showWrapper = true
       }
+    },
+
+    cancelItem () {
+      this.$emit('close')
+      this.showWrapper = false
     }
   },
 
@@ -62,11 +70,11 @@ export default createComponent({
       direction,
       offset
     } = this.$parent
-    console.log(this.styles, 'styles')
     return (
       <div class={bem()}>
         <div
           ref="wrapper"
+          vShow={this.showWrapper}
           class={
             bem('wrapper', {
               [direction]: direction
@@ -81,6 +89,7 @@ export default createComponent({
             background-color="transparent"
             overlayStyle={{ position: 'absolute' }}
             position={direction === 'down' ? 'top' : 'bottom'}
+            // on-close={this.cancelItem}
           >
             <section
               class={bem('content')}
