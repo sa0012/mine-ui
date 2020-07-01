@@ -9,7 +9,6 @@ export default createComponent({
   },
 
   mounted () {
-    console.log('father')
     this.$parent.getChildren()
   },
 

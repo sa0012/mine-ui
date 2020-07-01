@@ -78,6 +78,7 @@ export default createComponent({
     toggle (show = !this.visible, options = {}) {
       if (show === this.visible) {
         this.showWrapper = false
+        this.$parent.active = null
         return
       }
       this.visible = show
@@ -85,6 +86,8 @@ export default createComponent({
       if (show) {
         this.showWrapper = true
         this.$parent.updateOffset()
+      } else {
+        this.cancelOverlay()
       }
     },
 

@@ -48,7 +48,7 @@ export default createComponent({
     // 滑动切换阈值
     threshold: {
       type: [String, Number],
-      default: 2 / 5,
+      default: 1 / 5,
       validator (value) {
         return value > 0 && value < 1
       }
@@ -336,6 +336,7 @@ export default createComponent({
           onTouchmove={this.onTouchMove}
           onTouchend={this.onTouchEnd}
           onTouchcancel={this.onTouchEnd}
+          scopedSlots={$slots}
         >
           {$slots && $slots.default}
         </div>

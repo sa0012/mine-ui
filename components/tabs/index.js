@@ -40,6 +40,10 @@ export default createComponent({
     autocurrentIndex: {
       type: Boolean,
       default: true
+    },
+    swipeable: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -64,6 +68,12 @@ export default createComponent({
       this.currentIndex = index
       this.currentName = item.name || this.children[0].name
       this.setLine(index)
+      if (item.name) {
+        this.$emit('change', {
+          name: this.currentName,
+          index
+        })
+      }
     },
 
     setLine (index) {
@@ -97,6 +107,7 @@ export default createComponent({
 
   mounted () {
     // this.getChildren()
+    // console.log(this.children, 'children')
     this.$nextTick(() => {
       this.changeItem(0)
     })
@@ -107,6 +118,7 @@ export default createComponent({
   },
 
   render () {
+    const contentSlots = this.$slots ? this.$slots.default : []
     const Nav = this.children.map((item, index) => (
       <Title
         ref={'titleRef' + index}
@@ -127,6 +139,7 @@ export default createComponent({
         ></div>
       </div>
     )
+
     return (
       <div
         ref="wrapper"
@@ -139,7 +152,7 @@ export default createComponent({
         }>
           {HeaderWrap}
         </section>
-        { this.$slots && this.$slots.default }
+        {contentSlots}
       </div>
     )
   }

@@ -1,13 +1,21 @@
 <template>
   <div class="tabs">
     <demo-title>基础用法</demo-title>
-    <ml-tabs active="name1" line-scale="0.6" font-size="14" title-height="40">
+    <ml-tabs
+      active="name1"
+      line-scale="0.6"
+      font-size="14"
+      title-height="40"
+      @change="handleChange"
+    >
       <ml-tabpane title="第一年" name="name1">
-        标签一的内容
+        <div class="swiper">标签一的内容</div>
       </ml-tabpane>
-      <ml-tabpane title="第二年" name="name2">标签二的内容</ml-tabpane>
+      <ml-tabpane title="第二年" name="name2">
+        <div class="swiper">标签二的内容</div>
+      </ml-tabpane>
       <ml-tabpane title="第三年" name="name3">
-        <p>标签三的内容</p><p>标签三的内容</p>
+        <div class="swiper">标签三的内容</div>
       </ml-tabpane>
     </ml-tabs>
 
@@ -49,6 +57,7 @@ export default {
 
   data () {
     return {
+      value: ''
     }
   },
 
@@ -60,6 +69,11 @@ export default {
         this.$toast.hide()
         this.$refs.tabRef.setActivePane(index)
       }, 3000)
+    },
+
+    handleChange ({ name, index }) {
+      this.$toast.text(name)
+      console.log(name, index, 'index')
     }
   }
 }
@@ -70,6 +84,14 @@ export default {
   p {
     margin: 0;
     padding: 0;
+  }
+
+  .swiper {
+    width: 100%;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    font-size: 16px;
   }
 }
 </style>
