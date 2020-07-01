@@ -57,11 +57,16 @@ export default createComponent({
     return (
       <div
         class={
-          bem('header', {
+          bem('header-item', {
             active: this.active,
             disabled: this.disabled,
             ellipsis: !this.ellipsis
           })
+        }
+        onClick={
+          () => {
+            this.$emit('click')
+          }
         }
       >
         <span class={{

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tabs">
     <demo-title>基础用法</demo-title>
     <ml-tabs active="name1" line-scale="0.6" font-size="14" title-height="40">
       <ml-tabpane title="第一年" name="name1">
@@ -10,7 +10,7 @@
         <p>标签三的内容</p><p>标签三的内容</p>
       </ml-tabpane>
     </ml-tabs>
-  
+
     <!-- <demo-title>默认选中&手动切换tab</demo-title>
     <ml-tabs ref="tabRef" active="name3" :auto-active="false" hide-line @click="click">
       <ml-tabpane label="标签一" name="name1">标签一的内容</ml-tabpane>
@@ -66,14 +66,7 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-.aaa {
-  width: 100%;
-  height: 100%;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column;
+.tabs {
   p {
     margin: 0;
     padding: 0;

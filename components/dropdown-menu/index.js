@@ -29,6 +29,10 @@ export default createComponent({
     leftIcon: {
       type: String,
       default: ''
+    },
+    ellipsis: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -105,7 +109,10 @@ export default createComponent({
               () => this.toggleHandler(index)
             }
           >
-            <span class={bem('item-text')}>{item.itemTitle}</span>
+            <span class={{
+              [bem('item-text')]: true,
+              'ml-ellipsis': this.ellipsis
+            }}>{item.itemTitle}</span>
             <Icon
               name="arrow-down"
               size="16"

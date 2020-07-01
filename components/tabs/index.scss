@@ -1,51 +1,41 @@
 $prefixCls: ml-tabs;
 
 .#{$prefixCls} {
-  &-title {
+  position: relative;
+  &__wrapper {
+    height: 48px;
+  }
+  &__header {
+    position: relative;
     display: flex;
-    width: 100%;
-    height: 100%;
+    background-color: #fff;
+    user-select: none;
+    height: 48px;
+  }
+  &__header-item {
+    position: relative;
+    display: flex;
     align-items: center;
     justify-content: center;
-  }
-  &-active-line {
-    color: $theme-color;
-  }
-  &-active-block {
-    color: #fff;
-    background-color: $theme-color;
-  }
-  &-wrapper {
-    position: relative;
-    // padding-top: 48px;
-  }
-  &-header {
-    z-index: 1;
+    flex: 1;
     box-sizing: border-box;
-    display: flex;
-    top: 0;
-    left: 0;
-    right: 0;
-    // height: 48px;
-    text-align: center;
-    font-size: 16px;
-    overflow:hidden;
-    color: #878787;
-    background-color:#fff;
+    padding: 0 4px;
+    color: #646566;
+    font-size: 14px;
+    cursor: pointer;
   }
-  &-header-line {
-    z-index: 1;
-    left: 0;
-    bottom: 0;
-    height: 2px;
+
+  &__line {
     position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    height: 3px;
     background-color: $theme-color;
-    transition-duration: 0.2s;
-  }
-  &-header-item {
-    flex:1;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
+    border-radius: 3px;
+    
+    &--active {
+      transition-duration: 0.3s;
+    }
   }
 }

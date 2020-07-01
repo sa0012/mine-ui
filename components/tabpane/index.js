@@ -15,14 +15,18 @@ export default createComponent({
 
   render () {
     const {
-      $slots
+      $slots,
+      $parent
     } = this
 
     const defaultSlot = isFunc($slots.default) ? $slots.default : $slots.default
     return (
-      <div class={
-        bem()
-      }>
+      <div
+        vShow={$parent.currentName === this.name}
+        class={
+          bem()
+        }
+      >
         {defaultSlot}
       </div>
     )
