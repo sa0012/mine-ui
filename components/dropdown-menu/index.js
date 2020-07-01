@@ -1,5 +1,6 @@
 import { createNamespace } from '../../src/utils'
 import Icon from '../icon'
+import { doubleRaf } from '../../src/utils/raf'
 
 const [createComponent, bem] = createNamespace('dropdown-menu')
 
@@ -61,12 +62,22 @@ export default createComponent({
       children.forEach((item, cIndex) => {
         if (index === cIndex) {
           this.active = index
+          if (item.visible) {
+            this.timer = setTimeout(() => {
+              doubleRaf(() => {
+                item.showWrapper = false
+              })
+            }, 150)
+            this.active = null
+          }
           item.toggle()
         } else {
           item.toggle(false)
-          setTimeout(() => {
-            item.showWrapper = false
-          }, 600)
+          this.timer = setTimeout(() => {
+            doubleRaf(() => {
+              item.showWrapper = false
+            })
+          }, 150)
         }
       })
     }
@@ -74,6 +85,10 @@ export default createComponent({
 
   mounted () {
     this.children = this.getChildren()
+  },
+
+  destroyed () {
+    clearTimeout(this.timer)
   },
 
   render () {
@@ -90,12 +105,14 @@ export default createComponent({
               () => this.toggleHandler(index)
             }
           >
-            <span class={bem('item-text')}>全部</span>
+            <span class={bem('item-text')}>{item.itemTitle}</span>
             <Icon
               name="arrow-down"
               size="16"
               class={
-                bem('item-icon')
+                bem('item-icon', {
+                  active: item.visible
+                })
               }
             />
           </div>
@@ -108,7 +125,9 @@ export default createComponent({
         class={bem()}
       >
         <section
-          class={bem('bar')}
+          class={bem('bar', {
+            open: this.active !== null
+          })}
         >
           {Title()}
         </section>

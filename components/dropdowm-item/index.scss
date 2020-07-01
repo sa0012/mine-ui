@@ -12,15 +12,19 @@ $prefixCls: ml-dropdown-item;
       bottom: 0;
     }
 
-    &--top {
+    &--up {
       top: 0;
     }
   }
 
-  &__content {
-    // position: fixed;
-    // right: 0;
-    // left: 0;
-    // overflow: hidden;
+  &__option {
+    &--active {
+      color: $theme-color;
+    }
+  }
+
+  &__right-icon {
+    font-size: 14px;
+    transition: all 0.3s ease;
   }
 }

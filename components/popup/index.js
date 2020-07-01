@@ -85,8 +85,8 @@ export default createComponent({
       if (!this.closeOnClickOverlay) return
       console.log('closeOverlay')
       this.showMask = false
-      this.$emit('close')
       this.$emit('input', false)
+      this.$emit('close')
     }
   },
 

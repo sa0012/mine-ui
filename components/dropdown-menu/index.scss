@@ -7,7 +7,10 @@ $prefixCls: ml-dropdown-menu;
     height: 48px;
     background-color: #fff;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    z-index: 333;
+
+    &--open {
+      z-index: 22;
+    }
   }
 
   &__item {
@@ -21,6 +24,16 @@ $prefixCls: ml-dropdown-menu;
 
     &--active {
       color: $theme-color;
+    }
+  }
+
+  &__item-icon {
+    transform: rotateX(180deg);
+    transition: transform .3s ease;
+
+    &--active {
+      transform: rotateX(0deg);
+      transition: transform .3s ease;
     }
   }
 
