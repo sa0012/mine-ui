@@ -1,19 +1,21 @@
 import { createNamespace } from '../../src/utils'
 import { scrollToLeft } from '../../src/utils/dom'
 import Title from './title'
+import Content from './content'
 const [createComponent, bem] = createNamespace('tabs')
 
 export default createComponent({
+  provide () {
+    return {
+      'tabs': this
+    }
+  },
   props: {
     active: [String, Number],
     activeColor: String,
     sticky: {
       type: Boolean,
       default: false
-    },
-    lineScale: {
-      type: [String, Number],
-      default: 1
     },
     lineColor: String,
     lineWidth: [String, Number],
@@ -53,6 +55,7 @@ export default createComponent({
       type: Boolean,
       default: false
     },
+    animated: Boolean,
     scrollableThreshold: {
       type: [String, Number],
       default: 4,
@@ -60,15 +63,10 @@ export default createComponent({
         return Number(value)
       }
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     duration: {
       type: Number,
       default: 0.3
-    },
-    customBarWidth: [String, Number]
+    }
   },
 
   data () {
@@ -87,7 +85,7 @@ export default createComponent({
       return this.children.length
     },
 
-    titleScroll () {
+    scrollable () {
       return this.count > this.scrollableThreshold
     },
 
@@ -105,31 +103,26 @@ export default createComponent({
         return `${100 - this.basis * (this.currentIndex + 1)}%`
       }
     },
-    barStyle () {
-      const commonStyle = {
+    styles () {
+      const style = {
         left: this.barLeft,
         right: this.barRight,
         display: 'block',
-        height: this.lineWidth + 'px',
+        height: this.lineHeight + 'px',
         transition: !this.hasReady ? 'none' : null
       }
-      if (!this.customBarWidth) {
-        commonStyle.background = this.barActiveColor || this.activeColor
+      if (!this.lineWidth) {
+        style.background = this.lineColor || this.activeColor
       } else {
-        commonStyle.background = 'transparent' // when=prop:custom-bar-width
+        style.background = 'transparent'
       }
-      return commonStyle
-    },
-    barClass () {
-      return {
-        'transition-forward': true
-        // 'transition-backward': this.direction === 'backward'
-      }
+      return style
     }
   },
 
   watch: {
     currentIndex (val) {
+      if (!this.scrollable) return
       this.scrollIntoView(val)
     }
   },
@@ -140,10 +133,14 @@ export default createComponent({
     },
 
     changeItem (index, item = {}) {
+      if (this.children[index].disabled) {
+        return this.$emit('disabled', {
+          name: item.name,
+          index
+        })
+      }
       this.currentIndex = index
       this.currentName = item.name || this.children[0].name
-      this.setLine(index)
-      // this.scrollIntoView(index)
       if (item.name) {
         this.$emit('change', {
           name: this.currentName,
@@ -152,40 +149,12 @@ export default createComponent({
       }
     },
 
-    setLine (index) {
-      this.$nextTick(() => {
-        const titleRef = this.$refs[`titleRef${index}`]
-        if (
-          !titleRef ||
-          this.type !== 'line'
-        ) return
-
-        const title = titleRef.$el
-        const { lineWidth, lineHeight } = this
-        const width = lineWidth || title.offsetWidth / 2
-        const left = title.offsetLeft + title.offsetWidth / 2
-
-        const lineStyle = {
-          width: `${width}px`,
-          backgroundColor: this.lineColor,
-          transform: `translateX(${left}px) translateX(-50%)`
-        }
-
-        if (lineHeight) {
-          lineStyle.height = `${lineHeight}px`
-          lineStyle.borderRadius = lineHeight
-        }
-
-        this.lineStyle = lineStyle
-      })
-    },
-
     scrollIntoView (index) {
       const { nav } = this.$refs
       const titleRef = this.$refs[`titleRef${index}`]
       if (
         !titleRef ||
-        !this.titleScroll
+        !this.scrollable
       ) return
 
       const title = titleRef.$el
@@ -193,20 +162,19 @@ export default createComponent({
       const to = title.offsetLeft - (navWidth - title.offsetWidth) / 3
 
       scrollToLeft(nav, to, this.duration)
-    }
+    },
+
+    setCurrentIndex () {}
   },
 
   mounted () {
     this.$nextTick(() => {
       this.changeItem(0)
-      setTimeout(() => {
-        this.hasReady = true
-      }, 0)
+      this.hasReady = true
     })
   },
 
   render () {
-    const contentSlots = this.$slots ? this.$slots.default : []
     const Nav = this.children.map((item, index) => (
       <Title
         ref={'titleRef' + index}
@@ -215,36 +183,42 @@ export default createComponent({
         active={this.currentIndex === index}
         active-color={this.activeColor}
         font-size={this.fontSize}
+        title-height={this.titleHeight}
         left-icon={this.leftIcon}
         hide-line={this.hideLine}
         count={this.count}
-        disabled={this.disabled}
+        disabled={item.disabled}
         scrollable-threshold={this.scrollableThreshold}
-        title-scroll={this.titleScroll}
+        scrollable={this.scrollable}
         onClick={() => this.changeItem(index, item)}
+        scopedSlots={{
+          default: () => item.$slots('title')
+        }}
       />
     ))
     const HeaderWrap = (
       <div
         ref="nav"
         class={bem('header', {
-          scrollable: this.titleScroll
+          scrollable: this.scrollable
         })}
       >
         {Nav}
         <div
           class={
-            bem('line', this.barClass)
+            bem('line', {
+              'transition-forward': true
+            })
           }
-          style={this.barStyle}
+          style={this.styles}
         >
           {
-            this.customBarWidth && (
+            this.lineWidth && (
               <span
                 class={
                   bem('bar-inner')
                 }
-                style={this.innerBarStyle}
+                style={this.innerStyles}
               ></span>
             )
           }
@@ -265,7 +239,16 @@ export default createComponent({
           }>
           {HeaderWrap}
         </section>
-        {contentSlots}
+        <Content
+          count={this.count}
+          animated={this.animated}
+          duration={this.duration}
+          swipeable={this.swipeable}
+          currentIndex={this.currentIndex}
+          onChange={this.setCurrentIndex}
+        >
+          {this.$slots && this.$slots.default}
+        </Content>
       </div>
     )
   }

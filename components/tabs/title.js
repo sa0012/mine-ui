@@ -43,11 +43,8 @@ export default createComponent({
       type: [String, Number],
       default: 48
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    titleScroll: {
+    disabled: Boolean,
+    scrollable: {
       type: Boolean,
       default: false
     },
@@ -73,14 +70,15 @@ export default createComponent({
   computed: {
     styles () {
       const style = {}
-      const { fontSize, active, activeColor, ellipsis } = this
+      const { fontSize, titleHeight, active, activeColor, ellipsis } = this
 
       style.fontSize = fontSize
+      style.height = titleHeight
       if (active && activeColor) {
         style.color = activeColor
       }
 
-      if (this.titleScroll && ellipsis) {
+      if (this.scrollable && ellipsis) {
         style.flexBasis = `${88 / this.scrollableThreshold}%`
         style.flex = `0 0 ${style.flexBasis}`
       }
@@ -92,6 +90,7 @@ export default createComponent({
   methods: {},
 
   render () {
+    console.log(this.disabled, 'disabled')
     return (
       <div
         class={

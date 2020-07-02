@@ -7,6 +7,7 @@
       font-size="14"
       title-height="40"
       @change="handleChange"
+      @disabled="handleDisabled"
     >
       <ml-tabpane title="第一年" name="name1">
         <div class="swiper">标签一的内容</div>
@@ -17,7 +18,7 @@
       <ml-tabpane title="第三年" name="name3">
         <div class="swiper">标签三的内容</div>
       </ml-tabpane>
-      <ml-tabpane title="第四年" name="name4">
+      <ml-tabpane disabled title="第四年" name="name4">
         <div class="swiper">标签四的内容</div>
       </ml-tabpane>
       <ml-tabpane title="第五年" name="name5">
@@ -89,6 +90,10 @@ export default {
     handleChange ({ name, index }) {
       this.$toast.text(name)
       console.log(name, index, 'index')
+    },
+
+    handleDisabled ({ name, index }) {
+      this.$toast.text(`标题${name}被禁用了`)
     }
   }
 }
