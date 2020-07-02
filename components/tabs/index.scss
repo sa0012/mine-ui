@@ -11,6 +11,16 @@ $prefixCls: ml-tabs;
     background-color: #fff;
     user-select: none;
     height: 48px;
+
+    &--scrollable {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
   &__header-item {
     position: relative;
@@ -23,19 +33,41 @@ $prefixCls: ml-tabs;
     color: #646566;
     font-size: 14px;
     cursor: pointer;
+
+    &--active {
+      color: $theme-color;
+    }
   }
 
   &__line {
     position: absolute;
+    height: 2px;
     bottom: 0;
     left: 0;
-    z-index: 1;
-    height: 3px;
     background-color: $theme-color;
-    border-radius: 3px;
-    
-    &--active {
-      transition-duration: 0.3s;
+    text-align: center;
+    &--transition-forward {
+      transition: right 0.3s cubic-bezier(0.35, 0, 0.25, 1), left 0.3s cubic-bezier(0.35, 0, 0.25, 1) 0.09s;
     }
+    &--transition-backward {
+      transition: right 0.3s cubic-bezier(0.35, 0, 0.25, 1), left 0.3s cubic-bezier(0.35, 0, 0.25, 1) 0.09s;
+    }
+    
+    // &--active {
+    //   // transition-duration: 0.3s;
+    //   transition: right 0.3s cubic-bezier(0.35, 0, 0.25, 1), left 0.3s cubic-bezier(0.35, 0, 0.25, 1) 0.09s;
+    // }
+  }
+
+  &__bar-inner {
+    display: block;
+    background-color: $theme-color;
+    margin: auto;
+    height: 100%;
+    transition: width 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  }
+
+  &__left-icon {
+    margin-right: 4px;
   }
 }

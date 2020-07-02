@@ -1,4 +1,5 @@
 import { createNamespace } from '../../src/utils'
+import Icon from '../icon'
 
 const [createComponent, bem] = createNamespace('tabs')
 
@@ -7,7 +8,6 @@ export default createComponent({
     title: String,
     active: [String, Number],
     activeColor: String,
-    inactiveColor: String,
     type: {
       type: String,
       default: 'line',
@@ -18,6 +18,14 @@ export default createComponent({
     fontSize: {
       type: [String, Number],
       default: 16
+    },
+    iconSize: {
+      type: [String, Number],
+      default: 14
+    },
+    leftIcon: {
+      type: String,
+      default: 'shanchu'
     },
     hideLine: {
       type: Boolean,
@@ -46,10 +54,40 @@ export default createComponent({
     ellipsis: {
       type: Boolean,
       default: true
+    },
+    count: {
+      type: [String, Number],
+      validator (value) {
+        return Number(value)
+      }
+    },
+    scrollableThreshold: {
+      type: [String, Number],
+      default: 4,
+      validator (value) {
+        return Number(value)
+      }
     }
   },
 
-  computed: {},
+  computed: {
+    styles () {
+      const style = {}
+      const { fontSize, active, activeColor, ellipsis } = this
+
+      style.fontSize = fontSize
+      if (active && activeColor) {
+        style.color = activeColor
+      }
+
+      if (this.titleScroll && ellipsis) {
+        style.flexBasis = `${88 / this.scrollableThreshold}%`
+        style.flex = `0 0 ${style.flexBasis}`
+      }
+
+      return style
+    }
+  },
 
   methods: {},
 
@@ -63,12 +101,24 @@ export default createComponent({
             ellipsis: !this.ellipsis
           })
         }
+        style={this.styles}
         onClick={
           () => {
             this.$emit('click')
           }
         }
       >
+        {
+          this.leftIcon && (
+            <Icon
+              name={this.leftIcon}
+              size={this.iconSize}
+              class={
+                bem('left-icon')
+              }
+            />
+          )
+        }
         <span class={{
           'ml-ellipsis': this.ellipsis
         }}>

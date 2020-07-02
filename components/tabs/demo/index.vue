@@ -17,6 +17,21 @@
       <ml-tabpane title="第三年" name="name3">
         <div class="swiper">标签三的内容</div>
       </ml-tabpane>
+      <ml-tabpane title="第四年" name="name4">
+        <div class="swiper">标签四的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第五年" name="name5">
+        <div class="swiper">标签五的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第六年" name="name6">
+        <div class="swiper">标签六的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第七年" name="name7">
+        <div class="swiper">标签七的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第八年" name="name8">
+        <div class="swiper">标签八的内容</div>
+      </ml-tabpane>
     </ml-tabs>
 
     <!-- <demo-title>默认选中&手动切换tab</demo-title>
