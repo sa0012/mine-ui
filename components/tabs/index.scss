@@ -37,6 +37,11 @@ $prefixCls: ml-tabs;
     &--active {
       color: $theme-color;
     }
+
+    &--disabled {
+      color: $gray-5;
+      cursor: not-allowed;
+    }
   }
 
   &__line {
