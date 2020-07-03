@@ -265,7 +265,13 @@ export default createComponent({
           }>
           {HeaderWrap}
         </section>
-        {contentSlots}
+        <section
+          class={
+            bem('content')
+          }
+        >
+          {contentSlots}
+        </section>
       </div>
     )
   }
