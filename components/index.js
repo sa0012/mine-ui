@@ -22,6 +22,7 @@ import Popup from './popup'
 import Radio from './radio'
 import RadioGroup from './radio-group'
 import Rater from './rater'
+import Sticky from './sticky'
 import Swiper from './swiper'
 import SwiperItem from './swiper-item'
 import Switch from './switch'
@@ -55,6 +56,7 @@ const components = [
   Radio,
   RadioGroup,
   Rater,
+  Sticky,
   Swiper,
   SwiperItem,
   Switch,
@@ -99,6 +101,7 @@ export {
   Radio,
   RadioGroup,
   Rater,
+  Sticky,
   Swiper,
   SwiperItem,
   Switch,

@@ -15,13 +15,54 @@ export default createComponent({
     currentIndex: Number
   },
 
-  computed: {},
+  computed: {
+    styles () {
+      if (this.animated) {
+        return {
+          transform: `translate3d(${-1 * this.currentIndex * 100}%, 0, 0)`,
+          transitionDuration: `${this.duration}s`
+        }
+      }
+    },
+
+    listeners () {
+      return {
+        touchstart: this.touchStart,
+        touchmove: this.touchMove,
+        touchend: this.onTouchEnd,
+        touchcancel: this.onTouchEnd
+      }
+    }
+  },
 
   methods: {
     contentSlots () {
-      if (this.animated) {}
+      const slots = this.$slots && this.$slots.default
+      if (this.animated) {
+        return (
+          <div
+            class={
+              bem('animated-content')
+            }
+            style={this.styles}
+          >
+            {slots}
+          </div>
+        )
+      }
 
-      return this.$slots && this.$slots.default
+      return slots
+    },
+
+    onTouchEnd () {
+      const { direction, deltaX, currentIndex, count } = this
+      if (direction === 'horizontal' && this.offsetX >= MIN_SWIPE_DISTANCE) {
+        if (deltaX > 0 && currentIndex !== 0) {
+          this.$emit('change', currentIndex - 1)
+        } else if (deltaX < 0 && currentIndex !== count - 1) {
+          this.$emit('change', currentIndex + 1)
+        }
+      }
     }
   },
 
@@ -33,7 +74,7 @@ export default createComponent({
             animated: this.animated
           })
         }
-        on={this.$listeners}
+        {...{on: this.listeners}}
       >
         {this.contentSlots()}
       </div>

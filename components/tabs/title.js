@@ -90,7 +90,6 @@ export default createComponent({
   methods: {},
 
   render () {
-    console.log(this.disabled, 'disabled')
     return (
       <div
         class={

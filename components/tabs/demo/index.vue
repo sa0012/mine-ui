@@ -35,35 +35,59 @@
       </ml-tabpane>
     </ml-tabs>
 
-    <!-- <demo-title>默认选中&手动切换tab</demo-title>
-    <ml-tabs ref="tabRef" active="name3" :auto-active="false" hide-line @click="click">
-      <ml-tabpane label="标签一" name="name1">标签一的内容</ml-tabpane>
-      <ml-tabpane label="标签二" name="name2">标签二的内容</ml-tabpane>
-      <ml-tabpane label="标签三" name="name3">标签三的内容</ml-tabpane>
-      <ml-tabpane label="标签四" name="name4">
-        <p>标签四的内容</p><p>标签四的内容</p>
+    <demo-title>动画模式</demo-title>
+    <ml-tabs
+      active="name1"
+      font-size="14"
+      animated
+      @change="handleChange"
+      @disabled="handleDisabled"
+    >
+      <ml-tabpane title="第一年" name="name1">
+        <div class="swiper">标签一的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第二年" name="name2">
+        <div class="swiper">标签二的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第三年" name="name3">
+        <div class="swiper">标签三的内容</div>
       </ml-tabpane>
     </ml-tabs>
 
-    <demo-title>type为block，自定义title为多行</demo-title>
-    <ml-tabs active="name3" type="block">
-      <ml-tabpane label="标签一" name="name1">
-        <template slot="title">
-          <div class="aaa">
-            <p>123</p>
-            <p>456</p>
-          </div>
-        </template>
-        标签一的内容
+    <demo-title>滑动切换</demo-title>
+    <ml-tabs
+      active="name1"
+      font-size="14"
+      animated
+      swipeable
+      @change="handleChange"
+      @disabled="handleDisabled"
+    >
+      <ml-tabpane title="第一年" name="name1">
+        <div class="swiper">标签一的内容</div>
       </ml-tabpane>
-      <ml-tabpane label="标签二" name="name2">标签二的内容</ml-tabpane>
-      <ml-tabpane label="标签三" name="name3">标签三的内容</ml-tabpane>
-      <ml-tabpane label="标签四" name="name4">
-        <p>标签四的内容</p><p>标签四的内容</p>
-        <p>标签四的内容</p><p>标签四的内容</p>
-        <p>标签四的内容</p><p>标签四的内容</p>
+      <ml-tabpane title="第二年" name="name2">
+        <div class="swiper">标签二的内容</div>
       </ml-tabpane>
-    </ml-tabs> -->
+      <ml-tabpane title="第三年" name="name3">
+        <div class="swiper">标签三的内容</div>
+      </ml-tabpane>
+      <ml-tabpane disabled title="第四年" name="name4">
+        <div class="swiper">标签四的内容</div>
+      </ml-tabpane>
+      <ml-tabpane disabled title="第五年" name="name5">
+        <div class="swiper">标签五的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第六年" name="name6">
+        <div class="swiper">标签六的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第七年" name="name7">
+        <div class="swiper">标签七的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第八年" name="name8">
+        <div class="swiper">标签八的内容</div>
+      </ml-tabpane>
+    </ml-tabs>
   </div>
 </template>
 

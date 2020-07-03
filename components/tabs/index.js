@@ -90,6 +90,9 @@ export default createComponent({
     },
 
     basis () {
+      if (!this.scrollable && this.count > 1) {
+        return 100 / this.count
+      }
       return 88 / this.scrollableThreshold
     },
 
@@ -164,7 +167,21 @@ export default createComponent({
       scrollToLeft(nav, to, this.duration)
     },
 
-    setCurrentIndex () {}
+    queryDisabledItem (index, length, driection) {
+      if (!this.children[index] || !this.children[index].disabled || index === length) {
+        return index
+      } else {
+        driection ? ++index : --index
+        return this.queryDisabledItem(index, length, driection)
+      }
+    },
+
+    setCurrentIndex (index) {
+      if (!this.swipeable) return
+      let direction = this.currentIndex < index
+      let targetIndex = this.children[index].disabled ? this.queryDisabledItem(index, direction ? this.count - 1 : 1, direction) : index
+      this.changeItem(targetIndex)
+    }
   },
 
   mounted () {

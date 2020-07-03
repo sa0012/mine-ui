@@ -1,7 +1,15 @@
 $prefixCls: ml-tabpane;
 
 .#{$prefixCls} {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
   background: #fff;
-  padding: 16px;
-  box-sizing: border-box；
+  transition: height .45s;
+
+  &--inactive {
+    height: 0;
+    overflow: visible;
+    background: #fff;
+  }
 }

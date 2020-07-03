@@ -3,11 +3,7 @@ import { createNamespace, isFunc } from '../../src/utils'
 const [createComponent, bem] = createNamespace('tabpane')
 
 export default createComponent({
-  inject: {
-    tabs: {
-      default: null
-    }
-  },
+  inject: ['tabs'],
   props: {
     name: String,
     title: String,
@@ -32,6 +28,20 @@ export default createComponent({
     } = this
 
     const defaultSlot = isFunc($slots.default) ? $slots.default : $slots.default
+
+    if (tabs.animated) {
+      return (
+        <div
+          class={
+            bem('', {
+              inactive: tabs.currentName !== this.name
+            })
+          }
+        >
+          {defaultSlot}
+        </div>
+      )
+    }
     return (
       <div
         vShow={tabs.currentName === this.name}
