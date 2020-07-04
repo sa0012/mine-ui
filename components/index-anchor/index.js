@@ -1,18 +1,22 @@
 import { createNamespace } from '../../src/utils'
+import Sticky from '../sticky'
 
 const [createComponent, bem] = createNamespace('index-anchor')
 
 export default createComponent({
   props: {
-    index: [String, Number]
+    index: [String, Number],
+    zIndex: [Number, String],
+    offsetTop: [Number, String]
   },
 
   data () {
     return {
       top: 0,
-      active: false,
+      active: '',
       position: 'static',
-      height: 0
+      height: 0,
+      fixed: false
     }
   },
 
@@ -22,28 +26,22 @@ export default createComponent({
 
   computed: {
     sticky () {
-      return this.active && this.$parent.sticky
-    },
-
-    anchorStyle () {
-      if (this.sticky) {
-        return {
-          position: this.position,
-          zIndex: `${this.$parent.zIndex}`,
-          transform: `translate3d(0, ${this.top}px, 0)`
-        }
-      }
+      return this.fixed && this.active === this.index
     }
   },
 
   methods: {
     scrollIntoView () {
       this.$el.scrollIntoView()
-      this.changeIndex(true)
+      this.changeIndex(this.index)
     },
 
     changeIndex (status) {
       this.active = status
+    },
+
+    handleChange (fixed) {
+      this.fixed = fixed
     }
   },
 
@@ -51,19 +49,27 @@ export default createComponent({
     const {
       sticky
     } = this
+    // console.log(this.active, this.index, 'index')
     return (
-      <div
-        style={{
-          height: sticky ? `${this.height}px` : ''
-        }}
+      <Sticky
+        z-index={this.zIndex}
+        offset-top={this.offsetTop}
+        onChange={this.handleChange}
       >
         <div
-          style={this.anchorStyle}
-          class={[bem({ sticky })]}
+          style={{
+            height: sticky ? `${this.height}px` : ''
+          }}
         >
-          {this.slots('default') || this.index}
+          <div
+            class={[bem({
+              sticky
+            })]}
+          >
+            {this.slots('default') || this.index}
+          </div>
         </div>
-      </div>
+      </Sticky>
     )
   }
 })

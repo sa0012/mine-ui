@@ -43,6 +43,12 @@ $prefixCls: ml-index-bar;
     transition: all 0.3s ease;
   }
 
+  &__bubble-wrap {
+    position: fixed;
+    right: 30px;
+    // top: 6px;
+  }
+
   &__bubble {
     position: absolute;
     top: 50%;

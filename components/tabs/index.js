@@ -18,6 +18,18 @@ export default createComponent({
       type: Boolean,
       default: false
     },
+    zIndex: {
+      type: [String, Number],
+      validator (value) {
+        return Number(value)
+      }
+    },
+    offsetTop: {
+      type: [String, Number],
+      validator (value) {
+        return Number(value)
+      }
+    },
     lineColor: String,
     lineWidth: [String, Number],
     lineHeight: [String, Number],
@@ -252,7 +264,10 @@ export default createComponent({
       >
         {
           this.sticky ? (
-            <Sticky>
+            <Sticky
+              offset-top={this.offsetTop}
+              z-index={this.zIndex}
+            >
               <section
                 ref="headerWrapper"
                 class={

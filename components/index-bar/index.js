@@ -29,38 +29,38 @@ export default createComponent({
 
   data () {
     return {
-      currentIndex: '0',
+      currentIndex: null,
       anchorHeightList: [],
       showIndexCard: false,
-      touchBar: false,
-      children: []
+      touchActiveIndex: null,
+      children: [],
+      styles: {}
     }
   },
 
   methods: {
     touchStart (event) {
       this.showIndexCard = true
-      // console.log(event.touches[0], 'touch')
     },
+
     onTouchMove (event) {
+      event.stopPropagation()
+      event.preventDefault()
       const { clientX, clientY } = event.touches[0]
       const target = document.elementFromPoint(clientX, clientY)
       if (target) {
-        const { index } = target.dataset
-
-        if (this.touchActiveIndex !== index) {
-          this.currentIndex = index
-          this.touchActiveIndex = index
+        const { bar, index } = target.dataset
+        if (this.touchActiveIndex !== bar) {
+          this.touchActiveIndex = bar
           this.scrollToElement(target)
         }
       }
-      event.stopPropagation()
-      event.preventDefault()
     },
+
     onTouchEnd (event) {
       this.showIndexCard = false
-      // console.log(event, 'event')
     },
+
     handleScroll (scrollTop) {
       const { anchorHeightList } = this
       const len = anchorHeightList.length
@@ -70,7 +70,8 @@ export default createComponent({
           target = i
         }
       }
-      this.children[target].changeIndex(true)
+      const anchor = this.children[target].index
+      this.children[target].changeIndex(anchor)
       this.currentIndex = target
     },
 
@@ -99,18 +100,36 @@ export default createComponent({
     scrollToElement (element) {
       const { index } = element.dataset
       if (!index) return
-      const match = this.children.filter(item => {
-        return String(item.index) === index
-      })
-      if (match[0]) {
-        match[0].scrollIntoView()
+      this.currentIndex = Number(index)
+      const match = this.children[index]
+      if (match) {
+        match.scrollIntoView()
 
         if (this.sticky) {
-          match[0].changeIndex(true)
+          match.changeIndex(match.index)
         }
 
-        this.$emit('select', match[0])
+        this.$emit('select', match)
       }
+    },
+
+    bubbleStyle (index) {
+      const indexBar = this.$refs[`indexBar${index}`]
+      if (!indexBar) return
+      const height = indexBar.offsetHeight
+      const half = height / 2
+      const style = {}
+      style.top = `${
+        index * height + half
+      }px`
+
+      this.styles = style
+    }
+  },
+
+  watch: {
+    currentIndex (val) {
+      this.bubbleStyle(val)
     }
   },
 
@@ -144,26 +163,35 @@ export default createComponent({
             this.indexList.map((item, index) => {
               return (
                 <li
+                  ref={`indexBar${index}`}
                   class={bem('index', {
                     active: index === this.currentIndex
                   })}
-                  data-index={item}
+                  data-bar={item}
+                  data-index={index}
                 >
                   {item}
-                  <span
-                    vShow={this.showIndexCard && this.currentIndex === index}
-                    class={
-                      bem('bubble')
-                    }>
-                    {indexList[this.currentIndex]}
-                  </span>
-                  <span
-                    vShow={this.showIndexCard && this.currentIndex === index}
-                    class={bem('badge')}></span>
                 </li>
               )
             })
           }
+          <li
+            class={
+              bem('bubble-wrap')
+            }
+            vShow={this.showIndexCard}
+            style={this.styles}
+            ref="bubble"
+          >
+            <span
+              class={
+                bem('bubble')
+              }>
+              {indexList[this.currentIndex]}
+            </span>
+            <span
+              class={bem('badge')}></span>
+          </li>
         </ul>
       )
     }

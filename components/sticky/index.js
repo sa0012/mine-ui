@@ -55,6 +55,8 @@ export default createComponent({
       } else {
         this.fixed = false
       }
+
+      this.$emit('change', this.fixed)
     }
   },
 
