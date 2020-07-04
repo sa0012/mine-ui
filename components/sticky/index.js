@@ -10,8 +10,6 @@ export default createComponent({
         return Number(val)
       }
     },
-    // 指定容器，传入一个ref节点
-    container: null,
     offsetTop: {
       type: [Number, String],
       default: 0,
@@ -25,21 +23,7 @@ export default createComponent({
     return {
       height: 0,
       fixed: null,
-      translateY: 0,
-      wrapperStyles: {
-        position: 'static',
-        top: 0,
-        left: 0,
-        width: 'auto', // 占位，为了形成数据绑定
-        height: 'auto'
-      },
-      contentStyle: {
-        position: 'static',
-        top: 0,
-        left: 0,
-        width: 'auto',
-        height: 'auto'
-      }
+      translateY: 0
     }
   },
 
@@ -60,40 +44,26 @@ export default createComponent({
   methods: {
     onScroll () {
       const { wrapper } = this.$refs
-      const { container, offsetTop } = this
+      const { offsetTop } = this
+      this.height = this.$el.offsetHeight
       const fTop = wrapper.getBoundingClientRect().top
-      const scrollTop = window.scrollTop || window.pageYOffset
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
 
-      if (scrollTop + offsetTop > fTop) {
+      if (scrollTop + offsetTop > fTop + scrollTop) {
         this.fixed = true
         this.transform = 0
       } else {
         this.fixed = false
       }
-    },
-
-    onResize () {
-      const { wrapper } = this.$refs
-      const { contentStyle } = this
-      const boxTop = wrapper.getBoundingClientRect().top
-      const boxLeft = wrapper.getBoundingClientRect().left
-
-      if (contentStyle.position === 'fixed') {
-        contentStyle.top = this.top === 'unset' ? `${boxTop}px` : this.top
-        contentStyle.left = this.left === 'unset' ? `${boxLeft}px` : this.left
-      }
     }
   },
 
   mounted () {
-    console.log(this.$el, '$el')
-    window.addEventListener('resize', this.onResize)
     window.addEventListener('scroll', this.onScroll)
   },
 
   destroyed () {
     window.removeEventListener('scroll', this.onScroll)
-    window.removeEventListener('resize', this.onResize)
   },
 
   render () {

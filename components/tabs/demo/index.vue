@@ -6,6 +6,7 @@
       line-scale="0.6"
       font-size="14"
       title-height="40"
+      sticky
       @change="handleChange"
       @disabled="handleDisabled"
     >
@@ -35,7 +36,27 @@
       </ml-tabpane>
     </ml-tabs>
 
-    <demo-title>动画模式</demo-title>
+    <demo-title>sticky</demo-title>
+    <ml-tabs
+      active="name1"
+      font-size="14"
+      animated
+      sticky
+      @change="handleChange"
+      @disabled="handleDisabled"
+    >
+      <ml-tabpane title="第一年" name="name1">
+        <div class="swiper">标签一的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第二年" name="name2">
+        <div class="swiper">标签二的内容</div>
+      </ml-tabpane>
+      <ml-tabpane title="第三年" name="name3">
+        <div class="swiper">标签三的内容</div>
+      </ml-tabpane>
+    </ml-tabs>
+
+    <demo-title>切换动画</demo-title>
     <ml-tabs
       active="name1"
       font-size="14"

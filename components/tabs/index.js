@@ -2,6 +2,7 @@ import { createNamespace } from '../../src/utils'
 import { scrollToLeft } from '../../src/utils/dom'
 import Title from './title'
 import Content from './content'
+import Sticky from '../sticky'
 const [createComponent, bem] = createNamespace('tabs')
 
 export default createComponent({
@@ -249,13 +250,25 @@ export default createComponent({
           bem()
         }
       >
-        <section
-          ref="headerWrapper"
-          class={
-            bem('wrapper')
-          }>
-          {HeaderWrap}
-        </section>
+        {
+          this.sticky ? (
+            <Sticky>
+              <section
+                ref="headerWrapper"
+                class={
+                  bem('wrapper')
+                }>
+                {HeaderWrap}
+              </section>
+            </Sticky>
+          ) : (<section
+            ref="headerWrapper"
+            class={
+              bem('wrapper')
+            }>
+            {HeaderWrap}
+          </section>)
+        }
         <Content
           count={this.count}
           animated={this.animated}
