@@ -18,6 +18,7 @@ import IndexBar from './index-bar'
 import NoticeBar from './noticeBar'
 import NumberKeyboard from './number-keyboard'
 import Overlay from './overlay'
+import Picker from './picker'
 import Popup from './popup'
 import Radio from './radio'
 import RadioGroup from './radio-group'
@@ -52,6 +53,7 @@ const components = [
   NoticeBar,
   NumberKeyboard,
   Overlay,
+  Picker,
   Popup,
   Radio,
   RadioGroup,
@@ -97,6 +99,7 @@ export {
   NoticeBar,
   NumberKeyboard,
   Overlay,
+  Picker,
   Popup,
   Radio,
   RadioGroup,

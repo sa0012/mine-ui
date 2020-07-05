@@ -1,12 +1,13 @@
 
 import { createNamespace } from '../../src/utils'
+import PickerColumn from './column'
 
 const [createComponent, bem] = createNamespace('picker')
 
 export default createComponent({
   props: {
     title: String,
-    showBar: Boolean,
+    showToolbar: Boolean,
     cancelBtnText: {
       type: String,
       default: '取消'
@@ -14,7 +15,12 @@ export default createComponent({
     confirmBtnText: {
       type: String,
       default: '确定'
-    }
+    },
+    columns: {
+      type: Boolean,
+      default: () => []
+    },
+    valueKey: String
   },
 
   methods: {
@@ -30,11 +36,11 @@ export default createComponent({
   render () {
     const {
       title,
-      showBar,
+      showToolbar,
       cancelBtnText,
       confirmBtnText
     } = this
-    const TitleBar = showBar && (
+    const TitleBar = showToolbar && (
       <div
         class={
           bem('header')
@@ -49,6 +55,37 @@ export default createComponent({
         >{confirmBtnText}</span>
       </div>
     )
+
+    const genColumn = () => {
+      if (!this.columns || !this.columns.length) return
+      return this.columns.map((item, index) => (
+        <PickerColumn
+          value-key={this.valueKey}
+        />
+      ))
+    }
+
+    const Body = (
+      <div
+        class={
+          bem('body')
+        }
+        onTouchmove={e => e.preventDefault()}
+      >
+        <div
+          class={
+            bem('body-placeholder')
+          }
+        ></div>
+        <div
+          class={
+            bem('body-content')
+          }
+        >
+          {genColumn()}
+        </div>
+      </div>
+    )
     return (
       <div
         class={
@@ -56,6 +93,7 @@ export default createComponent({
         }
       >
         {TitleBar}
+        {Body}
       </div>
     )
   }
