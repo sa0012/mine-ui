@@ -1,6 +1,9 @@
 $prefixCls: ml-index-bar;
 
 .#{$prefixCls} {
+  &::-webkit-scrollbar {
+    display: none;
+  }
   &__sidebar {
     position: fixed;
     top: 50%;

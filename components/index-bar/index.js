@@ -18,9 +18,10 @@ export default createComponent({
       }
     },
     zIndex: {
-      type: Number,
+      type: [Number, String],
       default: 1
     },
+    offsetTop: [Number, String],
     sticky: {
       type: Boolean,
       default: true
@@ -34,7 +35,8 @@ export default createComponent({
       showIndexCard: false,
       touchActiveIndex: null,
       children: [],
-      styles: {}
+      styles: {},
+      timer: null
     }
   },
 
@@ -49,7 +51,7 @@ export default createComponent({
       const { clientX, clientY } = event.touches[0]
       const target = document.elementFromPoint(clientX, clientY)
       if (target) {
-        const { bar, index } = target.dataset
+        const { bar } = target.dataset
         if (this.touchActiveIndex !== bar) {
           this.touchActiveIndex = bar
           this.scrollToElement(target)
@@ -64,15 +66,18 @@ export default createComponent({
     handleScroll (scrollTop) {
       const { anchorHeightList } = this
       const len = anchorHeightList.length
-      let target
+      let target = null
+      if (!len) return
       for (var i = 0; i < len; i++) {
         if (anchorHeightList[i] <= scrollTop && anchorHeightList[i + 1] > scrollTop) {
           target = i
         }
       }
-      const anchor = this.children[target].index
-      this.children[target].changeIndex(anchor)
-      this.currentIndex = target
+      if (target) {
+        const anchor = this.children[target].index
+        this.children[target].changeIndex(anchor)
+        this.currentIndex = target
+      }
     },
 
     onClick (event) {
@@ -93,7 +98,7 @@ export default createComponent({
     },
 
     getScrollTop () {
-      const scrollTop = document.documentElement.scrollTop
+      const scrollTop = document.documentElement.scrollTop || this.$el.scrollTop
       this.handleScroll(scrollTop)
     },
 
@@ -134,11 +139,14 @@ export default createComponent({
   },
 
   mounted () {
-    this.anchorHeightList = this.getIndexAnchorPos()
+    this.timer = setTimeout(() => {
+      this.anchorHeightList = this.getIndexAnchorPos()
+    })
     window.addEventListener('scroll', this.getScrollTop)
   },
 
   destroyed () {
+    clearTimeout(this.timer)
     window.removeEventListener('scroll', this.getScrollTop)
   },
 

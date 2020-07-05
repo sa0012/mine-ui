@@ -5,9 +5,7 @@ const [createComponent, bem] = createNamespace('index-anchor')
 
 export default createComponent({
   props: {
-    index: [String, Number],
-    zIndex: [Number, String],
-    offsetTop: [Number, String]
+    index: [String, Number]
   },
 
   data () {
@@ -26,7 +24,7 @@ export default createComponent({
 
   computed: {
     sticky () {
-      return this.fixed && this.active === this.index
+      return this.fixed
     }
   },
 
@@ -37,10 +35,12 @@ export default createComponent({
     },
 
     changeIndex (status) {
+      console.log(status, 'status')
       this.active = status
     },
 
     handleChange (fixed) {
+      console.log(fixed, 'fixed')
       this.fixed = fixed
     }
   },
@@ -49,11 +49,14 @@ export default createComponent({
     const {
       sticky
     } = this
-    // console.log(this.active, this.index, 'index')
+    const {
+      zIndex,
+      offsetTop
+    } = this.$parent
     return (
       <Sticky
-        z-index={this.zIndex}
-        offset-top={this.offsetTop}
+        z-index={zIndex}
+        offset-top={offsetTop}
         onChange={this.handleChange}
       >
         <div
@@ -66,7 +69,7 @@ export default createComponent({
               sticky
             })]}
           >
-            {this.slots('default') || this.index}
+            {(this.$slots && this.$slots.default) || this.index}
           </div>
         </div>
       </Sticky>
