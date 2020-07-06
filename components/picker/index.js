@@ -20,17 +20,44 @@ export default createComponent({
       type: Boolean,
       default: () => []
     },
-    valueKey: String
+    valueKey: String,
+    rowCount: {
+      type: Number,
+      default: 5
+    },
+    rowHeight: {
+      type: Number,
+      default: 44
+    },
+    hideEmptyColumn: Boolean
+  },
+
+  computed: {
+    wrapperStyles () {
+      return { height: `${this.rowHeight * this.rowCount}px` }
+    }
   },
 
   methods: {
+    formatColumns (columns) {
+      if (columns.length && Array.isArray(columns[0])) {
+        return columns
+      } else if (Object.prototype.toString.call(columns[0]) === '[object Object]' && columns[0].values) {
+        return columns.map(column => { return column.values })
+      } else {
+        return [columns]
+      }
+    },
+
     onCancel () {
       this.$emit('cancel')
     },
 
     onConfirm () {
       this.$emit('confirm')
-    }
+    },
+
+    onChange () {}
   },
 
   render () {
@@ -46,21 +73,40 @@ export default createComponent({
           bem('header')
         }
       >
-        <span
+        <button
           onClick={this.onCancel}
-        >{cancelBtnText}</span>
-        <span>{title}</span>
-        <span
+          class={{
+            [bem('header-btn')]: true,
+            'cancel': true
+          }}
+        >{cancelBtnText}</button>
+        <span class={
+          bem('header-title')
+        }>{title}</span>
+        <button
           onClick={this.onConfirm}
-        >{confirmBtnText}</span>
+          class={{
+            [bem('header-btn')]: true,
+            'confirm': true
+          }}
+        >{confirmBtnText}</button>
       </div>
     )
 
     const genColumn = () => {
       if (!this.columns || !this.columns.length) return
-      return this.columns.map((item, index) => (
+      const columns = this.formatColumns(this.columns)
+      return columns.map((item, index) => (
         <PickerColumn
           value-key={this.valueKey}
+          list={item}
+          format={this.format && this.format.length ? this.format[index] : ''}
+          format-value-fun={this.formatValueFun}
+          value-key={this.valueKey}
+          row-height={this.rowHeight}
+          row-count={this.rowCount}
+          hide-empty-column={this.hideEmptyColumn}
+          on-change={this.onChange}
         />
       ))
     }
@@ -70,13 +116,9 @@ export default createComponent({
         class={
           bem('body')
         }
+        style={this.wrapperStyles}
         onTouchmove={e => e.preventDefault()}
       >
-        <div
-          class={
-            bem('body-placeholder')
-          }
-        ></div>
         <div
           class={
             bem('body-content')

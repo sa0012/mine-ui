@@ -6,8 +6,6 @@
       title="标题"
       ref="pickerRef1"
       :columns="list1"
-      :row-height="34"
-      :row-count="7"
     />
   </div>
 </template>
