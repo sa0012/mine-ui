@@ -16,6 +16,10 @@ export default createComponent({
       type: String,
       default: '确定'
     },
+    defaultIndex: {
+      type: Number,
+      default: 0
+    },
     columns: {
       type: Boolean,
       default: () => []
@@ -32,9 +36,19 @@ export default createComponent({
     hideEmptyColumn: Boolean
   },
 
+  data () {
+    return {
+      children: []
+    }
+  },
+
   computed: {
     wrapperStyles () {
       return { height: `${this.rowHeight * this.rowCount}px` }
+    },
+
+    maskHeight () {
+      return { height: `${this.rowHeight * parseInt(this.rowCount / 2)}px` }
     }
   },
 
@@ -103,6 +117,7 @@ export default createComponent({
           format={this.format && this.format.length ? this.format[index] : ''}
           format-value-fun={this.formatValueFun}
           value-key={this.valueKey}
+          default-index={item.defaultIndex || this.defaultIndex}
           row-height={this.rowHeight}
           row-count={this.rowCount}
           hide-empty-column={this.hideEmptyColumn}
@@ -119,13 +134,15 @@ export default createComponent({
         style={this.wrapperStyles}
         onTouchmove={e => e.preventDefault()}
       >
+        {genColumn()}
         <div
-          class={
-            bem('body-content')
-          }
-        >
-          {genColumn()}
-        </div>
+          class={ bem('body-mask', { top: true }) }
+          style={this.maskHeight}
+        ></div>
+        <div
+          class={ bem('body-mask', { bottom: true }) }
+          style={this.maskHeight}
+        ></div>
       </div>
     )
     return (

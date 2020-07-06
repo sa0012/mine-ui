@@ -4,6 +4,7 @@ $prefixCls: ml-picker;
   position: relative;
   background-color: #fff;
   user-select: none;
+
   &__header {
     display: flex;
     align-items: center;
@@ -29,13 +30,56 @@ $prefixCls: ml-picker;
   }
 
   &__body {
-    position: relative;
-  }
-
-  &__body-conent {
     display: flex;
     cursor: grab;
     overflow: hidden;
+    position: relative;
+
+    &-mask {
+      position: absolute !important;
+      z-index: 10;
+      width: 100%;
+      pointer-events: none;
+      transform: translateZ(0);
+
+      &--top {
+        top: 0;
+        background: -webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, .6)), to(hsla(0, 0%, 100%, .95)));
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          height: 1px;
+          border-bottom: 1px solid #E5E5E5;
+          color: #E5E5E5;
+          transform-origin: 0 100%;
+          transform: scaleY(0.5);
+        }
+      }
+
+      &--bottom {
+        bottom: 0;
+        background: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, .6)), to(hsla(0, 0%, 100%, .95)));
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          height: 1px;
+          border-bottom: 1px solid #E5E5E5;
+          color: #E5E5E5;
+          transform-origin: 0 100%;
+          transform: scaleY(0.5);
+        }
+      }
+    }
   }
 
   &__item {
