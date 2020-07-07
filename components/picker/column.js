@@ -11,6 +11,14 @@ const DEFAULT_DURATION = 200
 // 执行惯性滚动
 const MOVE_LIMIT_TIME = 300
 const MOVE_LIMIT_DISTANCE = 15
+
+function getElementTranslateY (element) {
+  const style = window.getComputedStyle(element)
+  const transform = style.transform || style.webkitTransform
+  const translateY = transform.slice(7, transform.length - 1).split(', ')[5]
+
+  return Number(translateY)
+}
 export default createComponent({
   mixins: [TouchMixin],
 
@@ -41,6 +49,8 @@ export default createComponent({
       offset: 0,
       touchStartTime: null,
       duration: 0,
+      momentOffset: 0,
+      saveY: 0,
       currentIndex: this.defaultIndex
     }
   },
@@ -54,7 +64,13 @@ export default createComponent({
     },
 
     count () {
+      console.log(this.list.length, 'list')
       return this.list.length
+    },
+
+    // 可偏移距离
+    baseOffset () {
+      return this.rowHeight * parseInt(this.rowCount / 2)
     }
   },
 
@@ -84,20 +100,68 @@ export default createComponent({
     onTouchStart (event) {
       this.touchStart(event)
 
-      console.log(this.startY, 'startY')
+      this.saveY = this.offset
+      this.duration = 0
+      this.touchStartTime = Date.now()
     },
 
     onTouchMove (event) {
+      this.moving = true
       this.touchMove(event)
 
-      if (this.offsetY > 20) {
-        // this.getColumns(1)
+      if (this.direction === 'vertical') {
+        event.preventDefault()
       }
 
-      console.log(this.offsetY, 'offsetY')
+      this.offset = range(
+        this.saveY + this.deltaY,
+        -(this.count * this.rowHeight),
+        this.rowHeight
+      )
+
+      // this.offset = this.deltaY
+
+      const now = Date.now()
+      if (now - this.touchStartTime > MOVE_LIMIT_TIME) {
+        this.touchStartTime = now
+        this.saveY = this.offset
+      }
+
+      // console.log(this.offsetY, this.deltaY, 'offsetY')
     },
 
-    onTouchEnd () {},
+    onTouchEnd () {
+      const distance = this.offset - this.saveY
+      const duration = Date.now() - this.touchStartTime
+      const allowMomentum = duration < MOVE_LIMIT_TIME && Math.abs(distance) > MOVE_LIMIT_DISTANCE
+
+      if (allowMomentum) {
+        console.log(1222222)
+        return this.momentum(distance, duration)
+      }
+
+      const index = this.getIndexByOffset(this.offset)
+      // console.log(index, 'index')
+      this.moving = false
+      this.duration = DEFAULT_DURATION
+      this.setIndex(index, true)
+    },
+
+    getIndexByOffset (offset) {
+      // console.log(offset, Math.round(-offset / this.rowHeight), this.count, 'offset')
+      return range(Math.round(-offset / this.rowHeight), 0, this.count - 1)
+    },
+
+    momentum (distance, duration) {
+      const speed = Math.abs(distance / duration)
+
+      distance = this.offset + (speed / 0.002) * (distance < 0 ? -1 : 1)
+
+      const index = this.getIndexByOffset(distance)
+
+      this.duration = 0
+      this.setIndex(index, true)
+    },
 
     /**
      * 设置索引位置
@@ -117,6 +181,21 @@ export default createComponent({
           this.$emit('change', index, children[index])
         }
       }
+    },
+
+    onStop () {
+      this.moving = false
+      this.duration = 0
+    },
+
+    onTransitionEnd () {
+      this.onStop()
+    },
+
+    clickRow (index) {
+      if (this.moving) return
+      this.duration = DEFAULT_DURATION
+      this.setIndex(index, true)
     }
   },
 
@@ -137,7 +216,7 @@ export default createComponent({
             }}
             style={this.rowStyles}
             onClick={
-              () => this.setIndex(index, true)
+              () => this.clickRow(index, true)
             }
           >{item}</li>
         )
@@ -145,7 +224,7 @@ export default createComponent({
     }
 
     const pickerItemStyle = {
-      transform: `translate3d(0, ${this.offset}px, 0)`,
+      transform: `translate3d(0, ${this.offset + this.baseOffset}px, 0)`,
       transitionDuration: `${this.duration}ms`,
       transitionProperty: this.duration ? 'all' : 'none',
       lineHeight: `${this.rowHeight}px`
@@ -162,9 +241,11 @@ export default createComponent({
         onTouchscancel={this.onTouchEnd}
       >
         <ul
+          ref="wrapper"
           class={
             bem('column-list')
           }
+          onTransitionend={this.onTransitionEnd}
         >
           {ColumnItem()}
         </ul>
