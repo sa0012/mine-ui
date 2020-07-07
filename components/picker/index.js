@@ -33,6 +33,10 @@ export default createComponent({
       type: Number,
       default: 44
     },
+    swipeDuration: {
+      type: Number,
+      default: 1000
+    },
     hideEmptyColumn: Boolean
   },
 
@@ -121,6 +125,7 @@ export default createComponent({
           row-height={this.rowHeight}
           row-count={this.rowCount}
           hide-empty-column={this.hideEmptyColumn}
+          swipeDuration={this.swipeDuration}
           on-change={this.onChange}
         />
       ))

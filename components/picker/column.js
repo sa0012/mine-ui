@@ -27,19 +27,11 @@ export default createComponent({
       type: Array,
       default: () => []
     },
-    defaultIndex: {
-      type: Number,
-      default: 0
-    },
+    defaultIndex: Number,
     valueKey: String,
-    rowCount: {
-      type: Number,
-      default: 5
-    },
-    rowHeight: {
-      type: Number,
-      default: 44
-    },
+    rowCount: Number,
+    rowHeight: Number,
+    swipeDuration: Number,
     hideEmptyColumn: Boolean
   },
 
@@ -100,6 +92,10 @@ export default createComponent({
     onTouchStart (event) {
       this.touchStart(event)
 
+      if (this.moving) {
+        console.log('moving')
+      }
+
       this.saveY = this.offset
       this.duration = 0
       this.touchStartTime = Date.now()
@@ -140,6 +136,7 @@ export default createComponent({
         return this.momentum(distance, duration)
       }
 
+      console.log(2345)
       const index = this.getIndexByOffset(this.offset)
       // console.log(index, 'index')
       this.moving = false
@@ -153,13 +150,15 @@ export default createComponent({
     },
 
     momentum (distance, duration) {
+      console.log(distance, duration, 'duration')
       const speed = Math.abs(distance / duration)
 
       distance = this.offset + (speed / 0.002) * (distance < 0 ? -1 : 1)
 
+      console.log(distance, 'distance')
       const index = this.getIndexByOffset(distance)
 
-      this.duration = 0
+      this.duration = this.swipeDuration
       this.setIndex(index, true)
     },
 
@@ -234,7 +233,6 @@ export default createComponent({
         class={
           bem('item')
         }
-        style={pickerItemStyle}
         onTouchstart={this.onTouchStart}
         onTouchmove={this.onTouchMove}
         onTouchend={this.onTouchEnd}
@@ -245,6 +243,7 @@ export default createComponent({
           class={
             bem('column-list')
           }
+          style={pickerItemStyle}
           onTransitionend={this.onTransitionEnd}
         >
           {ColumnItem()}
