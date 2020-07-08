@@ -1,0 +1,8 @@
+$prefixCls: ml-image-preview;
+
+.#{$prefixCls} {
+  img {
+    // max-width: 100%;
+    max-height: 100%;
+  }
+}

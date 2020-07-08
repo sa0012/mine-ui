@@ -1,44 +1,73 @@
-import Vue from 'vue'
-import ImagePreview from './imagePreview'
-import { isFunc } from '../../src/utils'
+import { createNamespace } from '../../src/utils'
+import Swiper from '../swiper'
+import SwiperItem from '../swiper-item'
+import Popup from '../popup'
 
-let instance
+const [createComponent, bem] = createNamespace('image-preview')
 
-function createInstance (Vue, options) {
-  if (!instance) {
-    instance = new (Vue.extend(ImagePreview))().$mount(document.createElement('div'))
-    document.body && document.body.appendChild(instance.$el)
-  }
-
-  mergeInstanceOpts(options, instance)
-}
-
-function mergeInstanceOpts (options, instance) {
-  const defaults = {}
-  for (let i in instance.$options.props) {
-    defaults[i] = instance.$options.props[i].default
-  }
-  const opt = Object.assign({}, defaults, options)
-
-  for (let key in opt) {
-    instance[key] = opt[key]
-  }
-}
-
-const imagePreview = {
-  show (options = {}) {
-    createInstance(Vue, options)
-    instance.visible = true
+export default createComponent({
+  props: {
+    imgList: {
+      type: Array,
+      default: () => []
+    },
+    value: {
+      type: Boolean,
+      default: false
+    }
   },
 
-  hide (callback = () => {}) {
-    instance && (instance.visible = false)
-    isFunc(callback) && callback()
+  data () {
+    return {
+      visible: false
+    }
   },
 
-  install (Vue, initOptions = { prototype: true }) {
-    initOptions.prototype && (Vue.prototype.$ImagePreview = imagePreview)
-  }
-}
+  watch: {
+    value (val) {
+      this.visible = val
+    },
 
-export default imagePreview
+    visible (val) {
+      this.$emit('input', val)
+    }
+  },
+
+  methods: {
+    swiperSlot () {
+      const { imgList } = this
+      if (!imgList || !imgList.length) {
+        return new Error('imgList is array')
+      }
+
+      return (<Swiper
+        autoplay={false}
+      >
+        {
+          imgList.map((item, index) => (
+            <SwiperItem
+            >
+              <img src={item} alt="" />
+            </SwiperItem>
+          ))
+        }
+      </Swiper>)
+    }
+  },
+
+  render () {
+    return (
+      <Popup
+        v-model={this.visible}
+      >
+        <div
+          class={
+            bem()
+          }
+        >
+          {this.swiperSlot()}
+        </div>
+      </Popup>
+    )
+  }
+})

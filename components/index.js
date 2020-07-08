@@ -13,6 +13,7 @@ import DropdowmItem from './dropdowm-item'
 import DropdownMenu from './dropdown-menu'
 import Field from './field'
 import Icon from './icon'
+import ImagePreview from './image-preview'
 import IndexAnchor from './index-anchor'
 import IndexBar from './index-bar'
 import NoticeBar from './noticeBar'
@@ -48,6 +49,7 @@ const components = [
   DropdownMenu,
   Field,
   Icon,
+  ImagePreview,
   IndexAnchor,
   IndexBar,
   NoticeBar,
@@ -94,6 +96,7 @@ export {
   DropdownMenu,
   Field,
   Icon,
+  ImagePreview,
   IndexAnchor,
   IndexBar,
   NoticeBar,
