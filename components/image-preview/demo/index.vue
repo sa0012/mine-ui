@@ -29,7 +29,8 @@ export default {
         'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg',
         'https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg',
         'https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg',
-        'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg'
+        'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg',
+        'https://img.yzcdn.cn/vant/apple-4.jpg'
       ]
     }
   },

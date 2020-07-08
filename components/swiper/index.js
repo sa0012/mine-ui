@@ -231,8 +231,8 @@ export default createComponent({
       this.currentIndex = targetActive
       this.offset = targetOffset
 
-      if (emitChange && targetActive !== currentIndex) {
-        this.$emit('change', this.activeIndicator)
+      if (targetActive !== currentIndex) {
+        this.$emit('change', this.currentIndex)
       }
     },
 
