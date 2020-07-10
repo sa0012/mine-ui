@@ -11,6 +11,8 @@ $prefixCls: ml-image-preview;
   }
   &__swiper {
     height: 100%;
+    position: relative;
+    z-index: 333;
   }
 
   &__image {

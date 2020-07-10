@@ -132,6 +132,9 @@ export default createComponent({
           }
           vShow={this.visible}
         >
+          <Overlay
+            show={this.visible}
+          />
           {swiperSlot()}
         </div>
       </transition>
