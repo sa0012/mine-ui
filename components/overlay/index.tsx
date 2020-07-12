@@ -69,7 +69,7 @@ Overlay.props = {
   customStyle: Object,
   zIndex: {
     type: [Number, String],
-    default: 333
+    default: 33
   },
   transition: {
     type: String,
