@@ -19,6 +19,7 @@ function getElementTranslateY (element) {
 
   return Number(translateY)
 }
+
 export default createComponent({
   mixins: [TouchMixin],
 
@@ -40,9 +41,12 @@ export default createComponent({
       columns: [],
       offset: 0,
       touchStartTime: null,
+      touchEndTime: null,
       duration: 0,
       momentOffset: 0,
       saveY: 0,
+      transformY: 0,
+      scrollDistance: 0,
       currentIndex: this.defaultIndex
     }
   },
@@ -91,66 +95,56 @@ export default createComponent({
 
     onTouchStart (event) {
       this.touchStart(event)
-
       if (this.moving) {
-        console.log('moving')
+        const translateY = getElementTranslateY(this.$refs.wrapper)
+        this.offset = Math.min(0, translateY - this.baseOffset)
+        this.startOffset = this.offset
+      } else {
+        this.startOffset = this.offset
       }
 
-      this.saveY = this.offset
       this.duration = 0
+      this.transitionEndTrigger = null
       this.touchStartTime = Date.now()
+      this.momentumOffset = this.startOffset
     },
 
     onTouchMove (event) {
       this.moving = true
       this.touchMove(event)
-
-      if (this.direction === 'vertical') {
-        event.preventDefault()
-      }
-
-      this.offset = range(
-        this.saveY + this.deltaY,
-        -(this.count * this.rowHeight),
-        this.rowHeight
-      )
-
-      // this.offset = this.deltaY
+      this.offset = range(this.deltaY + this.momentumOffset, -this.count * this.rowHeight, this.rowHeight)
 
       const now = Date.now()
       if (now - this.touchStartTime > MOVE_LIMIT_TIME) {
         this.touchStartTime = now
-        this.saveY = this.offset
+        this.momentumOffset = this.offset
       }
 
-      // console.log(this.offsetY, this.deltaY, 'offsetY')
+      event.preventDefault()
     },
 
-    onTouchEnd () {
-      const distance = this.offset - this.saveY
+    onTouchEnd (event) {
+      event.preventDefault()
       const duration = Date.now() - this.touchStartTime
+      const distance = this.offset - this.momentumOffset
+
       const allowMomentum = duration < MOVE_LIMIT_TIME && Math.abs(distance) > MOVE_LIMIT_DISTANCE
 
       if (allowMomentum) {
-        console.log(1222222)
         return this.momentum(distance, duration)
       }
 
-      console.log(2345)
       const index = this.getIndexByOffset(this.offset)
-      // console.log(index, 'index')
       this.moving = false
       this.duration = DEFAULT_DURATION
       this.setIndex(index, true)
     },
 
     getIndexByOffset (offset) {
-      // console.log(offset, Math.round(-offset / this.rowHeight), this.count, 'offset')
       return range(Math.round(-offset / this.rowHeight), 0, this.count - 1)
     },
 
     momentum (distance, duration) {
-      console.log(distance, duration, 'duration')
       const speed = Math.abs(distance / duration)
 
       distance = this.offset + (speed / 0.002) * (distance < 0 ? -1 : 1)
@@ -192,7 +186,7 @@ export default createComponent({
     },
 
     clickRow (index) {
-      if (this.moving) return
+      // if (this.moving) return
       this.duration = DEFAULT_DURATION
       this.setIndex(index, true)
     }
