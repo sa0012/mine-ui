@@ -1,35 +1,30 @@
 <template>
-  <nut-actionsheet :is-visible="isVisible" @close="closeActionSheet">
-    <div class="nut-picker" slot="custom" :class="customClassName ? customClassName : null">
-      <div class="nut-picker-control">
-        <span class="nut-picker-cancel-btn" @click="closeActionSheet">{{ nutTranslate('lang.cancelBtnTxt') }}</span>
-        <div class="nut-picker-title">{{ title ? title : '' }}</div>
-        <span class="nut-picker-confirm-btn" @click="confirm">{{ nutTranslate('lang.okBtnTxt') }}</span>
-      </div>
-      <div class="nut-picker-panel">
-        <template v-for="(item, index) of listData">
-          <nut-picker-slot
-            :ref="`picer-slot-${index}`"
-            :default-value="chooseValueData[index]"
-            :is-update="isUpdate"
-            :list-data="item"
-            @chooseItem="chooseItem"
-            :key="index"
-            :key-index="index"
-          ></nut-picker-slot>
-        </template>
-      </div>
+  <div class="nut-picker" slot="custom" :class="customClassName ? customClassName : null">
+    <div class="nut-picker-control">
+      <span class="nut-picker-cancel-btn" @click="closeActionSheet">{{ '11111' }}</span>
+      <div class="nut-picker-title">{{ title ? title : '' }}</div>
+      <span class="nut-picker-confirm-btn" @click="confirm">{{ '2222' }}</span>
     </div>
-  </nut-actionsheet>
+    <div class="nut-picker-panel">
+      <template v-for="(item, index) of listData">
+        <nut-picker-slot
+          :ref="`picer-slot-${index}`"
+          :default-value="chooseValueData[index]"
+          :is-update="isUpdate"
+          :list-data="item"
+          @chooseItem="chooseItem"
+          :key="index"
+          :key-index="index"
+        ></nut-picker-slot>
+      </template>
+    </div>
+  </div>
 </template>
 <script>
-import nutactionsheet from '../actionsheet/actionsheet.vue';
-import '../actionsheet/actionsheet.scss';
-import nutpickerslot from './picker-slot.vue';
-import locale from '../../mixins/locale';
+import './picker.scss'
+import NutPickerSlot from './test'
 export default {
   name: 'nut-picker',
-  mixins: [locale],
   props: {
     isVisible: {
       type: Boolean,
@@ -53,8 +48,7 @@ export default {
     }
   },
   components: {
-    [nutactionsheet.name]: nutactionsheet,
-    [nutpickerslot.name]: nutpickerslot
+    NutPickerSlot
   },
   data() {
     return {
