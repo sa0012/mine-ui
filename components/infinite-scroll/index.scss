@@ -1,0 +1,10 @@
+$prefixCls: ml-infinite-scroll;
+
+.#{$prefixCls} {
+  -webkit-overflow-scrolling: touch;
+
+  &__placeholder {
+    height: 0;
+    pointer-events: none;
+  }
+}

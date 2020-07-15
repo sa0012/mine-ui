@@ -16,6 +16,7 @@ import Icon from './icon'
 import ImagePreview from './image-preview'
 import IndexAnchor from './index-anchor'
 import IndexBar from './index-bar'
+import InfiniteScroll from './infinite-scroll'
 import NoticeBar from './noticeBar'
 import NumberKeyboard from './number-keyboard'
 import Overlay from './overlay'
@@ -52,6 +53,7 @@ const components = [
   ImagePreview,
   IndexAnchor,
   IndexBar,
+  InfiniteScroll,
   NoticeBar,
   NumberKeyboard,
   Overlay,
@@ -99,6 +101,7 @@ export {
   ImagePreview,
   IndexAnchor,
   IndexBar,
+  InfiniteScroll,
   NoticeBar,
   NumberKeyboard,
   Overlay,
