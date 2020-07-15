@@ -10,6 +10,7 @@
     "build:style": "cross-env node build/build-style-entry",
     "build:pkg": "cross-env NODE_ENV=production webpack --color --config build/webpack.pkg.js",
     "build:lib": "cross-env node build/build-lib.js",
+    "build:writeJSON": "cross-env node build/getSassStr.js",
     "lint": "eslint -c ./.eslintrc --fix --ext .jsx,.js,.vue ./src",
     "commit": "git-cz",
     "test": "jest",

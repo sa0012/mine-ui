@@ -1,5 +1,5 @@
 @font-face {font-family: "ml-icon";
-  src: url('~@/common/font/iconfont.ttf?t=1591595298159') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  src: url('~@/common/font/iconfont.ttf?t=1594813689761') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
 }
 
 .ml-icon {
@@ -8,6 +8,98 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.ml-icon-spinner:before {
+  content: "\e86f";
+}
+
+.ml-icon-spinner9:before {
+  content: "\e7e9";
+}
+
+.ml-icon-loading1:before {
+  content: "\e62e";
+}
+
+.ml-icon-home:before {
+  content: "\e6fe";
+}
+
+.ml-icon-spinner1:before {
+  content: "\e686";
+}
+
+.ml-icon-loading-:before {
+  content: "\e8aa";
+}
+
+.ml-icon-loading-1:before {
+  content: "\e8ab";
+}
+
+.ml-icon-loading-2:before {
+  content: "\e8b0";
+}
+
+.ml-icon-all:before {
+  content: "\e6ef";
+}
+
+.ml-icon-editor:before {
+  content: "\e6f6";
+}
+
+.ml-icon-gift:before {
+  content: "\e6f9";
+}
+
+.ml-icon-browse:before {
+  content: "\e745";
+}
+
+.ml-icon-viewlarger:before {
+  content: "\e76c";
+}
+
+.ml-icon-viewlarger1:before {
+  content: "\e78f";
+}
+
+.ml-icon-Downloadinterfacedownloading:before {
+  content: "\e9cd";
+}
+
+.ml-icon-Uploadinterfaceuploading:before {
+  content: "\e9cb";
+}
+
+.ml-icon-Uploadinterfaceuploading1:before {
+  content: "\e9d3";
+}
+
+.ml-icon-Downloadinterfacedownloading1:before {
+  content: "\e9d8";
+}
+
+.ml-icon-search1:before {
+  content: "\e7b3";
+}
+
+.ml-icon-viewfinder:before {
+  content: "\e8b1";
+}
+
+.ml-icon-spinner2:before {
+  content: "\e77a";
+}
+
+.ml-icon-spinner3:before {
+  content: "\e77f";
+}
+
+.ml-icon-spinner-arrow:before {
+  content: "\e71d";
 }
 
 .ml-icon-shanchu:before {
@@ -177,3 +269,4 @@
 .ml-icon-question:before {
   content: "\e6cf";
 }
+

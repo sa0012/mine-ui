@@ -1,5 +1,10 @@
 <template>
-  <div class="spinner"></div>
+  <div class="spinner">
+    <div v-for="item in 7" :key="item">
+      <demo-title>模式-{{item}}</demo-title>
+      <ml-spinner slot="right-icon" :type="item" />
+    </div>
+  </div>
 </template>
 
 <script>

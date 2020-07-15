@@ -1,72 +1,22 @@
 <template>
   <div class="demo-icon-page">
-    <div class="demo-icon-row" v-for="(item, index) in iconArray" :key="index">
-      <div class="demo-icon-item" v-for="(icon, index) in item" :key="index">
-        <ml-icon class="demo-icon" :name="icon.name" size="30" />
-        <p class="icon-name" v-if="icon.name">{{ `ml-icon-${icon.name}` }}</p>
+    <div class="demo-icon-row">
+      <div class="demo-icon-item" v-for="(item, index) in iconArray" :key="index">
+        <ml-icon class="demo-icon" :name="item" size="30" />
+        <p class="icon-name" v-if="item">{{ `ml-icon-${item}` }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import iconList from '@/common/font/iconfont.json'
 export default {
   name: '',
 
   data () {
     return {
-      iconArray: [
-        [
-          { name: 'circle-left' },
-          { name: 'circle-down' },
-          { name: 'circle-right' }
-        ],
-        [
-          { name: 'alert-empty' },
-          { name: 'alert-full' },
-          { name: 'alert' },
-        ],
-        [
-          { name: 'checkmark-full' },
-          { name: 'checkmark' },
-          { name: 'error-full' },
-        ],
-        [
-          { name: 'error' },
-          { name: 'loading' },
-          { name: 'arrow-left' }
-        ],
-        [
-          { name: 'arrow-up' },
-          { name: 'arrow-right' },
-          { name: 'arrow-down' }
-        ],
-        [
-          { name: 'error-empty' },
-          { name: 'checkmark-empty' },
-          { name: 'jia' }
-        ],
-        [
-          { name: 'jian' },
-          { name: 'shanchu' },
-          { name: 'keyboard-down' }
-        ],
-        [
-          { name: 'keyboard-xiangxia' },
-          { name: 'keyboard-xiangshang' },
-          { name: 'keyboard-delete' }
-        ],
-        [
-          { name: 'keyboard-remove' },
-          { name: 'yuandian' },
-          { name: 'error-gap' }
-        ],
-        [
-          { name: 'pentagram' },
-          { name: '' },
-          { name: '' }
-        ]
-      ]
+      iconArray: iconList
     }
   },
 
@@ -83,15 +33,18 @@ export default {
 }
 .demo-icon-row {
   display: flex;
-  border-top: 1px solid #e5e5e5;
+  flex-wrap: wrap;
+  overflow-x: hidden;
   &:first-child {
     border: 0;
   }
   .demo-icon-item {
-    flex: 1;
+    box-sizing: border-box;
+    width: 33.33%;
     padding-top: 14px;
     text-align: center;
     border-left: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
     &:first-child {
       border: 0;
     }
