@@ -1,6 +1,6 @@
 <template>
   <div class="spinner">
-    <div v-for="item in 7" :key="item">
+    <div v-for="item in 8" :key="item">
       <demo-title>模式-{{item}}</demo-title>
       <ml-spinner slot="right-icon" :type="item" />
     </div>

@@ -29,6 +29,11 @@ export default createComponent({
     color: {
       type: String,
       default: ''
+    },
+
+    playState: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -41,7 +46,8 @@ export default createComponent({
         4: 'spinner1',
         5: 'spinner2',
         6: 'spinner3',
-        7: 'loading'
+        7: 'loading',
+        8: 'spinner-arrow'
       })[this.type] || 'spinner'
     }
   },
@@ -57,6 +63,9 @@ export default createComponent({
           class={
             bem('icon')
           }
+          style={{
+            animationPlayState: this.playState ? 'running' : 'paused'
+          }}
           name={this.iconName}
           size={this.size}
           color={this.color}
