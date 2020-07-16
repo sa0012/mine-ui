@@ -19,6 +19,11 @@ export function isObj (x: any): boolean {
   return x !== null && (type === 'object' || type === 'function');
 }
 
+export function isEmptyObj (obj: object): boolean {
+  if (!isObj(obj)) return false
+  return !!(Object.getOwnPropertyNames(obj).length)
+}
+
 export const isArray = <array>(array: array) => Array.isArray(array)
 
 export function get (object: any, path: string): any {

@@ -2,6 +2,7 @@
 import Accordion from './accordion'
 import AccordionItem from './accordion-item'
 import ActionSheet from './actionSheet'
+import Backtop from './backtop'
 import Button from './button'
 import Cell from './cell'
 import CellGroup from './cell-group'
@@ -40,6 +41,7 @@ const components = [
   Accordion,
   AccordionItem,
   ActionSheet,
+  Backtop,
   Button,
   Cell,
   CellGroup,
@@ -89,6 +91,7 @@ export {
   Accordion,
   AccordionItem,
   ActionSheet,
+  Backtop,
   Button,
   Cell,
   CellGroup,

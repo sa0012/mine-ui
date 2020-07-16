@@ -57,5 +57,9 @@ export default {
 }
 .icon-name {
   font-size: 12px;
+  padding: 0 10px;
+  word-break: break-word;
+  box-sizing: border-box;
+  line-height: 1.5em;
 }
 </style>
