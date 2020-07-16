@@ -54,7 +54,7 @@ function addToastTypes (toast) {
   types.forEach(type => {
     if (type === 'warn') {
       toast[type] = function (...option) {
-        return toast.show({ iconSize: 24, ...marge(option), type })
+        return toast.show({ ...marge(option), type })
       }
     } else if (type === 'loading') {
       toast[type] = function (...option) {

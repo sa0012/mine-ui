@@ -10,6 +10,7 @@ const [createComponent, bem] = createNamespace('button')
 export type ButtonType = 'default' | 'primary' | 'info' | 'warning' | 'danger'
 export type ButtonSize = 'large' | 'normal' | 'small' | 'mini'
 export type iconPos = 'left' | 'right'
+export type animated = 'antd-ripple' | 'ripple'
 
 export type ButtonProps = {
   tag: keyof HTMLElementTagNameMap | string;
@@ -20,6 +21,7 @@ export type ButtonProps = {
   htmlType?: string;
   disabled?: boolean;
   position: iconPos;
+  animated: animated;
 }
 
 export type ButtonSlots = DefaultSlots & {
@@ -41,13 +43,15 @@ function Button (
     type,
     size,
     htmlType,
-    disabled
+    disabled,
+    animated
   } = props
 
   const classes = [
     bem([
       type,
       size,
+      !disabled && animated,
       [...(props.disabled ? 'disabled' : '')]
     ])
   ]
@@ -58,7 +62,7 @@ function Button (
 
   function Content () {
     return (
-      <div class={
+      <span class={
         bem('content')
       }>
         {
@@ -72,7 +76,7 @@ function Button (
           )
         }
         <span class={bem('text')}>{props.text}</span>
-      </div>
+      </span>
     )
   }
   return (
@@ -105,6 +109,10 @@ Button.props = {
   position: {
     type: String,
     default: 'left'
+  },
+  animated: {
+    type: String,
+    default: 'antd-ripple'
   },
   text: String,
   htmlType: String,

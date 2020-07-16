@@ -60,7 +60,7 @@ export default {
       this.$toast.loading('加载中..')
     },
     showLoading2 () {
-      this.$toast.loading('')
+      this.$toast.text('')
     },
     showDiy () {
       this.$toast.show({ message: '自定义icon', iconClass: 'pentagram' })

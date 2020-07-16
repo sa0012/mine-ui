@@ -1,6 +1,6 @@
 import { createNamespace } from '../../src/utils'
 import { throttle } from '../../src/utils/throttle'
-import { getScrollTop, calcTotalScrollTop } from '../../src/utils/dom/height'
+import { getScrollTop, calcTotalScrollTop } from '../../src/utils/dom/scroll'
 import Spinner from '../spinner'
 
 const [createComponent, bem] = createNamespace('infinite-scroll')
@@ -101,7 +101,6 @@ export default createComponent({
   methods: {
     onScroll () {
       if (!this.isScrollToBottom() || !this.hasMore || this.isLoading || this.error) {
-        console.log(this.error, 'error')
         return false
       }
 

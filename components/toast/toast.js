@@ -1,5 +1,6 @@
 import { createNamespace, isObj } from '../../src/utils'
 import Icon from '../icon'
+import Spinner from '../spinner'
 
 const [createComponent, bem] = createNamespace('toast')
 
@@ -30,14 +31,14 @@ export default createComponent({
       default: 'center'
     },
     // 过渡动画类名（name）
-    transition: {
+    transitionName: {
       type: String,
       default: 'ml-fade'
     },
     // icon大小
     iconSize: {
       type: [Number, String],
-      default: 44
+      default: 32
     },
     // 自定义icon前缀，默认使用自带图标集，也可以使用用户自定义
     iconPrefix: {
@@ -80,6 +81,19 @@ export default createComponent({
     isMultiple: {
       type: Boolean,
       default: false
+    },
+    // loading类型
+    spinnerType: {
+      type: [String, Number],
+      default: 7,
+      validator (val) {
+        return Number(val) >= 1 && Number(val) <= 7
+      }
+    },
+
+    spinnerColor: {
+      type: String,
+      default: '#ccc'
     }
   },
 
@@ -121,7 +135,7 @@ export default createComponent({
       iconSize,
       iconPrefix,
       position,
-      transition,
+      transitionName,
       message
     } = this
 
@@ -138,7 +152,8 @@ export default createComponent({
         : position === 'bottom'
           ? 'bottom'
           : message !== void 0 && message !== ''
-            ? 'min-width' : ''
+            ? 'min-width'
+            : ''
 
     const positionClass = typeof position === 'string'
       ? position : ''
@@ -147,7 +162,7 @@ export default createComponent({
 
     return (
       <transition
-        name={transition}
+        name={transitionName}
       >
         <div
           class={bem(['wrapper'])}
@@ -159,18 +174,31 @@ export default createComponent({
               vShow={this.isShowMark}></div>
             <div
               class={
-                bem(['content', contentClass, positionClass])
+                bem(['content', contentClass, positionClass, type !== 'text' && 'icon'])
               }
               style={positionStyle}
             >
-              <Icon
-                name={iconName}
-                size={iconSize}
-                classPrefix={iconPrefix}
-                class={
-                  bem('icon', [type === 'loading' ? 'loading' : ''])
-                }
-              />
+              {
+                this.type === 'loading' ? (
+                  <Spinner
+                    type={this.spinnerType}
+                    size={iconSize}
+                    color={this.spinnerColor}
+                    class={
+                      bem('loading')
+                    }
+                  />
+                ) : (
+                  <Icon
+                    name={iconName}
+                    size={iconSize}
+                    classPrefix={iconPrefix}
+                    class={
+                      bem('icon', [type])
+                    }
+                  />
+                )
+              }
               <div
                 class={bem(['text'])}
                 vShow={this.message}

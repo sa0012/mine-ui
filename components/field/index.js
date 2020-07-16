@@ -1,11 +1,10 @@
-import { createNamespace, isFunc, isDef } from '../../src/utils'
+import { createNamespace, isDef } from '../../src/utils'
+import { resetScroll } from '../../src/utils/dom/scroll'
 import Cell from '../cell'
-import Icon from '../icon'
 
 const [createComponent, bem] = createNamespace('field')
 
 export default createComponent({
-  name: 'field',
   inheritAttrs: false,
 
   props: {
@@ -143,6 +142,8 @@ export default createComponent({
     onBlur (event) {
       this.focused = false
       this.$emit('blur', event)
+      // ios12微信环境下，输入框失去焦点无法复位问题修复
+      resetScroll()
     },
 
     onKeypress (event) {

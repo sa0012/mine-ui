@@ -24,6 +24,23 @@ $prefixCls: ml-toast;
     background-color: transparent;
   }
 
+  &__loading {
+    color: #ccc;
+    font-weight: 400;
+  }
+
+  &__icon--warn {
+    color: $orange;
+  }
+
+  &__icon--error {
+    color: $red;
+  }
+
+  &__icon--success {
+    color: $green;
+  }
+
   &--content {
     z-index: 11000;
     max-width: 140px;
@@ -42,13 +59,22 @@ $prefixCls: ml-toast;
     box-sizing: border-box;
     transform: translate3d(-50%, -50%, 0);
     background-color: rgba(0, 0, 0, .7);
-    padding: 12px;
+    padding: 16px;
     text-align: center;
     .#{prefixCls}--icon {
       font-size: 44px;
       line-height: 1;
       &.ml-icon-loading {
         font-size: 32px;
+      }
+
+      &.ml-icon-error {
+        font-size: 28px;
+        color: $red;
+      }
+
+      &.ml-icon-success {
+        color: $green;
       }
     }
   }
@@ -66,8 +92,8 @@ $prefixCls: ml-toast;
   &--min-width {
     min-width: 120px;
   }
-}
 
-.#{prefixCls}--icon ~ .#{prefixCls}--text {
-  margin-top: 12px;
+  &--icon &--text {
+    margin-top: 10px;
+  }
 }
