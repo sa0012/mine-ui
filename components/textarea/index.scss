@@ -1,0 +1,43 @@
+$prefixCls: ml-textarea;
+
+.#{$prefixCls} {
+  border: 1px solid #ececee;
+  position: relative;
+  &__textarea {
+    resize: none;
+    width: 100%;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+    border-radius: 6px;
+    background: #fff;
+    -webkit-overflow-scrolling: touch;
+
+    &.error {
+      border: 1px solid #e2231a;
+
+      span {
+        color: #e2231a;
+      }
+    }
+
+    &--disabled {
+      background-color: #f5f7fa;
+      border-color: #e5e7ed;
+      color: #999;
+    }
+  }
+
+  &__limit {
+    color: #666;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    font-size: 12px;
+  }
+}

@@ -33,6 +33,7 @@ import SwiperItem from './swiper-item'
 import Switch from './switch'
 import Tabpane from './tabpane'
 import Tabs from './tabs'
+import Textarea from './textarea'
 import Toast from './toast'
 
 const version = '1.0.0'
@@ -72,6 +73,7 @@ const components = [
   Switch,
   Tabpane,
   Tabs,
+  Textarea,
   Toast
 ]
 
@@ -122,6 +124,7 @@ export {
   Switch,
   Tabpane,
   Tabs,
+  Textarea,
   Toast
 }
 
