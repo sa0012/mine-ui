@@ -24,6 +24,10 @@ export function isEmptyObj (obj: object): boolean {
   return !!(Object.getOwnPropertyNames(obj).length)
 }
 
+export function isString (str: string): boolean {
+  return !!(typeof str === 'string')
+}
+
 export const isArray = <array>(array: array) => Array.isArray(array)
 
 export function get (object: any, path: string): any {

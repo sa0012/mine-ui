@@ -1,6 +1,6 @@
-import { createNamespace, isEmptyObj } from '../../src/utils'
+import { createNamespace, isEmptyObj, isFunc, isString } from '../../src/utils'
 import { throttle } from '../../src/utils/throttle'
-import { getScrollTop, calcTotalScrollTop, setRootScrollTop } from '../../src/utils/dom/scroll'
+import { getScrollTop } from '../../src/utils/dom/scroll'
 import { raf, cancelRaf } from '../../src/utils/raf'
 
 import Icon from '../icon'
@@ -19,6 +19,10 @@ export default createComponent({
     useCapture: {
       type: Boolean,
       default: false
+    },
+    useWindow: {
+      type: Boolean,
+      default: true
     },
     bottom: {
       type: [String, Number],
@@ -48,21 +52,25 @@ export default createComponent({
         return ['circle', 'square'].includes(val)
       }
     },
-    duration: {
-      type: Number,
-      default: 800
-    },
     name: {
       type: String,
-      default: 'Uploadinterfaceuploading'
+      default: 'back-top'
     },
     text: {
       type: String,
       default: 'Top'
     },
+    step: {
+      type: Number,
+      default: 50
+    },
     size: {
       type: [Number, String],
-      default: 30
+      default: 24
+    },
+    scroller: {
+      type: [String, Function, Object],
+      default: window
     },
     color: String
   },
@@ -83,38 +91,62 @@ export default createComponent({
         right: `${right}px`,
         zIndex
       }
+    },
+
+    scrollEle () {
+      return isFunc(this.scroller) ? this.scroller() : this.getContainer(this.scroller)
     }
   },
 
   methods: {
     eventHandler (type = 'add') {
-      window[`${type}EventListener`]('scroll', throttle(this.onScroll, 200), this.useCapture)
+      this.scrollEle[`${type}EventListener`]('scroll', throttle(this.onScroll, 200), this.useCapture)
       window[`${type}EventListener`]('resize', throttle(this.onScroll, 200), this.useCapture)
+    },
+
+    getContainer (element) {
+      if (
+        isString(element) &&
+        (element.indexOf('.') !== -1 || element.indexOf('#') !== -1)
+      ) {
+        return document.querySelector(element)
+      } else if (element === 'body') {
+        return document.body
+      } else if (element === 'html') {
+        return document.documentElement
+      }
+
+      return window
     },
 
     onScroll () {
       let scrollTop = getScrollTop()
+      if (this.scroller !== window) {
+        scrollTop = this.scrollEle.scrollTop
+      }
       this.offsetY = scrollTop
       this.visible = !!(scrollTop >= this.offset)
     },
 
     scrollTop (y = 0) {
-      window.scrollTo(0, y)
-      // if (this.scrollEl === window) {
-      // } else {
-      //   this.scrollEl.scrollTop = y
-      // }
+      if (this.scrollEle === window) {
+        window.scrollTo(0, y)
+      } else {
+        this.scrollEle.scrollTop = y
+      }
     },
 
     backTop () {
-      let startTime = Date.now()
       const _this = this
       let cid = raf(function fn () {
-        let t = _this.duration - Math.max(0, startTime - Date.now() + _this.duration)
-        let y = (t * -_this.offsetY) / _this.duration + _this.offsetY
-        _this.scrollTop(y)
-        cid = raf(fn)
-        if (t === _this.duration || y === 0) {
+        let top = getScrollTop()
+        if (_this.scroller !== window) {
+          top = _this.scrollEle.scrollTop
+        }
+        if (top > 0) {
+          _this.scrollTop(top - _this.step)
+          cid = raf(fn)
+        } else {
           cancelRaf(cid)
         }
       })

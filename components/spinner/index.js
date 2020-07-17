@@ -14,7 +14,7 @@ export default createComponent({
       type: [String, Number],
       default: 1,
       validator (val) {
-        return Number(val) >= 1 && Number(val) <= 7
+        return Number(val) >= 1 && Number(val) <= 10
       }
     },
 
@@ -47,7 +47,9 @@ export default createComponent({
         5: 'spinner2',
         6: 'spinner3',
         7: 'loading',
-        8: 'spinner-arrow'
+        8: 'spinner-arrow',
+        9: 'loading2',
+        10: 'loading-solid'
       })[this.type] || 'spinner'
     }
   },

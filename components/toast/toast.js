@@ -85,9 +85,9 @@ export default createComponent({
     // loading类型
     spinnerType: {
       type: [String, Number],
-      default: 7,
+      default: 10,
       validator (val) {
-        return Number(val) >= 1 && Number(val) <= 7
+        return Number(val) >= 1 && Number(val) <= 10
       }
     },
 

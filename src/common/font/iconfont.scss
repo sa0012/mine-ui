@@ -1,13 +1,39 @@
 @font-face {font-family: "ml-icon";
-  src: url('~@/common/font/iconfont.ttf?t=1594813689761') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  src: url('~@/common/font/iconfont.ttf?t=1594948912357') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
 }
 
 .ml-icon {
   font-family: "ml-icon" !important;
   font-size: 16px;
   font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.ml-icon-loading2:before {
+  content: "\e6d2";
+}
+
+.ml-icon-loading-solid:before {
+  content: "\e60e";
+}
+
+.ml-icon-back-top:before {
+  content: "\e695";
+}
+
+.ml-icon-back-top1:before {
+  content: "\e608";
+}
+
+.ml-icon-back-top2:before {
+  content: "\e60f";
+}
+
+.ml-icon-back-top3:before {
+  content: "\e60b";
 }
 
 .ml-icon-spinner:before {
@@ -269,4 +295,3 @@
 .ml-icon-question:before {
   content: "\e6cf";
 }
-
