@@ -81,7 +81,19 @@ export default createComponent({
 
     handleConfirm () {
       isFunc(this.onConfirm) && this.onConfirm()
+    },
+
+    close () {
+      this.handleCancel()
     }
+  },
+
+  mounted () {
+    window.addEventListener('popstate', this.close)
+  },
+
+  destroyed () {
+    window.removeEventListener('popstate', this.close)
   },
 
   render () {

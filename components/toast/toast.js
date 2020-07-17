@@ -128,6 +128,14 @@ export default createComponent({
     }
   },
 
+  mounted () {
+    window.addEventListener('popstate', this.onCancel)
+  },
+
+  destroyed () {
+    window.removeEventListener('popstate', this.onCancel)
+  },
+
   render () {
     const {
       type,

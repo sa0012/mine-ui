@@ -60,6 +60,7 @@ export default createComponent({
   },
 
   mounted () {
+    window.addEventListener('popstate', this.onCancel)
     if (this.hideMask) {
       this.$nextTick(() => {
         document.addEventListener('touchstart', this.onCancel)
@@ -68,6 +69,7 @@ export default createComponent({
   },
 
   beforeDestroy () {
+    window.removeEventListener('popstate', this.onCancel)
     if (this.hideMask) {
       window.removeEventListener('touchstart', this.onCancel)
     }
