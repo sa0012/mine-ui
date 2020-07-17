@@ -9,6 +9,7 @@ import CellGroup from './cell-group'
 import Checkbox from './checkbox'
 import CheckboxGroup from './checkbox-group'
 import Checkicon from './checkicon'
+import ChooseCar from './choose-car'
 import Dialog from './dialog'
 import DropdowmItem from './dropdowm-item'
 import DropdownMenu from './dropdown-menu'
@@ -49,6 +50,7 @@ const components = [
   Checkbox,
   CheckboxGroup,
   Checkicon,
+  ChooseCar,
   Dialog,
   DropdowmItem,
   DropdownMenu,
@@ -100,6 +102,7 @@ export {
   Checkbox,
   CheckboxGroup,
   Checkicon,
+  ChooseCar,
   Dialog,
   DropdowmItem,
   DropdownMenu,

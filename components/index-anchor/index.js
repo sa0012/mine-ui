@@ -35,12 +35,10 @@ export default createComponent({
     },
 
     changeIndex (status) {
-      console.log(status, 'status')
       this.active = status
     },
 
     handleChange (fixed) {
-      console.log(fixed, 'fixed')
       this.fixed = fixed
     }
   },

@@ -1,0 +1,29 @@
+$prefixCls: ml-choose-car;
+
+.#{$prefixCls} {
+  &__brand-list-wrap {}
+
+  &__brand-list {}
+
+  &__brand-item {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 44px;
+    line-height: 44px;
+    box-sizing: border-box;
+    padding-left: 15px;
+
+    img {
+      width: 20px;
+      vertical-align: middle;
+      padding-left: 3px;
+    }
+
+    span {}
+  }
+}
