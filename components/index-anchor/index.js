@@ -5,7 +5,11 @@ const [createComponent, bem] = createNamespace('index-anchor')
 
 export default createComponent({
   props: {
-    index: [String, Number]
+    index: [String, Number],
+    styles: {
+      type: Object,
+      default: () => {}
+    }
   },
 
   data () {
@@ -66,6 +70,7 @@ export default createComponent({
             class={[bem({
               sticky
             })]}
+            style={this.styles}
           >
             {(this.$slots && this.$slots.default) || this.index}
           </div>

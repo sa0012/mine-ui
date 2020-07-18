@@ -1,11 +1,24 @@
 $prefixCls: ml-choose-car;
 
 .#{$prefixCls} {
+  background: #fff;
   &__brand-list-wrap {}
 
-  &__brand-list {}
+  &__brand-list {
+  }
 
+  &__index-anchor {
+    background: #f5f5f5;
+    .ml-index-anchor {
+      font-size: 16px;
+      font-weight: bold;
+      height: 44px;
+      line-height: 44px;
+    }
+  }
+  
   &__brand-item {
+    @include mix-1px($bottom: 1px);
     position: relative;
     margin: 0;
     padding: 0;
@@ -17,13 +30,99 @@ $prefixCls: ml-choose-car;
     line-height: 44px;
     box-sizing: border-box;
     padding-left: 15px;
+    display: flex;
+    align-items: center;
 
     img {
-      width: 20px;
+      width: 30px;
       vertical-align: middle;
-      padding-left: 3px;
+      margin-right: 5px;
+      border-radius: 50%;
     }
 
     span {}
+  }
+
+  &__category-first-title {
+    margin: 0;
+    padding-left: 15px;
+    height: 80px;
+    line-height: 80px;
+    background: #fff;
+    font-size: 18px;
+    letter-spacing: 2px;
+
+    &--mode {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      margin: 0;
+    }
+  }
+
+  &__category-brand-icon {
+    width: 35px;
+    vertical-align: middle;
+    padding-right: 3px;
+    margin-bottom: 4px;
+  }
+
+  &__category-brand-item {
+    padding-left: 15px;
+  }
+
+  &__category-brand-item-name {
+    list-style: none;
+    height: 44px;
+    line-height: 44px;
+    box-sizing: border-box;
+    position: relative;
+    @include mix-1px($bottom: 1px);
+  }
+
+  &__category-second-title,
+  &__mode-second-title {
+    margin: 0;
+    padding: 0;
+    padding-left: 15px;
+    height: 40px;
+    line-height: 40px;
+    background: #f5f5f5;
+    color: #9a9a9a;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  &__mode-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 80px;
+  }
+
+  &__mode-vehicle-list {
+    padding-left: 15px;
+  }
+
+  &__mode-vehicle-item {
+    @include mix-1px($bottom: 1px);
+
+    &:last-child:before {
+      height: 0;
+    }
+  }
+
+  &__mode-vehicle-name {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    line-height: 1.5em;
+    position: relative;
+  }
+
+  .ml-popup__content--right {
+    overflow: auto;
+    -webkit-overflow-scrolling: auto;
   }
 }

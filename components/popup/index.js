@@ -44,6 +44,10 @@ export default createComponent({
           position: 'fixed'
         }
       }
+    },
+    width: {
+      type: String,
+      default: ''
     }
   },
 
@@ -118,7 +122,8 @@ export default createComponent({
             style={{
               ...this.borderRadius,
               ...this.overlayStyle,
-              backgroundColor: this.backgroundColor
+              backgroundColor: this.backgroundColor,
+              width: this.width
             }}
           >
             {this.$slots && this.$slots.default}

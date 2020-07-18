@@ -24,10 +24,16 @@ export default createComponent({
     return {}
   },
 
-  methods: {},
+  methods: {
+    selectCategory (category = {}) {
+      console.log(category, 'category')
+      this.$emit('selectCategory', category)
+    }
+  },
 
   render () {
     const brandList = () => {
+      if (!this.brand || !this.brand.length) return
       return (
         <IndexBar>
           {
@@ -39,6 +45,9 @@ export default createComponent({
                   }
                 >
                   <IndexAnchor
+                    class={
+                      bem('index-anchor')
+                    }
                     index={this.indexList[index]}
                   />
                   <ul
@@ -48,7 +57,13 @@ export default createComponent({
                   >
                     {
                       item.map((brand, bIndex) => (
-                        <li class={bem('brand-item')}>
+                        <li
+                          class={bem('brand-item')}
+                          onClick={() => this.selectCategory({
+                            category: brand,
+                            icon: this.carIcon[brand.brandCategoryCode]
+                          })}
+                        >
                           <img
                             src={this.carIcon[brand.brandCategoryCode]}
                             alt={brand.brandCategoryCode}

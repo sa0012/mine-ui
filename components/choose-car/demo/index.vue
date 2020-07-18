@@ -1,12 +1,14 @@
 <template>
   <div class="choose-car">
-    <demo-title>基础用法</demo-title>
+    <!-- <demo-title>基础用法</demo-title> -->
     <ml-choose-car
       :brand="brand"
       :category="category"
       :mode="mode"
       :index-list="indexList"
       :carIcon="carIcon"
+      @selectCategory="selectCategoryHandler"
+      @selectMode="selectModeHandler"
     />
   </div>
 </template>
@@ -18,8 +20,8 @@ import mode from '../../../src/mock/selectModel'
 export default {
   data () {
     return {
-      category,
-      mode,
+      category: [],
+      mode: [],
       carIcon: {}
     }
   },
@@ -48,6 +50,16 @@ export default {
         })
       }
     },
+
+    selectCategoryHandler (options = {}) {
+      // 执行车系分类数据请求
+      this.category = category.result
+    },
+
+    selectModeHandler (options = {}) {
+      this.mode = mode.result.content
+      console.log(this.mode, 'mode')
+    }
   },
 
   mounted () {
