@@ -32,6 +32,42 @@
         "carYear": "2015",
         "displayName": "华晨宝马320Li AT时尚型长轴距版 5座 (宝马BMW7200HL(BMW320Li)轿车 参考价33.11万)"
       }]
+    }, {
+      "carYear": "2014",
+      "insurerVehicleModelMOs": [{
+        "modelCode": "BMAAHD0101",
+        "modelName": "宝马BMW7160AL(BMW316Li)轿车",
+        "carYear": "2015",
+        "displayName": "华晨宝马316Li MT长轴距版 5座 (宝马BMW7160AL(BMW316Li)轿车 参考价25.03万)"
+      }, {
+        "modelCode": "BMAAHD0102",
+        "modelName": "宝马BMW7160BL(BMW316Li)轿车",
+        "carYear": "2015",
+        "displayName": "华晨宝马316Li AT时尚型长轴距版 5座 (宝马BMW7160BL(BMW316Li)轿车 参考价27.11万)"
+      }, {
+        "modelCode": "BMAAHD0103",
+        "modelName": "宝马BMW7200HL(BMW320Li)轿车",
+        "carYear": "2015",
+        "displayName": "华晨宝马320Li AT时尚型长轴距版 5座 (宝马BMW7200HL(BMW320Li)轿车 参考价33.11万)"
+      }]
+    }, {
+      "carYear": "2013",
+      "insurerVehicleModelMOs": [{
+        "modelCode": "BMAAHD0101",
+        "modelName": "宝马BMW7160AL(BMW316Li)轿车",
+        "carYear": "2015",
+        "displayName": "华晨宝马316Li MT长轴距版 5座 (宝马BMW7160AL(BMW316Li)轿车 参考价25.03万)"
+      }, {
+        "modelCode": "BMAAHD0102",
+        "modelName": "宝马BMW7160BL(BMW316Li)轿车",
+        "carYear": "2015",
+        "displayName": "华晨宝马316Li AT时尚型长轴距版 5座 (宝马BMW7160BL(BMW316Li)轿车 参考价27.11万)"
+      }, {
+        "modelCode": "BMAAHD0103",
+        "modelName": "宝马BMW7200HL(BMW320Li)轿车",
+        "carYear": "2015",
+        "displayName": "华晨宝马320Li AT时尚型长轴距版 5座 (宝马BMW7200HL(BMW320Li)轿车 参考价33.11万)"
+      }]
     }],
     "pageNumber": 0,
     "pageSize": 20,

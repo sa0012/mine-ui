@@ -7,6 +7,13 @@
       :mode="mode"
       :index-list="indexList"
       :carIcon="carIcon"
+      @loadmore="onInfinite"
+      :is-show-mod="true"
+      :has-more="isHasMore"
+      :is-loading="isLoading"
+      :error.sync="isErr"
+      :threshold="200"
+      :use-window="false"
       @selectCategory="selectCategoryHandler"
       @selectMode="selectModeHandler"
     />
@@ -22,7 +29,14 @@ export default {
     return {
       category: [],
       mode: [],
-      carIcon: {}
+      carIcon: {},
+      isLoading: false,
+      count: 15,
+      count1: 10,
+      page: 1,
+      isHasMore: true,
+      isErr: false,
+      timer: null
     }
   },
 
@@ -57,14 +71,30 @@ export default {
     },
 
     selectModeHandler (options = {}) {
-      this.mode = mode.result.content
-      console.log(this.mode, 'mode')
+      this.mode.push(...mode.result.content)
+    },
+
+    onInfinite () {
+      this.isLoading = true
+      this.timer = setTimeout(() => {
+        if (this.page <= 5) {
+          console.log(12334455555)
+          this.selectModeHandler()
+          this.page += 1
+        } else {
+          this.isHasMore = false
+        }
+        this.isLoading = false
+      }, 1000)
     }
   },
 
   mounted () {
     this.getImageUrl(brand.result)
-    console.log(this.carIcon, 'car-icon')
+  },
+
+  destroyed () {
+    clearTimeout(this.timer)
   }
 }
 </script>

@@ -21,6 +21,10 @@ export default createComponent({
       type: Boolean,
       default: true
     },
+    lockScroll: {
+      type: Boolean,
+      default: true
+    },
     hideMask: {
       type: Boolean,
       default: false
@@ -60,6 +64,14 @@ export default createComponent({
   watch: {
     value (val) {
       this.showMask = val
+      if (val) {
+        // document.addEventListener('touchstart', e => this.touchStart(e))
+        // document.addEventListener('touchmove', e => this.touchStart(e))
+        document.body.style.position = 'fixed'
+      } else {
+        console.log(val, 'static')
+        document.body.style.position = 'static'
+      }
     }
   },
 
@@ -89,10 +101,14 @@ export default createComponent({
 
     closeOverlay (event) {
       if (!this.closeOnClickOverlay) return
-      console.log('closeOverlay')
       this.showMask = false
       this.$emit('input', false)
       this.$emit('close')
+    },
+
+    touchStart (event) {
+      event.preventDefault()
+      document.body.style.position = 'fixed'
     }
   },
 

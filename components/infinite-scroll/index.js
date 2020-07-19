@@ -100,10 +100,12 @@ export default createComponent({
 
   methods: {
     onScroll () {
+      console.log(123456)
       if (!this.isScrollToBottom() || !this.hasMore || this.isLoading || this.error) {
         return false
       }
 
+      console.log(34556666)
       this.$emit('loadmore')
     },
 

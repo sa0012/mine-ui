@@ -22,6 +22,36 @@ export default createComponent({
       type: Boolean,
       default: false
     },
+    isLoading: Boolean,
+    hasMore: {
+      type: Boolean,
+      default: true
+    },
+    finishedText: {
+      type: String,
+      default: '不好意思，没有数据了'
+    },
+    errorText: {
+      type: String,
+      default: '加载失败，请重试'
+    },
+    loadingText: {
+      type: String,
+      default: '加载中...'
+    },
+    // 滚动对象
+    useWindow: {
+      type: Boolean,
+      default: true
+    },
+    threshold: {
+      type: Number,
+      default: 200
+    },
+    useCapture: {
+      type: Boolean,
+      default: false
+    },
     offsetTop: {
       type: Number,
       default: 80
@@ -41,6 +71,14 @@ export default createComponent({
   methods: {
     selectMode (mode = {}) {
       this.$emit('selectMode', mode)
+    },
+
+    complete (mode = {}) {
+      this.$emit('complete', mode)
+    },
+
+    loadmore () {
+      this.$emit('loadmore')
     }
   },
 
@@ -94,6 +132,9 @@ export default createComponent({
                     class={
                       bem('mode-vehicle-item')
                     }
+                    onClick={
+                      () => this.complete(modes)
+                    }
                   >
                     <div
                       class={
@@ -123,6 +164,12 @@ export default createComponent({
             mode.length && (
               <InfiniteScroll
                 offsetTop={this.offsetTop}
+                isShowMod={this.isShowMod}
+                hasMore={this.hasMore}
+                isLoading={this.isLoading}
+                threshold={this.threshold}
+                useWindow={this.useWindow}
+                onLoadmore={this.loadmore}
               >
                 {VehicleList(mode)}
               </InfiniteScroll>

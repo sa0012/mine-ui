@@ -20,7 +20,6 @@ export default createComponent({
 
   methods: {
     selectMode (mode = {}) {
-      console.log(mode, 'mode')
       this.$emit('selectMode', mode)
     }
   },

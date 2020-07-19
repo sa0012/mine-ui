@@ -27,6 +27,36 @@ export default createComponent({
       type: Object,
       default: () => {}
     },
+    isLoading: Boolean,
+    hasMore: {
+      type: Boolean,
+      default: true
+    },
+    finishedText: {
+      type: String,
+      default: '不好意思，没有数据了'
+    },
+    errorText: {
+      type: String,
+      default: '加载失败，请重试'
+    },
+    loadingText: {
+      type: String,
+      default: '加载中...'
+    },
+    // 滚动对象
+    useWindow: {
+      type: Boolean,
+      default: true
+    },
+    threshold: {
+      type: Number,
+      default: 200
+    },
+    useCapture: {
+      type: Boolean,
+      default: false
+    },
     offsetTop: {
       type: Number,
       default: 80
@@ -59,6 +89,12 @@ export default createComponent({
 
     completeHandler (opts = {}) {
       this.$emit('complete', opts)
+      this.showMode = !this.showMode
+    },
+
+    loadmore () {
+      console.log('loadmore-1')
+      this.$emit('loadmore')
     }
   },
 
@@ -87,6 +123,13 @@ export default createComponent({
           brandOpt={this.categoryOpt}
           offsetTop={this.offsetTop}
           onComplete={this.completeHandler}
+          offsetTop={this.offsetTop}
+          onLoadmore={this.loadmore}
+          isShowMod={this.isShowMod}
+          hasMore={this.hasMore}
+          isLoading={this.isLoading}
+          threshold={this.threshold}
+          useWindow={this.useWindow}
         />
       </div>
     )
