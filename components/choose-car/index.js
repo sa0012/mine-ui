@@ -60,6 +60,10 @@ export default createComponent({
     offsetTop: {
       type: Number,
       default: 80
+    },
+    value: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -80,7 +84,6 @@ export default createComponent({
     },
 
     selectModeHandler (vehicle = {}) {
-      console.log('mode999')
       this.showCategory = !this.showCategory
       this.showMode = !this.showMode
       this.modeOpt = Object.assign({}, vehicle)
@@ -90,15 +93,16 @@ export default createComponent({
     completeHandler (opts = {}) {
       this.$emit('complete', opts)
       this.showMode = !this.showMode
+      this.$emit('input', false)
     },
 
     loadmore () {
-      console.log('loadmore-1')
       this.$emit('loadmore')
     }
   },
 
   render () {
+    console.log(this.value, 'value')
     return (
       <div
         class={
@@ -106,6 +110,7 @@ export default createComponent({
         }
       >
         <Brand
+          vModel={this.value}
           brand={this.brand}
           indexList={this.indexList}
           carIcon={this.carIcon}

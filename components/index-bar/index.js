@@ -1,5 +1,6 @@
-import { createNamespace, isFunc } from '../../src/utils'
-
+import { createNamespace, isFunc, isString } from '../../src/utils'
+import { getScrollTop } from '../../src/utils/dom/scroll'
+import { throttle } from '../../src/utils/throttle'
 const [createComponent, bem] = createNamespace('index-bar')
 
 export default createComponent({
@@ -25,6 +26,10 @@ export default createComponent({
     sticky: {
       type: Boolean,
       default: true
+    },
+    scroller: {
+      type: [String, Function, Object],
+      default: window
     }
   },
 
@@ -98,7 +103,10 @@ export default createComponent({
     },
 
     getScrollTop () {
-      const scrollTop = document.documentElement.scrollTop || this.$el.scrollTop
+      let scrollTop = getScrollTop()
+      if (this.scoller !== window) {
+        scrollTop = this.scrollEle.scrollTop
+      }
       this.handleScroll(scrollTop)
     },
 
@@ -129,6 +137,21 @@ export default createComponent({
       }px`
 
       this.styles = style
+    },
+
+    getContainer (element) {
+      if (
+        isString(element) &&
+        (element.indexOf('.') !== -1 || element.indexOf('#') !== -1)
+      ) {
+        return document.querySelector(element)
+      } else if (element === 'body') {
+        return document.body
+      } else if (element === 'html') {
+        return document.documentElement
+      }
+
+      return window
     }
   },
 
@@ -138,16 +161,24 @@ export default createComponent({
     }
   },
 
+  computed: {
+    scrollEle () {
+      return isFunc(this.scroller) ? this.scroller() : this.getContainer(this.scroller)
+    }
+  },
+
   mounted () {
     this.timer = setTimeout(() => {
-      this.anchorHeightList = this.getIndexAnchorPos()
+      this.$nextTick(() => {
+        this.anchorHeightList = this.getIndexAnchorPos()
+      })
     })
-    window.addEventListener('scroll', this.getScrollTop)
+    this.scrollEle.addEventListener('scroll', throttle(this.getScrollTop, 200))
   },
 
   destroyed () {
     clearTimeout(this.timer)
-    window.removeEventListener('scroll', this.getScrollTop)
+    this.scrollEle.removeEventListener('scroll', throttle(this.getScrollTop, 200))
   },
 
   render () {

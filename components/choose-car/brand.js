@@ -17,25 +17,46 @@ export default createComponent({
     carIcon: {
       type: Object,
       default: () => {}
+    },
+    value: {
+      type: Boolean,
+      default: false
     }
   },
 
   data () {
-    return {}
+    return {
+      visible: false
+    }
+  },
+
+  watch: {
+    value (val) {
+      this.visible = val
+      this.$emit('input', val)
+    }
   },
 
   methods: {
     selectCategory (category = {}) {
       console.log(category, 'category')
       this.$emit('selectCategory', category)
+    },
+
+    getContainer () {
+      return this.$refs.wrapper
     }
   },
 
   render () {
+    if (!this.visible) return
     const brandList = () => {
       if (!this.brand || !this.brand.length) return
       return (
-        <IndexBar>
+        <IndexBar
+          indexList={this.indexList}
+          scroller={this.getContainer}
+        >
           {
             this.brand.map((item, index) => {
               return (
@@ -86,7 +107,17 @@ export default createComponent({
           bem('brand')
         }
       >
-        {brandList()}
+        <transition name="ml-fade">
+          <div
+            vShow={this.visible}
+            class={
+              bem('brand-wrapper')
+            }
+            ref="wrapper"
+          >
+            {brandList()}
+          </div>
+        </transition>
       </div>
     )
   }

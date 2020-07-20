@@ -1,7 +1,9 @@
 <template>
   <div class="choose-car">
     <!-- <demo-title>基础用法</demo-title> -->
+    <ml-cell title="选择车型" :value="value" @click="chooseCar" is-link />
     <ml-choose-car
+      v-model="visible"
       :brand="brand"
       :category="category"
       :mode="mode"
@@ -36,7 +38,9 @@ export default {
       page: 1,
       isHasMore: true,
       isErr: false,
-      timer: null
+      timer: null,
+      visible: false,
+      value: ''
     }
   },
 
@@ -86,6 +90,10 @@ export default {
         }
         this.isLoading = false
       }, 1000)
+    },
+
+    chooseCar () {
+      this.visible = !this.visible
     }
   },
 

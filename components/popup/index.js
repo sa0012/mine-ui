@@ -67,10 +67,10 @@ export default createComponent({
       if (val) {
         // document.addEventListener('touchstart', e => this.touchStart(e))
         // document.addEventListener('touchmove', e => this.touchStart(e))
-        document.body.style.position = 'fixed'
+        // document.body.style.position = 'fixed'
       } else {
         console.log(val, 'static')
-        document.body.style.position = 'static'
+        // document.body.style.position = 'static'
       }
     }
   },
