@@ -27,6 +27,7 @@ import Popup from './popup'
 import Radio from './radio'
 import RadioGroup from './radio-group'
 import Rater from './rater'
+import Scratch from './scratch'
 import Spinner from './spinner'
 import Sticky from './sticky'
 import Swiper from './swiper'
@@ -68,6 +69,7 @@ const components = [
   Radio,
   RadioGroup,
   Rater,
+  Scratch,
   Spinner,
   Sticky,
   Swiper,
@@ -120,6 +122,7 @@ export {
   Radio,
   RadioGroup,
   Rater,
+  Scratch,
   Spinner,
   Sticky,
   Swiper,

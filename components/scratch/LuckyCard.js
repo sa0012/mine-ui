@@ -1,4 +1,4 @@
-import { isFunc } from '../../src/utils'
+import { isFunc, get } from '../../src/utils'
 function LuckyCard (settings, callback) {
   // 刮奖蒙层
   this.cover = null
@@ -66,6 +66,24 @@ function startEventHandler (event) {
 
 function moveEventHandler (event) {
   event.preventDefault()
+  let evt = this.supportTouch ? event.touches[0] : event
+  let coverPos = this.cover.getBoundingClientRect()
+  let pageScrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  let pageScrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft
+  let mouseX = evt.pageX - coverPos.left - pageScrollLeft
+  let mouseY = evt.pageY - coverPos.top - pageScrollTop
+  this.ctx.beginPath()
+  this.ctx.fillStyle = '#FFFFFF'
+  this.ctx.globalCompositeOperation = 'destination-out'
+  this.ctx.arc(mouseX, mouseY, 10, 0, 2 * Math.PI)
+  this.ctx.fill()
+  this.ctx.beginPath()
+  let radgrad = this.ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 80)
+  radgrad.addColorStop(0, 'rgba(0,0,0,0.6)')
+  radgrad.addColorStop(1, 'rgba(255, 255, 255, 0)')
+  this.ctx.fillStyle = radgrad
+  this.ctx.arc(mouseX, mouseY, 30, 0, Math.PI * 2, true)
+  this.ctx.fill() 
 }
 
 function endEventHandler (event) {
@@ -79,9 +97,31 @@ function endEventHandler (event) {
   this.cover.removeEventListener(this.events[2], this.endEventHandler, false)
 }
 
-LuckyCard.prototype.createCanvas = function () {}
+LuckyCard.prototype.createCanvas = function (settings) {
+  this.cover = document.createElement('canvas')
+  this.cover.id = 'cover'
+  this.cover.width = this.width
+  this.cover.height = this.height
+  this.ctx = this.cover.getContext('2d')
+  if (settings.coverImg) {
+    const _this = this
+    const coverImg = new Image()
+    coverImg.src = settings.coverImg
+    coverImg.onload = function () {
+      _this.ctx.drawImage(coverImg, 0, 0, _this.cover.width, _this.cover.height)
+    }
+  } else {
+    this.ctx.fillStyle = this.opt.coverColor
+    this.ctx.fillRect(0, 0, this.cover.width, this.cover.height)
+  }
+}
 
-LuckyCard.prototype.clearCover = function () {}
+LuckyCard.prototype.clearCover = function () {
+  this.ctx.clearRect(0, 0, this.cover.width, this.cover.height)
+  this.cover.removeEventListener(this.events[0], this.startEventHandler)
+  this.cover.removeEventListener(this.events[1], this.moveEventHandler)
+  this.cover.removeEventListener(this.events[2], this.endEventHandler)
+}
 
 LuckyCard.prototype.eventDetect = function () {
   if ('ontouchstart' in window) this.supportTouch = true
@@ -94,6 +134,32 @@ LuckyCard.prototype.addEvent = function () {
   this.cover.addEventListener(this.events[0], this.startEventHandler, false)
 }
 
-LuckyCard.prototype.init = function () {}
+LuckyCard.prototype.init = function (settings) {
+  const _this = this
+  // 获取/设置用户参数
+  _forEach(arguments, function (item) {
+    if (typeof item === 'object') {
+      for (var k in item) {
+        if (k === 'callback' && typeof item[k] === 'function') {
+          _this.opt.callback = item[k].bind(_this)
+        } else {
+          k in _this.opt && (_this.opt[k] = item[k])
+        }
+      }
+    } else if (typeof item === 'function') {
+      _this.opt.callback = item.bind(_this)
+    }
+  })
+
+  this.scratchDiv = document.querySelector('#scratch')
+  this.cardDiv = document.querySelector('#card')
+  if (!this.scratchDiv || !this.cardDiv) return
+  this.width = this.cardDiv.clientWidth
+  this.height = 142
+  this.cardDiv.style.opacity = 0
+  this.createCanvas(settings)
+  if (!settings.start) return
+  this.eventDetect()
+}
 
 export default LuckyCard
