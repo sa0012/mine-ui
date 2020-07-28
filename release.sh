@@ -5,12 +5,12 @@ set -e
 
 # npm run build
 
-cd dist
+cd ./examples/dist
 rm -rf .git
 git init
 git add -A
 git commit -m 'update demo'
 
-git push -f git@github.com:insaic/mine-ui.git master:gh-pages
+git push -f git@github.com:sa0012/mine-ui.git master:gh-pages
 
 cd -

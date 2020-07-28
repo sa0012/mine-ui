@@ -14,7 +14,7 @@ const webpackConfig = merge(baseConfig, {
   mode: process.env.NODE_ENV,
   devtool: '#eval-source-map',
   entry: {
-    docs: './examples/main.js'
+    mine: './examples/main.js'
   },
   output: {
     path: path.join(__dirname, '../examples/dist/'),
