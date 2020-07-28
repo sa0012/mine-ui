@@ -5,7 +5,7 @@ set -e
 
 # npm run build
 
-cd ./examples/dist
+cd dist
 rm -rf .git
 git init
 git add -A

@@ -17,8 +17,8 @@ const webpackConfig = merge(baseConfig, {
     mine: './examples/main.js'
   },
   output: {
-    path: path.join(__dirname, '../examples/dist/'),
-    publicPath: '/',
+    path: path.join(__dirname, '../dist/'),
+    publicPath: './',
     filename: utils.assetsPath('js/[name].[chunkhash:8].js'),
     chunkFilename: utils.assetsPath('js/[name].[chunkhash:8].js')
   },
