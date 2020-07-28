@@ -1,10 +1,12 @@
 const path = require('path')
-const webpack = require('webpack')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const config = require('./config')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.base.conf')
+const utils = require('./utils')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -17,8 +19,8 @@ const webpackConfig = merge(baseConfig, {
   output: {
     path: path.join(__dirname, '../examples/dist/'),
     publicPath: '/',
-    filename: '[name].[hash:7].js',
-    chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
+    filename: utils.assetsPath('js/[name].[chunkhash:8].js'),
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash:8].js')
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -28,51 +30,21 @@ const webpackConfig = merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.(sass|scss)$/,
-        sideEffects: true,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
-      },
-      {
-        test: /\.md$/,
+        test: /\.(c|sa|sc)ss$/,
         use: [
           {
-            loader: 'vue-loader',
+            loader: MiniCssExtractPlugin.loader,
             options: {
-              compilerOptions: {
-                preserveWhitespace: false
-              }
+              reloadAll: true
             }
           },
-          {
-            loader: path.resolve(__dirname, './md-loader/index.js')
-          }
-        ]
+          // MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'],
+        exclude: /node_modules/
       }
     ]
-  },
-  devServer: {
-    host: 'localhost',
-    port: 8085,
-    publicPath: '/',
-    hot: true
-  },
-  performance: {
-    hints: false
-  },
-  stats: {
-    children: false
   },
   optimization: {
     splitChunks: {
@@ -94,7 +66,6 @@ const webpackConfig = merge(baseConfig, {
     }
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'examples/index.html',
@@ -110,26 +81,14 @@ const webpackConfig = merge(baseConfig, {
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
     new ProgressBarPlugin(),
-    new webpack.LoaderOptionsPlugin(
-      {
-        minimize: true,
-        debug: false,
-        options: {
-          context: __dirname
-        },
-        vue: {
-          compilerOptions: {
-            preserveWhitespace: false
-          }
-        }
-      }
-    )
+    new MiniCssExtractPlugin({
+      filename: utils.assetsPath('css/[name].[contenthash:8].css')
+    }),
+
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*', '!dll', '!dll/**'] // 不删除dll目录下的文件
+    })
   ]
 })
 
