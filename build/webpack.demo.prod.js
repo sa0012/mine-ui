@@ -1,72 +1,115 @@
 const path = require('path')
-const utils = require('./utils')
-const merge = require('webpack-merge')
-const baseConfig = require('./webpack.demo')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const config = require('./config')
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.base.conf')
+const utils = require('./utils')
 
-let expandPlugin = []
+const isProd = process.env.NODE_ENV === 'production'
 
-// if (process.env.analyzer) {
-//   expandPlugin.push(new BundleAnalyzerPlugin({
-//     analyzerPort: 8888
-//   }))
-// }
-
-module.exports = merge(baseConfig, {
-  mode: 'production',
-  entry: path.resolve(__dirname, '../examples/main.js'),
-  output: {
-    path: path.resolve(__dirname, '../dist'), // 必须是绝对路径
-    filename: utils.assetsPath('js/[name].[hash:8].js'),
-    // 这个可以用来配置CDN路径
-    chunkFilename: utils.assetsPath('js/[name].[hash:8].js')
+const webpackConfig = merge(baseConfig, {
+  mode: process.env.NODE_ENV,
+  devtool: '#eval-source-map',
+  entry: {
+    mine: './examples/main.js'
   },
-  // module: {
-  //   rules: utils.styleLoaders({
-  //     sourceMap: true,
-  //     extract: true
-  //   })
-  // },
-  performance: {
-    hints: process.env.NODE_ENV === 'production' ? 'error' : false,
-    maxAssetSize: 512000,
-    maxEntrypointSize: 512000,
-    assetFilter: function (assetFilename) {
-      return assetFilename.endsWith('.js')
-    }
+  output: {
+    path: path.join(__dirname, '../examples/dist/'),
+    publicPath: '/',
+    filename: utils.assetsPath('js/[name].[chunkhash:8].js'),
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash:8].js')
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: config.alias,
+    modules: ['node_modules']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(c|sa|sc)ss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              reloadAll: true
+            }
+          },
+          // MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'],
+        exclude: /node_modules/
+      }
+    ]
   },
   optimization: {
-    minimizer: [
-      new OptimizeCSSAssetsPlugin({
-        assetNameRegExp: /\.optimize\.css$/g,
-        cssProcessor: require('cssnano'),
-        cssProcessorPluginOptions: {
-          preset: ['default', { discardComments: { removeAll: true } }]
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          name: `chunk-vendors`,
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          chunks: 'initial'
         },
-        // 是否将插件信息打印到控制台
-        canPrint: true
-      })
-    ]
+        common: {
+          name: `chunk-common`,
+          minChunks: 2,
+          priority: -20,
+          chunks: 'initial',
+          reuseExistingChunk: true
+        }
+      }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(__dirname, '../examples/index.html'),
-      version: utils.getVersion(),
+      template: 'examples/index.html',
       inject: true,
+      favicon: '',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
         removeAttributeQuotes: true
-      }
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: 'dependency'
     }),
-
+    new ProgressBarPlugin(),
     new MiniCssExtractPlugin({
       filename: utils.assetsPath('css/[name].[contenthash:8].css')
     }),
 
-    ...expandPlugin
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*', '!dll', '!dll/**'] // 不删除dll目录下的文件
+    })
   ]
 })
+
+if (isProd) {
+  webpackConfig.externals = {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'highlight.js': 'hljs'
+  }
+
+  webpackConfig.optimization.splitChunks = {
+    cacheGroups: {
+      vendor: {
+        test: /\/src\//,
+        name: 'mine-ui',
+        chunks: 'all'
+      }
+    }
+  }
+
+  webpackConfig.devtool = false
+}
+
+module.exports = webpackConfig

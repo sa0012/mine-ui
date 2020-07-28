@@ -97,7 +97,7 @@ const webpackConfig = merge(baseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './examples/index.html',
+      template: 'examples/index.html',
       inject: true,
       favicon: '',
       minify: {
