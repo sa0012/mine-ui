@@ -63,7 +63,7 @@ exports.cssLoaders = function (options) {
       ].concat(loaders)
     } else {
       // 开发环境可使用style-loader去插入css
-      return ['style-loader'].concat(loaders)
+      return ['vue-style-loader'].concat(loaders)
     }
   }
 

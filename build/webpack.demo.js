@@ -2,9 +2,10 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const config = require('./config')
+const config = require('../config')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.base.conf')
+const utils = require('./utils')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -20,45 +21,16 @@ const webpackConfig = merge(baseConfig, {
     filename: '[name].[hash:7].js',
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
   },
-  resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: config.alias,
-    modules: ['node_modules']
-  },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.(sass|scss)$/,
-        sideEffects: true,
+        test: /\.(c|sa|sc)ss$/,
         use: [
           'style-loader',
           'css-loader',
           'postcss-loader',
-          'sass-loader'
-        ]
-      },
-      {
-        test: /\.md$/,
-        use: [
-          {
-            loader: 'vue-loader',
-            options: {
-              compilerOptions: {
-                preserveWhitespace: false
-              }
-            }
-          },
-          {
-            loader: path.resolve(__dirname, './md-loader/index.js')
-          }
-        ]
+          'sass-loader'],
+        exclude: /node_modules/
       }
     ]
   },

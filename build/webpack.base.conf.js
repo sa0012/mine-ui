@@ -1,6 +1,7 @@
 const { VueLoaderPlugin } = require('vue-loader')
 const utils = require('./utils')
 const path = require('path')
+const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -8,7 +9,7 @@ function resolve (dir) {
 
 console.log('进来了吗')
 module.exports = {
-  mode: 'development',
+  context: path.resolve(__dirname, '../'),
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.vue', '.json', '.scss'],
     alias: {
@@ -28,20 +29,7 @@ module.exports = {
         use: [
           {
             loader: 'vue-loader',
-            options: {
-              compilerOptions: {
-                preserveWhitespace: false
-              },
-              loaders: {
-                css: [
-                  'vue-style-loader',
-                  'css-loader'
-                ],
-                sass: [
-                  'vue-style-loader', 'css-loader', 'sass-loader'
-                ]
-              }
-            }
+            options: vueLoaderConfig
           }
         ]
       },
@@ -79,7 +67,6 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          esModule: false,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
