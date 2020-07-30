@@ -36,10 +36,11 @@ const webpackConfig = merge(baseConfig, {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              reloadAll: true
+              hmr: false,
+              reloadAll: true,
+              minimize: true
             }
           },
-          // MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'sass-loader'],

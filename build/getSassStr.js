@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 function readSassContent () {
-  const iconPath = path.resolve(__dirname, '../src/common/font/iconfont.scss')
+  const iconPath = path.resolve(__dirname, '../src/common/font/iconfont.css')
   const filePath = path.resolve(__dirname, '../src/common/font/iconfont.json')
   fs.readFile(iconPath, 'utf-8', function (err, data) {
     if (err) {

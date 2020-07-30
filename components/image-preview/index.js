@@ -7,6 +7,13 @@ import Overlay from '../overlay'
 
 const [createComponent, bem] = createNamespace('image-preview')
 
+function getDistance (touches) {
+  return Math.sqrt(
+    (touches[0].clientX - touches[1].clientX) ** 2 +
+      (touches[0].clientY - touches[1].clientY) ** 2
+  )
+}
+
 export default createComponent({
   props: {
     imgList: {
@@ -16,6 +23,14 @@ export default createComponent({
     value: {
       type: Boolean,
       default: false
+    },
+    minZoom: {
+      type: Number,
+      default: 1 / 3
+    },
+    maxZoom: {
+      type: Number,
+      default: 3
     },
     showIndicators: Boolean,
     startPos: {
@@ -47,7 +62,9 @@ export default createComponent({
         x: 0,
         y: 0
       },
-      touching: false
+      startScale: 1,
+      moving: false,
+      zooming: false
     }
   },
 
@@ -65,7 +82,7 @@ export default createComponent({
     wrapperStyles () {
       const style = {
         transform: `scale3d(${this.scale}, ${this.scale}, 1)`,
-        transitionDuration: '.3s'
+        transitionDuration: this.zooming || this.moving ? '0s' : '.3s'
       }
 
       return style
@@ -97,10 +114,11 @@ export default createComponent({
       this.rangeX = 0
       this.rangeY = 0
       this.moving = false
+      this.touchable = !this.touchable
     },
 
     onTouchWrapperStart (event) {
-      console.log(event, 'start')
+      console.log(event, 'wrapper')
       this.touchStartTime = Date.now()
     },
 
@@ -111,20 +129,20 @@ export default createComponent({
     onTouchWrapperEnd (event) {
       event.preventDefault()
       const timeStamp = Date.now() - this.touchStartTime
-      const { offsetX = 0, offsetY = 0 } = this.$refs.swiper || {}
-      if (timeStamp < 300 && offsetX < 10 && offsetY < 10) {
+      // const { offsetX = 0, offsetY = 0 } = this.$refs.swiper || {}
+      if (timeStamp < 300) {
         if (!this.doubleClickTimer) {
           this.doubleClickTimer = setTimeout(() => {
             this.doubleClickTimer = null
-            // this.visible = false
-            // this.$emit('input', false)
+            this.visible = false
+            this.$emit('input', false)
           }, 300)
         } else {
           clearTimeout(this.doubleClickTimer)
           this.doubleClickTimer = null
+          console.log('scale-start')
           this.toScale()
           this.touchable = !!(this.scale === 1)
-          this.touching = !!(this.scale === 1)
         }
       }
     },
@@ -142,17 +160,30 @@ export default createComponent({
       this.maxMoveY = Math.max(0, (rect.height - winHeight) / 2)
     },
 
+    startZoom (event) {
+      this.moving = false
+      this.zooming = true
+      this.startScale = this.scale
+      this.startDistance = getDistance(event.touches)
+    },
+
     onImageTouchStart (event) {
-      console.log(event.target, 'target')
       // event.stopPropagation()
-      if (this.scale === 1) return
-      console.log(1222)
-      this.startMove(event)
+      const { touches } = event
+      const { offsetX = 0 } = this.$refs.swiper
       this.touchStart(event)
+      if (touches.length === 1 && this.scale !== 1) {
+        this.startMove(event)
+      } else if (touches.length === 2 && !offsetX) {
+        this.startZoom(event)
+      }
     },
 
     onImageTouchMove (event) {
-      if (this.scale === 1) return
+      const { touches } = event
+      if (this.moving || this.zooming) {
+        event.preventDefault()
+      }
       if (this.moving) {
         this.touchMove(event)
         this.deltaX += this.startMoveX
@@ -160,14 +191,34 @@ export default createComponent({
         this.rangeX = range(this.deltaX, -this.maxMoveX, this.maxMoveX)
         this.rangeY = range(this.deltaY, -this.maxMoveY, this.maxMoveY)
       }
+
+      if (touches.length === 2) {
+        this.touchable = !!(this.scale === 1)
+        const distance = getDistance(touches)
+        const scale = (this.startScale * distance) / this.startDistance
+        this.scale = range(scale, this.minZoom, this.maxZoom)
+      }
     },
 
     onImageTouchEnd (event) {
       this.moving = false
+      this.zooming = false
+      const { touches } = event
+      // 手指离开时， 恢复默认值
+      if (!touches.length) {
+        this.startMoveX = 0
+        this.startMoveY = 0
+        this.startScale = 1
+        console.log(this.rangeX, 'rangeX')
+        console.log(this.maxMoveX, 'maxMoveX')
+        // 缩小的回弹为正常大小
+        if (this.scale <= 1) {
+          this.reset()
+        }
+      }
     },
 
     onChange (index) {
-      console.log(index, 'index')
       this.currentIndex = index
       this.scale = 1
     }
@@ -216,7 +267,7 @@ export default createComponent({
                   }
                   onTouchstart={this.onImageTouchStart}
                   onTouchmove={this.onImageTouchMove}
-                  onTouchCancel={this.onImageTouchEnd}
+                  onTouchend={this.onImageTouchEnd}
                   onTouchcancel={this.onImageTouchEnd}
                   alt="" />
               </div>

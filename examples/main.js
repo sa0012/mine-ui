@@ -18,6 +18,10 @@ if (process.env.NODE_ENV === 'production') {
   require('./touch-simulator.js')
 }
 
+const VConsole = require('vconsole')
+// eslint-disable-next-line
+new VConsole()
+
 Vue.config.devtools = true
 Vue.config.productionTip = false
 

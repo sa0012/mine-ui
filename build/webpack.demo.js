@@ -35,10 +35,11 @@ const webpackConfig = merge(baseConfig, {
     ]
   },
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 8085,
     publicPath: '/',
-    hot: true
+    hot: true,
+    useLocalIp: true
   },
   performance: {
     hints: false

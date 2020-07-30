@@ -86,6 +86,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "uppercamelcase": "^3.0.0",
     "url-loader": "^3.0.0",
+    "vconsole": "^3.3.4",
     "vue": "^2.6.10",
     "vue-jest": "^3.0.5",
     "vue-loader": "^15.7.2",
