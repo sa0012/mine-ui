@@ -1,0 +1,11 @@
+$prefixCls: ml-scratch;
+
+.#{$prefixCls} {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+
+  &__card-bg {
+    width: 100%;
+  }
+}
