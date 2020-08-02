@@ -1,3 +1,4 @@
+import { isFunc } from '../../src/utils'
 function LuckyCard (settings, callback) {
   this.cover = null
   this.ctx = null
@@ -67,7 +68,11 @@ function moveEventHandler (event) {
     !this.once
   ) {
     this.once = true
-    this.lotteryFn.call(this.context, ...this.lotteryArgs)
+    console.log(this.lotteryFn, 'lotteryFn--1')
+    if (this.lotteryFn && isFunc(this.lotteryFn)) {
+      console.log('lotteryFn')
+      this.lotteryFn.call(this.context, ...this.lotteryArgs)
+    }
   }
   this.ctx.beginPath()
   this.ctx.fillStyle = '#FFFFFF'
@@ -91,16 +96,22 @@ function endEventHandler (event) {
 }
 
 LuckyCard.prototype.createCanvas = function (settings) {
-  this.cover = document.createElement('canvas')
-  this.cover.id = 'cover'
-  this.ctx = this.cover.getContext('2d')
-  if (settings.coverImg) {
+  if (!this.ctx) {
+    this.cover = document.createElement('canvas')
+    this.cover.id = 'cover'
+    this.ctx = this.cover.getContext('2d')
+  }
+  console.log('init-created')
+  if (this.opt.coverImg) {
+    console.log('coverImg---1122')
     let _this = this
     let coverImg = new Image()
-    coverImg.src = settings.coverImg
+    coverImg.src = this.opt.coverImg
     coverImg.crossOrigin = 'anonymous'
     coverImg.onload = function () {
+      console.log('drawImage')
       _this.height = _this.cover.width * coverImg.height / coverImg.width
+      console.log(_this.cover.width, _this.height, 'height')
       _this.ctx.drawImage(coverImg, 0, 0, _this.cover.width, _this.height)
     }
 
@@ -172,6 +183,14 @@ LuckyCard.prototype.init = function (settings) {
   this.cardDiv.style.opacity = 0
   this.createCanvas(settings)
   // this.eventDetect()
+}
+
+LuckyCard.prototype.restart = function (settings) {
+  if (settings) {
+    this.init(settings)
+  } else {
+    this.init({})
+  }
 }
 
 export default LuckyCard

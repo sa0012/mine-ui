@@ -39,7 +39,7 @@ export default createComponent({
 
   methods: {
     initLuckCard () {
-      // const _this = this
+      const _this = this
       // eslint-disable-next-line no-new
       this.instance = new LuckyCard(
         {
@@ -50,12 +50,20 @@ export default createComponent({
         },
         function () {
           this.clearCover()
+          _this.$emit('end', _this.resetCover)
         }
       )
+
+      this.$emit('start', this.startDetect, this.instance)
     },
 
-    startDetect () {
-      this.instance.eventDetect()
+    startDetect (...args) {
+      this.instance.eventDetect(this, ...args)
+    },
+
+    resetCover () {
+      // this.instance.init({})
+      this.instance.init()
     },
 
     start () {
@@ -83,7 +91,6 @@ export default createComponent({
           bem()
         }
         id="scratch"
-        onTouchstart={this.startScratch}
       >
         <div
           id="card"
