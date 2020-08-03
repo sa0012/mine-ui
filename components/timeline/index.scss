@@ -1,0 +1,42 @@
+$prefixCls: ml-timeline;
+
+.#{$prefixCls} {
+  &__list {}
+
+  &__item {
+    font-size: 14px;
+    list-style: none;
+    display: flex;
+
+    &-left {
+    }
+
+    &-right {
+    }
+  }
+
+  &__line-wrapper {
+    width: 16px;
+    flex: 0 0 1px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__dot {
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    position: absolute;
+    border-color: #2d8cf0;
+    color: #2d8cf0;
+  }
+
+  &__line {
+    height: 100%;
+    border-left: 1px solid #ccc;
+  }
+}

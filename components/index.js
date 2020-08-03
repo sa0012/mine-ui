@@ -36,6 +36,7 @@ import Switch from './switch'
 import Tabpane from './tabpane'
 import Tabs from './tabs'
 import Textarea from './textarea'
+import Timeline from './timeline'
 import Toast from './toast'
 
 const version = '1.0.0'
@@ -78,6 +79,7 @@ const components = [
   Tabpane,
   Tabs,
   Textarea,
+  Timeline,
   Toast
 ]
 
@@ -131,6 +133,7 @@ export {
   Tabpane,
   Tabs,
   Textarea,
+  Timeline,
   Toast
 }
 

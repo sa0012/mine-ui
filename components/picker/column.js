@@ -99,6 +99,7 @@ export default createComponent({
         const translateY = getElementTranslateY(this.$refs.wrapper)
         this.offset = Math.min(0, translateY - this.baseOffset)
         this.startOffset = this.offset
+        console.log(translateY, 'translateY')
       } else {
         this.startOffset = this.offset
       }
