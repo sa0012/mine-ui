@@ -55,15 +55,16 @@ export default createComponent({
       )
 
       this.$emit('start', this.startDetect, this.instance)
+      this.$emit('restart', this.resetCover, this.instance)
     },
 
     startDetect (...args) {
       this.instance.eventDetect(this, ...args)
     },
 
-    resetCover () {
-      // this.instance.init({})
-      this.instance.init()
+    resetCover (...args) {
+      this.instance.restart()
+      this.startDetect(...args)
     },
 
     start () {

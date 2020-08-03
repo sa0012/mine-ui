@@ -76,6 +76,7 @@ export default {
     },
 
     restart () {
+      if (!this.resetCover) return
       if (!this.count) {
         this.$dialog.alert({
           title: '温馨提示',
@@ -86,7 +87,9 @@ export default {
         })
       }
 
-      this.resetCover()
+      this.count--
+
+      this.resetCover(this.startLottery)
     }
   },
 

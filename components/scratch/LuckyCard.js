@@ -33,7 +33,7 @@ function _forEach (items, callback) {
 }
 
 function _calcArea (ctx, callback, ratio) {
-  var pixels = ctx.getImageData(0, 0, this.width, this.height)
+  var pixels = ctx.getImageData(0, 0, this.width, this.height || 150)
   var transPixels = []
   _forEach(pixels.data, function (item, i) {
     var pixel = pixels.data[i + 3]
@@ -44,11 +44,11 @@ function _calcArea (ctx, callback, ratio) {
   const scrapeRatio = transPixels.length / pixels.data.length
   if (scrapeRatio > 0.3) {
     callback && typeof callback === 'function' && callback()
+    this.ctx.globalCompositeOperation = 'source-over'
   }
 }
 
 function startEventHandler (event) {
-  console.log('进来了吗')
   event.preventDefault()
   this.moveEventHandler = moveEventHandler.bind(this)
   this.cover.addEventListener(this.events[1], this.moveEventHandler, false)
@@ -68,9 +68,7 @@ function moveEventHandler (event) {
     !this.once
   ) {
     this.once = true
-    console.log(this.lotteryFn, 'lotteryFn--1')
     if (this.lotteryFn && isFunc(this.lotteryFn)) {
-      console.log('lotteryFn')
       this.lotteryFn.call(this.context, ...this.lotteryArgs)
     }
   }
@@ -101,18 +99,21 @@ LuckyCard.prototype.createCanvas = function (settings) {
     this.cover.id = 'cover'
     this.ctx = this.cover.getContext('2d')
   }
-  console.log('init-created')
+  this.ctx.clearRect(0, 0, this.cover.width, this.cover.height)
   if (this.opt.coverImg) {
-    console.log('coverImg---1122')
     let _this = this
     let coverImg = new Image()
     coverImg.src = this.opt.coverImg
     coverImg.crossOrigin = 'anonymous'
     coverImg.onload = function () {
-      console.log('drawImage')
       _this.height = _this.cover.width * coverImg.height / coverImg.width
-      console.log(_this.cover.width, _this.height, 'height')
       _this.ctx.drawImage(coverImg, 0, 0, _this.cover.width, _this.height)
+      // 判断当前是否为第一次刮开，不是则清除上一次区域
+      if (_this.ctx.globalCompositeOperation !== 'destination-out') {
+        _this.ctx.globalCompositeOperation = 'destination-out'
+      } else {
+        _this.ctx.clearRect(0, 0, _this.cover.width, _this.height)
+      }
     }
 
     coverImg.onerror = function () {
@@ -143,19 +144,17 @@ LuckyCard.prototype.eventDetect = function (context, fn, ...args) {
   this.lotteryArgs = args
   if ('ontouchstart' in window) this.supportTouch = true
   this.events = this.supportTouch ? ['touchstart', 'touchmove', 'touchend'] : ['mousedown', 'mousemove', 'mouseup']
-  console.log('start--1222')
   this.addEvent()
 }
 
 LuckyCard.prototype.clearCover = function () {
-  this.ctx.clearRect(0, 0, this.cover.width, this.cover.height)
+  this.ctx.clearRect(0, 0, this.width, this.height || 150)
   this.cover.removeEventListener(this.events[0], this.startEventHandler, false)
   this.cover.removeEventListener(this.events[1], this.moveEventHandler, false)
   this.cover.removeEventListener(this.events[2], this.endEventHandler, false)
 }
 
 LuckyCard.prototype.addEvent = function () {
-  console.log('addEvent')
   this.startEventHandler = startEventHandler.bind(this)
   this.cover.addEventListener(this.events[0], this.startEventHandler, false)
 }
