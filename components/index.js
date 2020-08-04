@@ -37,6 +37,7 @@ import Tabpane from './tabpane'
 import Tabs from './tabs'
 import Textarea from './textarea'
 import Timeline from './timeline'
+import TimelineGroup from './timeline-group'
 import Toast from './toast'
 
 const version = '1.0.0'
@@ -80,6 +81,7 @@ const components = [
   Tabs,
   Textarea,
   Timeline,
+  TimelineGroup,
   Toast
 ]
 
@@ -134,6 +136,7 @@ export {
   Tabs,
   Textarea,
   Timeline,
+  TimelineGroup,
   Toast
 }
 

@@ -7,18 +7,23 @@ $prefixCls: ml-timeline;
     font-size: 14px;
     list-style: none;
     display: flex;
+    padding-bottom: 30px;
+    position: relative;
+    // align-items: baseline;
 
     &-left {
+      text-align: center;
     }
 
     &-right {
+      flex: 1;
     }
   }
 
   &__line-wrapper {
     width: 16px;
     flex: 0 0 1px;
-    margin-right: 10px;
+    margin: 0 10px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -31,12 +36,16 @@ $prefixCls: ml-timeline;
     border-radius: 50%;
     border: 1px solid transparent;
     position: absolute;
-    border-color: #2d8cf0;
-    color: #2d8cf0;
+    position: relative;
+    border-color: $theme-color;
+    z-index: 3;
   }
 
   &__line {
     height: 100%;
     border-left: 1px solid #ccc;
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
   }
 }
