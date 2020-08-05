@@ -35,10 +35,43 @@
   }
 }
 
+@mixin mix-1px-before ($top: 0, $right: 0, $bottom: 0, $left: 0, $color: #e5e5e5, $position-left: 0, $position-right: 0) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    transform: scale(.5);
+    transform-origin: 0 0;
+    pointer-events: none;
+    box-sizing: border-box;
+    border: 0 solid $color;
+
+    @if ($top > 0) {
+      border-top-width: 1px;
+    }
+
+    @if ($right > 0) {
+      border-right-width: 1px;
+    }
+
+    @if ($bottom > 0) {
+      border-bottom-width: 1px;
+    }
+
+    @if ($left > 0) {
+      border-left-width: 1px;
+    }
+  }
+}
+
 //
 @mixin mix-onepx ($top: 0, $right: 0, $bottom: 0, $left: 0, $color: #e5e5e5) {
   position: relative;
-  &::before {
+  &::after {
     content: '';
     position: absolute;
     top: 0;

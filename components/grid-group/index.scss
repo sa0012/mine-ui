@@ -1,0 +1,8 @@
+$prefixCls: ml-grid-group;
+
+.#{$prefixCls} {
+  box-sizing: border-box;
+  display: flex;
+  // justify-content: space-between;
+  flex-wrap: wrap;
+}

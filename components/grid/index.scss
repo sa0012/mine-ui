@@ -1,3 +1,13 @@
 $prefixCls: ml-grid;
 
-.#{$prefixCls} {}
+.#{$prefixCls} {
+  background: #fff;
+  // width: 33.33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+  flex-direction: column;
+}

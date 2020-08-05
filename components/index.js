@@ -14,6 +14,8 @@ import Dialog from './dialog'
 import DropdowmItem from './dropdowm-item'
 import DropdownMenu from './dropdown-menu'
 import Field from './field'
+import Grid from './grid'
+import GridGroup from './grid-group'
 import Icon from './icon'
 import ImagePreview from './image-preview'
 import IndexAnchor from './index-anchor'
@@ -58,6 +60,8 @@ const components = [
   DropdowmItem,
   DropdownMenu,
   Field,
+  Grid,
+  GridGroup,
   Icon,
   ImagePreview,
   IndexAnchor,
@@ -113,6 +117,8 @@ export {
   DropdowmItem,
   DropdownMenu,
   Field,
+  Grid,
+  GridGroup,
   Icon,
   ImagePreview,
   IndexAnchor,
