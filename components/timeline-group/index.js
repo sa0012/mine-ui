@@ -12,7 +12,8 @@ export default createComponent({
     borderWidth: {
       type: Number,
       default: 1
-    }
+    },
+    classPrefix: String
   },
 
   render () {

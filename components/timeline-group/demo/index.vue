@@ -6,6 +6,8 @@
         v-for="(item, tIndex) in timeList"
         :key="tIndex"
         :timeline="item"
+        :message="item.message"
+        :timeStatus="item.date"
         :showLine="!!(timeList.length - 1 !== tIndex)"
       />
     </ml-timeline-group>
@@ -17,6 +19,8 @@
         :key="tIndex"
         :timeline="item"
         :dotType="item.dotType"
+        :message="item.message"
+        :timeStatus="item.date"
         :showLine="!!(timeList.length - 1 !== tIndex)"
       />
     </ml-timeline-group>
@@ -33,6 +37,8 @@
         :dotType="item.dotType"
         iconColor="green"
         :showLeft="false"
+        :message="item.message"
+        :timeStatus="item.date"
         :showLine="!!(timeList.length - 1 !== tIndex)"
       >
         <template slot="right">

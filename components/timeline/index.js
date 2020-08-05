@@ -14,15 +14,12 @@ export default createComponent({
       type: Boolean,
       default: true
     },
+    timeStatus: String,
+    message: String,
     dotType: String,
-    iconSize: {
-      type: Number,
-      default: 20
-    },
-    iconColor: {
-      type: String,
-      default: '#ccc'
-    },
+    iconSize: Number,
+    classPrefix: String,
+    iconColor: String,
     showLeft: {
       type: Boolean,
       default: true
@@ -31,18 +28,9 @@ export default createComponent({
       type: Boolean,
       default: true
     },
-    borderStyle: {
-      type: String,
-      default: 'solid'
-    },
-    borderWidth: {
-      type: Number,
-      default: 1
-    },
-    borderColor: {
-      type: String,
-      default: '#ccc'
-    }
+    borderStyle: String,
+    borderWidth: Number,
+    borderColor: String
   },
 
   computed: {
@@ -53,12 +41,12 @@ export default createComponent({
         style.borderLeft = 'none'
         style.borderColor = 'transparent'
       } else {
-        style.borderColor = color || this.iconColor
+        style.borderColor = this.iconColor || color
       }
 
-      style.width = (size || this.iconSize) + 'px'
-      style.height = (size || this.iconSize) + 'px'
-      style.color = color || this.iconColor
+      style.width = (this.iconSize || size) + 'px'
+      style.height = (this.iconSize || size) + 'px'
+      style.color = this.iconColor || color
 
       return style
     },
@@ -67,21 +55,26 @@ export default createComponent({
       const { borderStyle, borderWidth, borderColor } = this.$parent
       const style = {}
 
-      style.borderStyle = borderStyle || this.borderStyle
-      style.borderWidth = (borderWidth || this.borderWidth) + 'px'
-      style.borderColor = borderColor || this.borderColor
+      style.borderStyle = this.borderStyle || borderStyle
+      style.borderWidth = (this.borderWidth || borderWidth) + 'px'
+      style.borderColor = this.borderColor || borderColor
       return style
+    },
+
+    setClsPrefix () {
+      const { classPrefix } = this.$parent
+      return this.classPrefix || classPrefix
     }
   },
 
   render () {
     const { dotType } = this.$parent
-    const rightSlots = (item) => {
+    const rightSlots = () => {
       if (!this.showRight) return
-      return this.$slots && this.$slots['right'] ? this.$slots['right'] : item.message
+      return this.$slots && this.$slots['right'] ? this.$slots['right'] : this.message
     }
 
-    const leftSlots = (item) => {
+    const leftSlots = () => {
       if (!this.showLeft) return
       return (<div
         class={
@@ -91,8 +84,8 @@ export default createComponent({
         {
           this.$slots && this.$slots['left'] ? this.$slots['left'] : (
             <div>
-              <div>{ splitDate(item.date)['hms'] }</div>
-              <div>{ splitDate(item.date)['ymd'] }</div>
+              <div>{ splitDate(this.timeStatus)['hms'] }</div>
+              <div>{ splitDate(this.timeStatus)['ymd'] }</div>
             </div>
           )
         }
@@ -105,7 +98,7 @@ export default createComponent({
           bem('item')
         }
       >
-        {leftSlots(this.timeline)}
+        {leftSlots()}
         <div
           class={
             bem('line-wrapper')
@@ -122,6 +115,7 @@ export default createComponent({
               name={
                 dotType || this.dotType
               }
+              classPrefix={this.setClsPrefix}
               size={this.iconSize}
               color={this.iconColor}
             />
@@ -139,7 +133,7 @@ export default createComponent({
             bem('item-right')
           }
         >
-          {rightSlots(this.timeline)}
+          {rightSlots()}
         </div>
       </div>
     )

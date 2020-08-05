@@ -4,5 +4,7 @@ const [createComponent, bem] = createNamespace('grid')
 
 export default createComponent({
   props: {
-  }
+  },
+
+  render () {}
 })
